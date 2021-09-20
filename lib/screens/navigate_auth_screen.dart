@@ -26,7 +26,7 @@ class _NavigateAuthScreenState extends State<NavigateAuthScreen> {
             ),
             child: Center(
               child: Text(
-                "Beloved Care",
+                "Volt Arena",
                 style: montserratStyle(45, Colors.black),
               ),
             ),

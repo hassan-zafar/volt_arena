@@ -15,7 +15,7 @@ class _IntroductionAuthScreenState extends State<IntroductionAuthScreen> {
       pages: [
         PageViewModel(
           title: "Welcome",
-          body: "Welcome to Beloved Care",
+          body: "Welcome to Volt Arena",
           decoration: PageDecoration(
             bodyTextStyle: ralewayStyle(20, Colors.black),
             titleTextStyle: montserratStyle(20, Colors.black),

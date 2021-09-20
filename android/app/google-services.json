@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "997539088876",
+    "project_id": "volt-arena",
+    "storage_bucket": "volt-arena.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997539088876:android:8744536ca88d3f7eecd8c9",
+        "android_client_info": {
+          "package_name": "com.hassan.volt_arena"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997539088876-sjjqhd3mppkulosqotu0d4tgp3ajbloa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd-NI9rnmuhZsshRb4hKTbV26myFz5u2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997539088876-sjjqhd3mppkulosqotu0d4tgp3ajbloa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
