@@ -1,6 +1,6 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:volt_arena/landing_page.dart';
 import 'package:volt_arena/main_screen.dart';
 import 'package:volt_arena/screens/introduction_auth_screen.dart';
 
@@ -20,12 +20,12 @@ class UserState extends StatelessWidget {
           } else if (userSnapshot.connectionState == ConnectionState.active) {
             if (userSnapshot.hasData) {
               print('The user is already logged in');
-              return 
-              MainScreens();
+              return MainScreens();
             } else {
               print('The user didn\'t login yet');
-              return IntroductionAuthScreen();
-              //  LandingPage();
+              return
+                  // IntroductionAuthScreen();
+                  LandingPage();
             }
           } else if (userSnapshot.hasError) {
             return Center(

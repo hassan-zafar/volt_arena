@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,6 +21,10 @@ class _LandingPageState extends State<LandingPage>
     'https://thumbor.forbes.com/thumbor/fit-in/1200x0/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2F1138257321%2F0x0.jpg%3Ffit%3Dscale',
     'https://e-shopy.org/wp-content/uploads/2020/08/shop.jpeg',
     'https://e-shopy.org/wp-content/uploads/2020/08/shop.jpeg',
+  ];
+  List<String> assetImages = [
+    "assets/images/volt arena.png"
+        "assets/images/voltArtBoard.jpg"
   ];
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalMethods _globalMethods = GlobalMethods();
@@ -109,18 +112,26 @@ class _LandingPageState extends State<LandingPage>
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      CachedNetworkImage(
-        imageUrl: images[1],
-        // placeholder: (context, url) => Image.network(
-        //   'https://image.flaticon.com/icons/png/128/564/564619.png',
-        //   fit: BoxFit.contain,
-        // ),
-        errorWidget: (context, url, error) => Icon(Icons.error),
+      Image.asset(
+        assetImages[1],
         fit: BoxFit.cover,
         height: double.infinity,
         width: double.infinity,
         alignment: FractionalOffset(_animation!.value, 0),
       ),
+      // CachedNetworkImage(
+      //   imageUrl: images[1],
+      //   // placeholder: (context, url) => Image.network(
+      //   //   'https://image.flaticon.com/icons/png/128/564/564619.png',
+      //   //   fit: BoxFit.contain,
+      //   // ),
+      //   errorWidget: (context, url, error) => Icon(Icons.error),
+      //   fit: BoxFit.cover,
+      //   height: double.infinity,
+      //   width: double.infinity,
+      //   alignment: FractionalOffset(_animation!.value, 0),
+      // ),
+
       Container(
         margin: EdgeInsets.only(top: 30),
         width: double.infinity,
