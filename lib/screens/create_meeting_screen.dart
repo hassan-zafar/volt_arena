@@ -1,5 +1,5 @@
 import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/universal_variables.dart';
+import 'package:volt_arena/consts/universal_variables.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 import 'package:uuid/uuid.dart';

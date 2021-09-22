@@ -5,7 +5,9 @@ class ColorsConsts {
   static Color white = Color(0xFFFFFFFF);
   static Color title = Color(0xDD000000);
   static Color subTitle = Color(0x8A000000);
-  static Color backgroundColor = Color(0xFFE0E0E0); //grey shade 300
+  static Color backgroundColor = Colors.orange; //grey shade 300
+  static Color loginColor = Color(0xFFF7A000); // red 500
+  // static Color signUpColor = Colors.white; // red 500
 
   static Color favColor = Color(0xFFF44336); // red 500
   static Color favBadgeColor = Color(0xFFE57373); // red 300
@@ -30,8 +32,8 @@ BoxDecoration backgroundColorBoxDecoration() {
         // Color(0xff387A53),
         // Color(0xff8BE78B),
 
-        Colors.white,
-        Color(0xFF07A8B2)
+        Colors.black54,
+        Colors.orange
         // Color(0xffFED5E3),
         // Color(0xff96B7BF),
 

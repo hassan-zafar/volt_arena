@@ -1,7 +1,7 @@
 import 'package:volt_arena/screens/auth/login.dart';
 import 'package:volt_arena/screens/auth/sign_up.dart';
 
-import 'package:volt_arena/universal_variables.dart';
+import 'package:volt_arena/consts/universal_variables.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 

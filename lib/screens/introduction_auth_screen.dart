@@ -1,5 +1,5 @@
 import 'package:volt_arena/screens/navigate_auth_screen.dart';
-import 'package:volt_arena/universal_variables.dart';
+import 'package:volt_arena/consts/universal_variables.dart';
 import "package:flutter/material.dart";
 import 'package:introduction_screen/introduction_screen.dart';
 
