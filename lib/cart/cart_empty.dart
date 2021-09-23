@@ -24,7 +24,7 @@ class CartEmpty extends StatelessWidget {
           ),
         ),
         Text(
-          'Your Cart Is Empty',
+          'Your bookings are Empty',
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Theme.of(context).textSelectionColor,
@@ -35,7 +35,7 @@ class CartEmpty extends StatelessWidget {
           height: 30,
         ),
         Text(
-          'Looks Like You didn\'t \n add anything to your cart yet',
+          'Looks Like You didn\'t \n add anything to your Bookings yet',
           textAlign: TextAlign.center,
           style: TextStyle(
               color: themeChange.darkTheme

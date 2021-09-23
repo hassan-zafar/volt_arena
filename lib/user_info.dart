@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -176,16 +175,17 @@ class _UserInfoState extends State<UserInfo> {
                     ),
                     ListTile(
                       onTap: () {
-                        Navigator.of(context).pushNamed(CartScreen.routeName);
+                        Navigator.of(context)
+                            .pushNamed(MyBookingsScreen.routeName);
                       },
-                      title: Text('Cart'),
+                      title: Text('My Bookings'),
                       trailing: Icon(Icons.chevron_right_rounded),
                       leading: Icon(MyAppIcons.cart),
                     ),
                     ListTile(
                       onTap: () => Navigator.of(context)
                           .pushNamed(OrderScreen.routeName),
-                      title: Text('My Orders'),
+                      title: Text('Completed Sessions'),
                       trailing: Icon(Icons.chevron_right_rounded),
                       leading: Icon(MyAppIcons.bag),
                     ),

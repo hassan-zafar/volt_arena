@@ -20,7 +20,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     pages = [
       Feeds(),
       Search(),
-      CartScreen(),
+      MyBookingsScreen(),
       UserInfo(),
     ];
     // _pages = [
@@ -74,41 +74,27 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               onTap: _selectPage,
               backgroundColor: Theme.of(context).primaryColor,
               unselectedItemColor: Theme.of(context).textSelectionColor,
-              selectedItemColor: Colors.purple,
+              selectedItemColor: Colors.deepOrange,
               currentIndex: _selectedPageIndex,
               // selectedLabelStyle: TextStyle(fontSize: 16),
               items: [
-              
                 BottomNavigationBarItem(
                     icon: Icon(Icons.room_service), label: 'Services'),
                 BottomNavigationBarItem(
-                    activeIcon: null, icon: Icon(null), label: 'Search'),
+                    icon: Icon(
+                      MyAppIcons.search,
+                    ),
+                    label: 'Search'),
                 BottomNavigationBarItem(
                     icon: Icon(
                       MyAppIcons.bag,
                     ),
-                    label: 'Cart'),
+                    label: 'My Bookings'),
                 BottomNavigationBarItem(
                     icon: Icon(MyAppIcons.user), label: 'User'),
               ],
             ),
           ),
-        ),
-      ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FloatingActionButton(
-          backgroundColor: Colors.purple,
-          hoverElevation: 10,
-          splashColor: Colors.grey,
-          tooltip: 'Search',
-          elevation: 4,
-          child: Icon(MyAppIcons.search),
-          onPressed: () => setState(() {
-            _selectedPageIndex = 2;
-          }),
         ),
       ),
     );

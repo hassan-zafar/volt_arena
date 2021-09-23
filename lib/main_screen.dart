@@ -7,8 +7,10 @@ class MainScreens extends StatelessWidget {
   static const routeName = '/MainScreen';
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      children: [BottomBarScreen(), UploadProductForm()],
+    return SafeArea(
+      child: PageView(
+        children: [BottomBarScreen(), UploadProductForm()],
+      ),
     );
   }
 }

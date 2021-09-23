@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                     // '/': (ctx) => LandingPage(),
                     // WebhookPaymentScreen.routeName: (ctx) =>
                     //     WebhookPaymentScreen(),
-                    CartScreen.routeName: (ctx) => CartScreen(),
+                    MyBookingsScreen.routeName: (ctx) => MyBookingsScreen(),
 
                     Feeds.routeName: (ctx) => Feeds(),
                     WishlistScreen.routeName: (ctx) => WishlistScreen(),

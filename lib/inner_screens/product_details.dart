@@ -300,7 +300,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           color: ColorsConsts.cartColor,
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushNamed(CartScreen.routeName);
+                          Navigator.of(context).pushNamed(MyBookingsScreen.routeName);
                         },
                       ),
                     ),

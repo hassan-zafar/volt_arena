@@ -13,15 +13,15 @@ import 'package:uuid/uuid.dart';
 import 'cart_empty.dart';
 import 'cart_full.dart';
 
-class CartScreen extends StatefulWidget {
+class MyBookingsScreen extends StatefulWidget {
   //To be known 1) the amount must be an integer 2) the amount must not be double 3) the minimum amount should be less than 0.5 $
   static const routeName = '/CartScreen';
 
   @override
-  _CartScreenState createState() => _CartScreenState();
+  _MyBookingsScreenState createState() => _MyBookingsScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _MyBookingsScreenState extends State<MyBookingsScreen> {
   @override
   void initState() {
     // TODO: implement initState

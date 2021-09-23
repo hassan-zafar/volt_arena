@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -240,7 +239,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     },
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
-                                      labelText: 'Product Title',
+                                      labelText: 'Service Title',
                                     ),
                                     onSaved: (value) {
                                       _productTitle = value!;
@@ -532,7 +531,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               key: ValueKey('Description'),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'product description is required';
+                                  return 'service description is required';
                                 }
                                 return null;
                               },
@@ -542,7 +541,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               decoration: InputDecoration(
                                 //  counterText: charLength.toString(),
                                 labelText: 'Description',
-                                hintText: 'Product description',
+                                hintText: 'Service description',
                                 border: OutlineInputBorder(),
                               ),
                               onSaved: (value) {
