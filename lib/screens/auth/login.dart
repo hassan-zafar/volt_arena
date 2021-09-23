@@ -1,4 +1,5 @@
 import 'package:volt_arena/consts/colors.dart';
+import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/main_screen.dart';
 import 'package:volt_arena/screens/auth/forget_password.dart';
 import 'package:volt_arena/services/global_method.dart';
@@ -96,9 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     //  color: Theme.of(context).backgroundColor,
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
-                      image: NetworkImage(
-                        'https://image.flaticon.com/icons/png/128/869/869636.png',
-                      ),
+                      image: AssetImage(logo),
                       fit: BoxFit.fill,
                     ),
                     shape: BoxShape.rectangle,

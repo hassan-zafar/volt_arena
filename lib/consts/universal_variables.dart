@@ -23,4 +23,4 @@ TextStyle montserratStyle(double size,
 CollectionReference userCollection =
     FirebaseFirestore.instance.collection("users");
 
-String logo = "assets/images/volt arena.png";
+String logo = "assets/images/volt_arenaLogo.png";
