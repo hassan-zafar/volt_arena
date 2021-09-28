@@ -8,13 +8,15 @@ import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/database/database.dart';
 import 'package:volt_arena/models/meetingsModel.dart';
 
-class Calender extends StatefulWidget {
+class CalenderScreen extends StatefulWidget {
+  static const routeName = '/CalenderScreen';
+
   @override
-  _CalenderState createState() => _CalenderState();
+  _CalenderScreenState createState() => _CalenderScreenState();
 }
 
-class _CalenderState extends State<Calender>
-    with AutomaticKeepAliveClientMixin<Calender> {
+class _CalenderScreenState extends State<CalenderScreen>
+    with AutomaticKeepAliveClientMixin<CalenderScreen> {
   CalendarController _controller = CalendarController();
   List<Meeting> meetingsList = [];
   TimeOfDay? startingTime;
@@ -125,7 +127,7 @@ class _CalenderState extends State<Calender>
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Create Event",
+                        "Book Timings",
                         style: titleTextStyle(),
                       ),
                     ),
