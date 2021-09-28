@@ -26,7 +26,7 @@ class _LandingPageState extends State<LandingPage>
   // ];
   List<String> assetImages = [
     "assets/images/volt arena.png"
-        "assets/images/voltArtBoard.jpg"
+        "assets/images/voltArtBoard2.jpg"
   ];
   final FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalMethods _globalMethods = GlobalMethods();
@@ -115,7 +115,7 @@ class _LandingPageState extends State<LandingPage>
     return Scaffold(
         body: Stack(children: [
       Image.asset(
-        "assets/images/voltArtBoard.jpg",
+        "assets/images/black.jpg",
         errorBuilder: (context, url, error) => Center(child: Icon(Icons.error)),
         fit: BoxFit.cover,
         height: double.infinity,
@@ -141,6 +141,11 @@ class _LandingPageState extends State<LandingPage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset(
+              "assets/images/volt_arenaLogo.png",
+              errorBuilder: (context, url, error) =>
+                  Center(child: Icon(Icons.error)),
+            ),
             Text(
               'Welcome',
               style: TextStyle(
@@ -155,7 +160,7 @@ class _LandingPageState extends State<LandingPage>
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Text(
-                'Welcome to the biggest online store',
+                'Welcome to V⚡lt Arena Online Store',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 26,
