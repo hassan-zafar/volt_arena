@@ -49,37 +49,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (isValid) {
       _formKey.currentState!.save();
       try {
-        if (_pickedImage == null) {
-          _globalMethods.authErrorHandle('Please pick an image', context);
-        } else {
+        // if (_pickedImage == null) {
+        //   _globalMethods.authErrorHandle('Please pick an image', context);
+        // } else {
+        setState(() {
+          _isLoading = true;
+        });
+        // final ref = FirebaseStorage.instance
+        //     .ref()
+        //     .child('usersImages')
+        //     .child(_fullName! + '.jpg');
+        // await ref.putFile(_pickedImage!);
+        // url = await ref.getDownloadURL();
+        await _auth.createUserWithEmailAndPassword(
+            email: _emailAddress!.toLowerCase().trim(),
+            password: _password!.trim());
+        final User? user = _auth.currentUser;
+        final _uid = user!.uid;
+        user.updateDisplayName(_fullName);
+        user.updatePhotoURL(url);
+        user.reload();
+        await FirebaseFirestore.instance.collection('users').doc(_uid).set({
+          'id': _uid,
+          'name': _fullName,
+          'email': _emailAddress,
+          'phoneNumber': _phoneNumber,
+          'imageUrl': url,
+          'joinedAt': formattedDate,
+          'createdAt': Timestamp.now(),
+        }).then((value) {
           setState(() {
-            _isLoading = true;
+            _isLoading = false;
           });
-          final ref = FirebaseStorage.instance
-              .ref()
-              .child('usersImages')
-              .child(_fullName! + '.jpg');
-          await ref.putFile(_pickedImage!);
-          url = await ref.getDownloadURL();
-          await _auth.createUserWithEmailAndPassword(
-              email: _emailAddress!.toLowerCase().trim(),
-              password: _password!.trim());
-          final User? user = _auth.currentUser;
-          final _uid = user!.uid;
-          user.updateDisplayName(_fullName);
-          user.updatePhotoURL(url);
-          user.reload();
-          await FirebaseFirestore.instance.collection('users').doc(_uid).set({
-            'id': _uid,
-            'name': _fullName,
-            'email': _emailAddress,
-            'phoneNumber': _phoneNumber,
-            'imageUrl': url,
-            'joinedAt': formattedDate,
-            'createdAt': Timestamp.now(),
-          });
-          Navigator.canPop(context) ? Navigator.pop(context) : null;
-        }
+        });
+        Navigator.canPop(context) ? Navigator.pop(context) : null;
+        // }
       } catch (error) {
         _globalMethods.authErrorHandle(error.toString(), context);
         print('error occured ${error.toString()}');
