@@ -26,7 +26,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   var top = 0.0;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String? _uid;
-  String? _name;
+  String? _name = "User Name";
   String? _email;
   String? _joinedAt;
   String? _userImageUrl;
@@ -92,7 +92,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-      
       body: pages[_selectedPageIndex], //_pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomAppBar(
         // color: Colors.white,

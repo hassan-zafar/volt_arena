@@ -13,7 +13,7 @@ class CartEmpty extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(top: 80),
+          margin: EdgeInsets.only(top: 120),
           width: double.infinity,
           height: MediaQuery.of(context).size.height * 0.4,
           decoration: BoxDecoration(
@@ -28,7 +28,7 @@ class CartEmpty extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Theme.of(context).textSelectionColor,
-              fontSize: 36,
+              fontSize: 26,
               fontWeight: FontWeight.w600),
         ),
         SizedBox(
@@ -41,14 +41,14 @@ class CartEmpty extends StatelessWidget {
               color: themeChange.darkTheme
                   ? Theme.of(context).disabledColor
                   : ColorsConsts.subTitle,
-              fontSize: 26,
+              // fontSize: 26,
               fontWeight: FontWeight.w600),
         ),
         SizedBox(
           height: 30,
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.9,
+          width: MediaQuery.of(context).size.width * 0.8,
           height: MediaQuery.of(context).size.height * 0.06,
           child: RaisedButton(
             onPressed: () {
@@ -56,15 +56,15 @@ class CartEmpty extends StatelessWidget {
             },
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
-              side: BorderSide(color: Colors.red),
+              side: BorderSide(color: Colors.yellow),
             ),
-            color: Colors.redAccent,
+            color: Colors.yellow,
             child: Text(
               'Shop now'.toUpperCase(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Theme.of(context).textSelectionColor,
-                  fontSize: 26,
+                  color: Theme.of(context).backgroundColor,
+                  // fontSize: 26,
                   fontWeight: FontWeight.w600),
             ),
           ),
