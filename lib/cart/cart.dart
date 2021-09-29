@@ -244,7 +244,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                 'US ${subtotal.toStringAsFixed(3)}',
                 //textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.blue,
+                    color: Colors.yellow,
                     fontSize: 18,
                     fontWeight: FontWeight.w500),
               ),

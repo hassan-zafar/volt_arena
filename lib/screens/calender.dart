@@ -4,6 +4,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/colors.dart';
+import 'package:volt_arena/consts/theme_data.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/database/database.dart';
 import 'package:volt_arena/models/meetingsModel.dart';
@@ -45,7 +46,7 @@ class _CalenderScreenState extends State<CalenderScreen>
     allMeetings.forEach((e) {
       asd.add(Meeting(
           eventName: e.meetingTitle,
-          background: Colors.blue.shade900,
+          background: Colors.yellow.shade900,
           from: e.startingTime!.toDate(),
           to: e.endingTime!.toDate(),
           isAllDay: e.isAllDay));
@@ -143,9 +144,13 @@ class _CalenderScreenState extends State<CalenderScreen>
                         });
                         print(startingTime);
                       },
-                      child: Text(startingTime == null
-                          ? "Select Event Starting Time"
-                          : startingTime!.format(context)),
+                      style: elevatedButtonStyle(),
+                      child: Text(
+                        startingTime == null
+                            ? "Select Event Starting Time"
+                            : startingTime!.format(context),
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () async {
@@ -215,7 +220,7 @@ class _CalenderScreenState extends State<CalenderScreen>
       "isAllDay": isAllDay,
     });
     meetings = Meeting(
-        background: Colors.blue.shade900,
+        background: Colors.yellow.shade900,
         eventName: title,
         isAllDay: isAllDay,
         from: startTime,
@@ -314,6 +319,6 @@ class Meeting {
   String? eventName;
   DateTime? from;
   DateTime? to;
-  Color? background = Colors.purple;
+  Color? background = Colors.yellow.shade900;
   bool? isAllDay;
 }

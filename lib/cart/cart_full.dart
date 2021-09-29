@@ -129,7 +129,7 @@ class _CartFullState extends State<CartFull> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                                 color: themeChange.darkTheme
-                                    ? Colors.brown.shade900
+                                    ? Colors.yellow.shade900
                                     : Theme.of(context).accentColor),
                           ),
                         ),

@@ -7,9 +7,9 @@ class Styles {
     return ThemeData(
       scaffoldBackgroundColor:
           isDarkTheme ? Colors.black : Colors.grey.shade300,
-      primarySwatch: Colors.purple,
+      primarySwatch: Colors.yellow,
       primaryColor: isDarkTheme ? Colors.black : Colors.grey.shade300,
-      accentColor: Colors.deepPurple,
+      accentColor: Colors.yellow,
       backgroundColor: isDarkTheme ? Colors.grey.shade700 : Colors.white,
       indicatorColor: isDarkTheme ? Color(0xff0E1D36) : Color(0xffCBDCF8),
       buttonColor: isDarkTheme ? Color(0xff3B3B3B) : Color(0xffF1F5FB),
@@ -19,6 +19,7 @@ class Styles {
       focusColor: isDarkTheme ? Color(0xff0B2512) : Color(0xffA8DAB5),
       disabledColor: Colors.grey,
       textSelectionColor: isDarkTheme ? Colors.white : Colors.black,
+
       cardColor: isDarkTheme ? Color(0xFF151515) : Colors.white,
       canvasColor: isDarkTheme ? Colors.black : Colors.grey[50],
       brightness: isDarkTheme ? Brightness.dark : Brightness.light,
@@ -29,4 +30,15 @@ class Styles {
       ),
     );
   }
+}
+
+elevatedButtonStyle() {
+  ElevatedButton.styleFrom(
+      primary: Colors.yellow,
+      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+      textStyle: TextStyle(
+        color: Colors.black,
+        // fontSize: 30,
+        // fontWeight: FontWeight.bold
+      ));
 }

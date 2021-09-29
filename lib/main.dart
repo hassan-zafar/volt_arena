@@ -97,6 +97,8 @@ class _MyAppState extends State<MyApp> {
                   child: Text('Error occured'),
                 ),
               ),
+              theme: ThemeData(
+                  primaryColor: Colors.yellow, accentColor: Colors.orange),
             );
           }
           return MultiProvider(

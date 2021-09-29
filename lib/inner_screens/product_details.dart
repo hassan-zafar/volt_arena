@@ -3,6 +3,7 @@ import 'package:badges/badges.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
+import 'package:volt_arena/consts/theme_data.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
@@ -121,11 +122,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Text(
                               'US \$ ${prodAttr.price}',
                               style: TextStyle(
-                                  color: themeState.darkTheme
-                                      ? Theme.of(context).disabledColor
-                                      : ColorsConsts.subTitle,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 21.0),
+                                color: themeState.darkTheme
+                                    ? Theme.of(context).disabledColor
+                                    : ColorsConsts.subTitle,
+                                fontWeight: FontWeight.bold,
+                                // fontSize: 21.0
+                              ),
                             ),
                           ],
                         ),
@@ -146,8 +148,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                         child: Text(
                           prodAttr.description!,
                           style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 21.0,
+                            // fontWeight: FontWeight.w400,
+                            // fontSize: 21.0,
                             color: themeState.darkTheme
                                 ? Theme.of(context).disabledColor
                                 : ColorsConsts.subTitle,
@@ -179,7 +181,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                       // const SizedBox(height: 15.0),
                       Container(
-                        color: Theme.of(context).backgroundColor,
+                        // color: Theme.of(context).backgroundColor,
                         width: double.infinity,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -190,21 +192,25 @@ class _ProductDetailsState extends State<ProductDetails> {
                               child: Text(
                                 'No reviews yet',
                                 style: TextStyle(
-                                    color: Theme.of(context).textSelectionColor,
+                                    color: Theme.of(context).disabledColor,
                                     fontWeight: FontWeight.w600,
                                     fontSize: 21.0),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(2.0),
-                              child: Text(
-                                'Be the first review!',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 20.0,
-                                  color: themeState.darkTheme
-                                      ? Theme.of(context).disabledColor
-                                      : ColorsConsts.subTitle,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: elevatedButtonStyle(),
+                                child: Text(
+                                  'Be the first to review!',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 20.0,
+                                    color: themeState.darkTheme
+                                        ? Theme.of(context).canvasColor
+                                        : ColorsConsts.subTitle,
+                                  ),
                                 ),
                               ),
                             ),
@@ -235,7 +241,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Container(
                   margin: EdgeInsets.only(bottom: 30),
                   width: double.infinity,
-                  height: 400,
+                  height: 260,
                   child: ListView.builder(
                     itemCount:
                         productsList.length < 7 ? productsList.length : 7,

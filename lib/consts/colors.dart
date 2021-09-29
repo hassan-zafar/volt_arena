@@ -4,7 +4,8 @@ class ColorsConsts {
   static Color black = Color(0xFF000000);
   static Color white = Color(0xFFFFFFFF);
   static Color title = Color(0xDD000000);
-  static Color subTitle = Color(0x8A000000);
+  static Color subTitle = Colors.yellow;
+  // Color(0x8A000000);
   static Color backgroundColor = Colors.orange; //grey shade 300
   static Color loginColor = Color(0xFFF7A000); // red 500
   // static Color signUpColor = Colors.white; // red 500
@@ -12,16 +13,16 @@ class ColorsConsts {
   static Color favColor = Color(0xFFF44336); // red 500
   static Color favBadgeColor = Color(0xFFE57373); // red 300
 
-  static Color cartColor = Color(0xFF5E35B1); //deep purple 600
+  static Color cartColor = Colors.white; //deep purple 600
   static Color cartBadgeColor = Color(0xFFBA68C8); //purple 300
 
-  static Color gradiendFStart = Color(0xFFE040FB); //purpleaccent 100
-  static Color gradiendFEnd = Color(0xFFE1BEE7); //purple 100
-  static Color endColor = Color(0xFFCE93D8); //purple 200
+  static Color gradiendFStart = Colors.yellow;
+  static Color gradiendFEnd = Colors.yellow.shade900;
+  static Color endColor = Colors.yellow; //purple 200
   static Color purple300 = Color(0xFFBA68C8); //purple 300
-  static Color gradiendLEnd = Colors.deepOrange; //orange
-  static Color gradiendLStart = Color(0xFF1A1B1B); //purple 500
-  static Color starterColor = Color(0xFF8E24AA); //purple 600
+  static Color gradiendLEnd = Colors.yellow.shade900; //orange
+  static Color gradiendLStart = Colors.yellow; //purple 500
+  static Color starterColor = Colors.yellow.shade900; //purple 600
   static Color purple800 = Color(0xFF6A1B9A);
 }
 
