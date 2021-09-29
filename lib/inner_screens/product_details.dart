@@ -325,7 +325,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: RaisedButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(side: BorderSide.none),
-                      color: Colors.redAccent.shade400,
+                      color: Colors.yellow,
                       onPressed:
                           cartProvider.getCartItems.containsKey(productId)
                               ? () {}
@@ -340,7 +340,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         cartProvider.getCartItems.containsKey(productId)
                             ? 'In cart'
                             : 'Add to Cart'.toUpperCase(),
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ),
                   ),

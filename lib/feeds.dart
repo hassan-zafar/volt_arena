@@ -49,6 +49,10 @@ class _FeedsState extends State<Feeds> {
           backgroundColor: Theme.of(context).cardColor,
           title: Text('Services'),
           centerTitle: true,
+          leading: IconButton(
+            icon: Icon(Icons.dehaze_outlined),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
           actions: [
             Consumer<FavsProvider>(
               builder: (_, favs, ch) => Badge(

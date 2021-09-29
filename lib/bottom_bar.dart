@@ -92,6 +92,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
+      
       body: pages[_selectedPageIndex], //_pages[_selectedPageIndex]['page'],
       bottomNavigationBar: BottomAppBar(
         // color: Colors.white,
@@ -141,14 +142,16 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
                 child: CircleAvatar(
-                  radius: 65,
+                  radius: 45,
                   backgroundImage: AssetImage("assets/images/person.png"),
                 ),
               ),
+              userTitle(title: _name!, color: Colors.white),
+
               Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: userTitle(title: 'User Bag')),
@@ -214,7 +217,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                 },
                 visualDensity: VisualDensity.comfortable,
                 switchType: SwitchType.cupertino,
-                switchActiveColor: Colors.indigo,
+                switchActiveColor: Colors.yellow,
                 title: Text('Dark theme'),
               ),
               Material(
@@ -336,12 +339,13 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     );
   }
 
-  Widget userTitle({required String title}) {
+  Widget userTitle({required String title, Color color: Colors.yellow}) {
     return Padding(
       padding: const EdgeInsets.all(14.0),
       child: Text(
         title,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        style:
+            TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: color),
       ),
     );
   }

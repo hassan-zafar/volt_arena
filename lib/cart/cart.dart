@@ -56,6 +56,10 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
             appBar: AppBar(
               backgroundColor: Theme.of(context).backgroundColor,
               title: Text('Cart (${cartProvider.getCartItems.length})'),
+              leading: IconButton(
+                icon: Icon(Icons.dehaze_outlined),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+              ),
               actions: [
                 IconButton(
                   onPressed: () {
