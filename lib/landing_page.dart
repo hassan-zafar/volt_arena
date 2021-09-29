@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/screens/auth/login.dart';
-import 'package:volt_arena/screens/auth/sign_up.dart';
 import 'package:volt_arena/services/global_method.dart';
 
 class LandingPage extends StatefulWidget {
@@ -229,7 +228,7 @@ class _LandingPageState extends State<LandingPage>
                           ),
                         )),
                     onPressed: () {
-                      Navigator.pushNamed(context, SignUpScreen.routeName);
+                      // Navigator.pushNamed(context, SignUpScreen.routeName);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

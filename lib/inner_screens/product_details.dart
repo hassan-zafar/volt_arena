@@ -349,7 +349,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       color: Theme.of(context).backgroundColor,
                       onPressed: () {
                         Navigator.of(context)
-                            .pushNamed(CalenderScreen.routeName);
+                            .pushNamed(CalenderScreen.routeName)
+                            .then((value) => Navigator.pop(context));
                       },
                       child: Row(
                         children: [

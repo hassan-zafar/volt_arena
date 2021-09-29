@@ -54,7 +54,7 @@ dependencies:
   stripe_payment: 
   syncfusion_flutter_calendar:
   #flutter_stripe:
-  # pay:
+  pay:
   firebase_messaging:
   flutter_local_notifications:
 dev_dependencies:
