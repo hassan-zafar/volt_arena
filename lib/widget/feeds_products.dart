@@ -24,8 +24,8 @@ class _FeedProductsState extends State<FeedProducts> {
         onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
             arguments: productsAttributes.id),
         child: Container(
-          width: 250,
-          height: 250,
+          width: 150,
+          height: 150,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               color: Theme.of(context).backgroundColor),
@@ -45,7 +45,7 @@ class _FeedProductsState extends State<FeedProducts> {
                               MediaQuery.of(context).size.height * 0.28,
                           child: Image.network(
                             productsAttributes.imageUrl!,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),

@@ -27,7 +27,7 @@ class WishlistEmpty extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Theme.of(context).textSelectionColor,
-              fontSize: 36,
+              fontSize: 26,
               fontWeight: FontWeight.w600),
         ),
         SizedBox(
@@ -40,8 +40,8 @@ class WishlistEmpty extends StatelessWidget {
               color: themeChange.darkTheme
                   ? Theme.of(context).disabledColor
                   : ColorsConsts.subTitle,
-              fontSize: 26,
-              fontWeight: FontWeight.w600),
+              // fontSize: 26,
+              fontWeight: FontWeight.w300),
         ),
         SizedBox(
           height: 30,
