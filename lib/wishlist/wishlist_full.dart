@@ -29,12 +29,21 @@ class _WishlistFullState extends State<WishlistFull> {
             child: InkWell(
               onTap: () {},
               child: Container(
-                padding: EdgeInsets.all(16.0),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(15)),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                      height: 80,
-                      child: Image.network(favsAttr.imageUrl!),
+                      height: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(15),
+                              topLeft: Radius.circular(15))),
+                      child: Image.network(
+                        favsAttr.imageUrl!,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                     SizedBox(
                       width: 10.0,

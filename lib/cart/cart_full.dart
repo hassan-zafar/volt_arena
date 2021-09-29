@@ -45,21 +45,18 @@ class _CartFullState extends State<CartFull> {
         height: 135,
         margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomRight: const Radius.circular(16.0),
-            topRight: const Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(16),
           color: Theme.of(context).backgroundColor,
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               width: 130,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(cartAttr.imageUrl!),
-                  //  fit: BoxFit.fill,
-                ),
+                    image: NetworkImage(cartAttr.imageUrl!),
+                    fit: BoxFit.contain),
               ),
             ),
             Flexible(
@@ -141,7 +138,7 @@ class _CartFullState extends State<CartFull> {
                     Row(
                       children: [
                         Text(
-                          'Ships Free',
+                          '  ',
                           style: TextStyle(
                               color: themeChange.darkTheme
                                   ? Colors.brown.shade900
@@ -174,24 +171,25 @@ class _CartFullState extends State<CartFull> {
                             ),
                           ),
                         ),
-                        Card(
-                          elevation: 12,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.12,
-                            padding: const EdgeInsets.all(8.0),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [
-                                ColorsConsts.gradiendLStart,
-                                ColorsConsts.gradiendLEnd,
-                              ], stops: [
-                                0.0,
-                                0.7
-                              ]),
-                            ),
-                            child: Text(
-                              cartAttr.quantity.toString(),
-                              textAlign: TextAlign.center,
-                            ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.12,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.yellow,
+
+                            // gradient: LinearGradient(colors: [
+                            //   ColorsConsts.gradiendLStart,
+                            //   ColorsConsts.gradiendLEnd,
+                            // ], stops: [
+                            //   0.0,
+                            //   0.7
+                            // ]),
+                          ),
+                          child: Text(
+                            cartAttr.quantity.toString(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.black),
                           ),
                         ),
                         Material(

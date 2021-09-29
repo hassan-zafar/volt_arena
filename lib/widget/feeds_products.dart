@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
 
-import 'feeds.dialog.dart';
+import 'feedsdialog.dart';
 
 class FeedProducts extends StatefulWidget {
   @override
@@ -40,9 +40,8 @@ class _FeedProductsState extends State<FeedProducts> {
                         borderRadius: BorderRadius.circular(2),
                         child: Container(
                           width: double.infinity,
-                          height:
-                              // 200,
-                              MediaQuery.of(context).size.height * 0.28,
+                          height: 150,
+                          // MediaQuery.of(context).size.height * 0.2,
                           child: Image.network(
                             productsAttributes.imageUrl!,
                             fit: BoxFit.cover,
