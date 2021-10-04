@@ -48,14 +48,14 @@ class Products with ChangeNotifier {
     return _products.firstWhere((element) => element.id == productId);
   }
 
-  // List<Product> findByCategory(String categoryName) {
-  //   List<Product> _categoryList = _products
-  //       .where((element) => element.productCategoryName!
-  //           .toLowerCase()
-  //           .contains(categoryName.toLowerCase()))
-  //       .toList();
-  //   return _categoryList;
-  // }
+  List<Product> findByCategory(String categoryName) {
+    List<Product> _categoryList = _products
+        .where((element) => element.productCategoryName!
+            .toLowerCase()
+            .contains(categoryName.toLowerCase()))
+        .toList();
+    return _categoryList;
+  }
 
   // List<Product> findByBrand(String brandName) {
   //   List<Product> _categoryList = _products

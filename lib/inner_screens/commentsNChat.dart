@@ -191,7 +191,7 @@ class CommentsNChatState extends State<CommentsNChat> {
 
   void sendNotificationToAdmin(
       {required String type, String? title, required bool isAdminChat}) {
-    isProductComment
+    isProductComment!
         ? title = "Commented on product"
         : title = "Commented on post";
     bool isNotPostOwner = isAdmin != currentUser!.id;
@@ -211,7 +211,7 @@ class CommentsNChatState extends State<CommentsNChat> {
             context: context,
             token: element.androidNotificationToken!,
             message: _commentNMessagesController.text,
-            title: isAdminChat ? "Admin Chats" : title);
+            title: isAdminChat ? "Admin Chats" : title!);
       });
     }
   }

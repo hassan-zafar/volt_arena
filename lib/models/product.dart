@@ -12,6 +12,7 @@ class Product with ChangeNotifier {
   final bool? isPopular;
   final int? pallets;
   final int? groupMembers;
+  final String? productCategoryName;
   Product({
     this.id,
     this.title,
@@ -24,6 +25,7 @@ class Product with ChangeNotifier {
     this.isFavorite,
     this.isPopular,
     this.pallets,
+    this.productCategoryName,
   });
   factory Product.fromDocument(doc) {
     return Product(
@@ -38,6 +40,7 @@ class Product with ChangeNotifier {
       isFavorite: doc.data()["isFavorite"],
       isPopular: doc.data()["isPopular"],
       pallets: doc.data()["pallets"],
+      productCategoryName: doc.data()["productCategoryName"],
     );
   }
 }
