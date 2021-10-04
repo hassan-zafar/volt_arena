@@ -1,9 +1,14 @@
 import 'dart:ui';
 import 'package:badges/badges.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:uuid/uuid.dart';
 import 'package:volt_arena/cart/cart.dart';
+import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/consts/theme_data.dart';
+import 'package:volt_arena/consts/universal_variables.dart';
+import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
@@ -24,6 +29,8 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails> {
   GlobalKey previewContainer = new GlobalKey();
+  TextEditingController _reviewController = TextEditingController();
+  bool isUploading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -413,6 +420,208 @@ class _ProductDetailsState extends State<ProductDetails> {
         ],
       ),
     );
+  }
+
+  Widget reviews() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.87,
+      margin: EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Comments",
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ),
+          ),
+          writeReviews(),
+          Column(
+            children: <Widget>[
+              GestureDetector(
+                child: buildReviews(),
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CommentsNChat(
+                          isProductComment: true,
+                          isPostComment: false,
+                          postOwnerId: widget.productItems.ownerId,
+                          postMediaUrl: widget.productItems.mediaUrl[0],
+                          postId: widget.productItems.productId,
+                        ))),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+        ],
+      ),
+    );
+  }
+
+  writeReviews() {
+    return Column(
+      children: [
+        // Row(
+        //   children: [
+        //     SmoothStarRating(
+        //       color: Colors.amberAccent,
+        //       allowHalfRating: false,
+        //       size: 20.0,
+        //       isReadOnly: false,
+        //       borderColor: Colors.white70,
+        //       onRated: (rate) {
+        //         int totalRatingNumbers = 0;
+        //
+        //         ratingsMap == null
+        //             ? totalRatingNumbers = 0
+        //             : totalRatingNumbers = ratingsMap.length;
+        //         setState(() {
+        //           avgRating =
+        //               ((double.parse(rating.toString()) * totalRatingNumbers) +
+        //                       rate) /
+        //                   (totalRatingNumbers + 1);
+        //           ratings = rate;
+        //         });
+        //       },
+        //       defaultIconData: Icons.star_border,
+        //       filledIconData: Icons.star,
+        //       halfFilledIconData: Icons.star_half,
+        //     ),
+        //     SizedBox(
+        //       width: 8.0,
+        //     ),
+        //   ],
+        // ),
+        ListTile(
+          title: TextFormField(
+            controller: _reviewController,
+            decoration: InputDecoration(
+              hintText: "Review",
+            ),
+          ),
+          trailing: IconButton(
+            onPressed: addReview,
+            icon: isUploading
+                ? Text('')
+                : Icon(
+                    Icons.send,
+                    size: 40.0,
+                    color: Colors.black,
+                  ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  buildReviews() {
+    return StreamBuilder(
+      stream: commentsRef
+          .doc(widget.productId)
+          .collection("comments")
+          .orderBy("timestamp", descending: false)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return LoadingIndicator();
+        }
+        snapshot.data.documents.forEach((doc) {
+          allReviews.add(CommentsNMessages.fromDocument(doc));
+        });
+        return allReviews.isEmpty
+            ? Center(child: Text("Currently No comment"))
+            : Center(
+                child: Column(
+                  children: [
+                    Container(
+                      child: allReviews.last,
+                    ),
+                    GestureDetector(
+                        onTap: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => CommentsNChat(
+                                      postId: widget.productId,
+                                      postMediaUrl:
+                                          widget.productItems.mediaUrl[0],
+                                      postOwnerId: widget.productItems.ownerId,
+                                      isPostComment: false,
+                                      isProductComment: true,
+                                    ))),
+                        child: Text(
+                          'View All Comments',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        )),
+                  ],
+                ),
+              );
+      },
+    );
+  }
+
+  addReview() async {
+    List allAdmins = [];
+    QuerySnapshot snapshots =
+        await userRef.where('type', isEqualTo: 'admin').get();
+    snapshots.docs.forEach((e) {
+      allAdmins.add(AppUserModel.fromDocument(e));
+    });
+
+    String commentId = Uuid().v4();
+    setState(() {
+      isUploading = true;
+    });
+    if (_reviewController.text.trim().length > 0) {
+      await commentsRef
+          .doc(widget.productItems.productId)
+          .collection("comments")
+          .add({
+        "userName": currentUser.userName,
+        "userId": currentUser.id,
+        "androidNotificationToken": currentUser.androidNotificationToken,
+        "comment": _reviewController.text,
+        "timestamp": timestamp,
+        "avatarUrl": currentUser.photoUrl,
+        "isComment": false,
+        "isProductComment": true,
+        "postId": widget.productItems.productId,
+        "commentId": commentId,
+        "likesMap": {},
+        "likes": 0,
+      });
+      bool isNotProductOwner = widget.productItems.ownerId != currentUser.id;
+      if (isNotProductOwner) {
+        // allAdmins.forEach((element) {
+        //   activityFeedRef.doc(element.id).collection('feedItems').add({
+        //     "type": "comment",
+        //     "commentData": _reviewController.text,
+        //     "userName": currentUser.userName,
+        //     "userId": currentUser.id,
+        //     "userProfileImg": currentUser.photoUrl,
+        //     "postId": widget.productItems.productId,
+        //     "mediaUrl": widget.productItems.mediaUrl[0],
+        //     "timestamp": timestamp,
+        //   });
+        //   sendAndRetrieveMessage(
+        //       token: element.androidNotificationToken,
+        //       message: _reviewController.text,
+        //       title: "Product Comment");
+        // });
+      }
+      // BotToast.showText(text: 'Comment added');
+
+      _reviewController.clear();
+      setState(() {
+        isUploading = false;
+      });
+    } else {
+      // BotToast.showText(text: "Field shouldn't be left empty");
+    }
+    setState(() {
+      isUploading = false;
+    });
   }
 
   Widget _details(bool themeState, String title, String info) {
