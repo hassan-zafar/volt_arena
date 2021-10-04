@@ -27,10 +27,12 @@ class Products with ChangeNotifier {
                 element.get('price'),
               ),
               imageUrl: element.get('productImage'),
-              brand: element.get('productBrand'),
-              productCategoryName: element.get('productCategory'),
+              groupMembers: element.get('groupMembers'),
+              isFavorite: element.get('isFavorite'),
+              isIndividual: element.get('isIndividual'),
+              pallets: element.get('pallets'),
               quantity: int.parse(
-                element.get('price'),
+                element.get('quantity'),
               ),
               isPopular: true),
         );
@@ -46,22 +48,22 @@ class Products with ChangeNotifier {
     return _products.firstWhere((element) => element.id == productId);
   }
 
-  List<Product> findByCategory(String categoryName) {
-    List<Product> _categoryList = _products
-        .where((element) => element.productCategoryName!
-            .toLowerCase()
-            .contains(categoryName.toLowerCase()))
-        .toList();
-    return _categoryList;
-  }
+  // List<Product> findByCategory(String categoryName) {
+  //   List<Product> _categoryList = _products
+  //       .where((element) => element.productCategoryName!
+  //           .toLowerCase()
+  //           .contains(categoryName.toLowerCase()))
+  //       .toList();
+  //   return _categoryList;
+  // }
 
-  List<Product> findByBrand(String brandName) {
-    List<Product> _categoryList = _products
-        .where((element) =>
-            element.brand!.toLowerCase().contains(brandName.toLowerCase()))
-        .toList();
-    return _categoryList;
-  }
+  // List<Product> findByBrand(String brandName) {
+  //   List<Product> _categoryList = _products
+  //       .where((element) =>
+  //           element.brand!.toLowerCase().contains(brandName.toLowerCase()))
+  //       .toList();
+  //   return _categoryList;
+  // }
 
   List<Product> searchQuery(String searchText) {
     List<Product> _searchList = _products

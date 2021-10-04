@@ -57,6 +57,8 @@ dependencies:
   pay:
   firebase_messaging:
   flutter_local_notifications:
+  timeago:
+  bot_toast:
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,8 @@ class _MyAppState extends State<MyApp> {
             );
           } else if (snapshot.hasError) {
             MaterialApp(
+              builder: BotToastInit(),
+              navigatorObservers: [BotToastNavigatorObserver()],
               home: Scaffold(
                 body: Center(
                   child: Text('Error occured'),

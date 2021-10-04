@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:badges/badges.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/cart/cart.dart';
@@ -8,6 +9,7 @@ import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/consts/theme_data.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
+import 'package:volt_arena/models/product.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
@@ -20,6 +22,8 @@ import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'commentsNChat.dart';
+
 class ProductDetails extends StatefulWidget {
   static const routeName = '/ProductDetails';
 
@@ -31,6 +35,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   GlobalKey previewContainer = new GlobalKey();
   TextEditingController _reviewController = TextEditingController();
   bool isUploading = false;
+  List allReviews = [];
 
   @override
   Widget build(BuildContext context) {
@@ -422,7 +427,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  Widget reviews() {
+  Widget reviews({String? productId, Product? productItems}) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.87,
       margin: EdgeInsets.all(8.0),
@@ -440,14 +445,15 @@ class _ProductDetailsState extends State<ProductDetails> {
           Column(
             children: <Widget>[
               GestureDetector(
-                child: buildReviews(),
+                child: buildReviews(
+                    productId: productId!, productItems: productItems),
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => CommentsNChat(
                           isProductComment: true,
                           isPostComment: false,
-                          postOwnerId: widget.productItems.ownerId,
-                          postMediaUrl: widget.productItems.mediaUrl[0],
-                          postId: widget.productItems.productId,
+                          isAdmin: false,
+                          postMediaUrl: productItems!.imageUrl,
+                          postId: productItems.id,
                         ))),
               ),
             ],
@@ -516,10 +522,10 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  buildReviews() {
-    return StreamBuilder(
+  buildReviews({String? productId, Product? productItems}) {
+    return StreamBuilder<QuerySnapshot>(
       stream: commentsRef
-          .doc(widget.productId)
+          .doc(productId)
           .collection("comments")
           .orderBy("timestamp", descending: false)
           .snapshots(),
@@ -527,7 +533,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         if (!snapshot.hasData) {
           return LoadingIndicator();
         }
-        snapshot.data.documents.forEach((doc) {
+        snapshot.data!.docs.forEach((doc) {
           allReviews.add(CommentsNMessages.fromDocument(doc));
         });
         return allReviews.isEmpty
@@ -542,10 +548,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                         onTap: () =>
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => CommentsNChat(
-                                      postId: widget.productId,
-                                      postMediaUrl:
-                                          widget.productItems.mediaUrl[0],
-                                      postOwnerId: widget.productItems.ownerId,
+                                      postId: productId,
+                                      postMediaUrl: productItems!.imageUrl,
+                                      isAdmin: currentUser!.isAdmin,
                                       isPostComment: false,
                                       isProductComment: true,
                                     ))),
@@ -561,10 +566,10 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  addReview() async {
+  addReview({Product? productItems}) async {
     List allAdmins = [];
     QuerySnapshot snapshots =
-        await userRef.where('type', isEqualTo: 'admin').get();
+        await userRef.where('isAdmin', isEqualTo: true).get();
     snapshots.docs.forEach((e) {
       allAdmins.add(AppUserModel.fromDocument(e));
     });
@@ -574,24 +579,20 @@ class _ProductDetailsState extends State<ProductDetails> {
       isUploading = true;
     });
     if (_reviewController.text.trim().length > 0) {
-      await commentsRef
-          .doc(widget.productItems.productId)
-          .collection("comments")
-          .add({
-        "userName": currentUser.userName,
-        "userId": currentUser.id,
-        "androidNotificationToken": currentUser.androidNotificationToken,
+      await commentsRef.doc(productItems!.id).collection("comments").add({
+        "userName": currentUser!.userName,
+        "userId": currentUser!.id,
+        "androidNotificationToken": currentUser!.androidNotificationToken,
         "comment": _reviewController.text,
-        "timestamp": timestamp,
-        "avatarUrl": currentUser.photoUrl,
+        "timestamp": DateTime.now(),
         "isComment": false,
         "isProductComment": true,
-        "postId": widget.productItems.productId,
+        "postId": productItems.id,
         "commentId": commentId,
         "likesMap": {},
         "likes": 0,
       });
-      bool isNotProductOwner = widget.productItems.ownerId != currentUser.id;
+      bool isNotProductOwner = currentUser!.isAdmin!;
       if (isNotProductOwner) {
         // allAdmins.forEach((element) {
         //   activityFeedRef.doc(element.id).collection('feedItems').add({
@@ -610,7 +611,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         //       title: "Product Comment");
         // });
       }
-      // BotToast.showText(text: 'Comment added');
+      BotToast.showText(text: 'Comment added');
 
       _reviewController.clear();
       setState(() {
