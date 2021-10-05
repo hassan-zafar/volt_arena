@@ -29,6 +29,8 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _productBrand = '';
   var _productDescription = '';
   var _productQuantity = '';
+  var _pellets = '';
+
   final TextEditingController _categoryController = TextEditingController();
   final TextEditingController _brandController = TextEditingController();
   String? _categoryValue;
@@ -108,7 +110,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'price': _productPrice,
             'productImage': url,
             'productCategory': _productCategory,
-            'productBrand': _productBrand,
+            'pallets': _pellets,
+                        'pallets': _pellets,
+            'pallets': _pellets,
+
             'productDescription': _productDescription,
             'productQuantity': _productQuantity,
             'userId': _uid,
@@ -602,7 +607,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                       labelText: 'Pellets',
                                     ),
                                     onSaved: (value) {
-                                      _productQuantity = value!;
+                                      _pellets = value!;
                                     },
                                   ),
                                 ),
