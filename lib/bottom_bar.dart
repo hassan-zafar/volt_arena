@@ -13,6 +13,7 @@ import 'cart/cart.dart';
 import 'feeds.dart';
 import 'orders/order.dart';
 import 'user_info.dart';
+import 'package:share/share.dart';
 
 class BottomBarScreen extends StatefulWidget {
   static const routeName = '/BottomBarScreen';
@@ -205,6 +206,17 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               Divider(
                 thickness: 1,
                 color: Colors.grey,
+              ),
+              ListTile(
+                onTap: () => Share.share(
+                    'check out this app https://play.google.com/store/apps/details?id=com.whatsapp',
+                    subject: 'Look at this app!'),
+                title: Text("Invite a Friend"),
+                trailing: Icon(Icons.chevron_right_rounded),
+                leading: Icon(
+                  Icons.person_add,
+                  color: Colors.yellow,
+                ),
               ),
               ListTileSwitch(
                 value: themeChange.darkTheme,
