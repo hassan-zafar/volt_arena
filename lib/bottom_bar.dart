@@ -5,14 +5,12 @@ import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
-import 'package:volt_arena/search.dart';
-import 'package:volt_arena/user_info.dart';
+import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'cart/cart.dart';
 import 'feeds.dart';
 import 'orders/order.dart';
-import 'user_info.dart';
 import 'package:share/share.dart';
 
 class BottomBarScreen extends StatefulWidget {

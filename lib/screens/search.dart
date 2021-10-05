@@ -5,7 +5,7 @@ import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/widget/feeds_products.dart';
 import 'package:volt_arena/widget/searchby_header.dart';
 
-import 'consts/colors.dart';
+import '../consts/colors.dart';
 
 class Search extends StatefulWidget {
   @override

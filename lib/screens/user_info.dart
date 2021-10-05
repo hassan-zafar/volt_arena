@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
+import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/colors.dart';
+import 'package:volt_arena/consts/my_icons.dart';
+import 'package:volt_arena/orders/order.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:share/share.dart';
-import 'cart/cart.dart';
-import 'consts/my_icons.dart';
-import 'orders/order.dart';
 
 class UserInfo extends StatefulWidget {
   @override

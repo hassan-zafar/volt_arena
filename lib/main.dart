@@ -18,7 +18,7 @@ import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/screens/auth/login.dart';
 import 'package:volt_arena/screens/auth/sign_up.dart';
 import 'package:volt_arena/screens/calender.dart';
-import 'package:volt_arena/upload_product_form.dart';
+import 'package:volt_arena/screens/upload_product_form.dart';
 import 'package:volt_arena/user_state.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'consts/theme_data.dart';

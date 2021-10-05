@@ -3,7 +3,7 @@ import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
-import 'package:volt_arena/user_info.dart';
+import 'package:volt_arena/screens/user_info.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
