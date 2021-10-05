@@ -367,7 +367,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                       color: Theme.of(context).backgroundColor,
                       onPressed: () {
                         Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context)=>CalenderScreen(gameTime: int.parse(prodAttr.gameTime!),)))
+                            .push(MaterialPageRoute(
+                                builder: (context) => CalenderScreen(
+                                      gameTime: int.parse(prodAttr.gameTime!),
+                                    )))
                             .then((value) => Navigator.pop(context));
                       },
                       child: Row(
