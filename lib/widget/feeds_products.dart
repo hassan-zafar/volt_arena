@@ -101,7 +101,7 @@ class _FeedProductsState extends State<FeedProducts> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          '${productsAttributes.quantity}',
+                          '${productsAttributes.pallets}',
                           style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey,

@@ -28,11 +28,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
   var _productCategory = '';
   var _productBrand = '';
   var _productDescription = '';
-  var _productQuantity = '';
+  String? _gameTime = "20";
   var _pellets = '';
 
   final TextEditingController _categoryController = TextEditingController();
-  final TextEditingController _brandController = TextEditingController();
+  TextEditingController _gameTimeController = TextEditingController();
   String? _categoryValue;
   String? _brandValue;
   GlobalMethods _globalMethods = GlobalMethods();
@@ -47,6 +47,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
       FixedExtentScrollController(initialItem: 0);
 
   bool? _isIndividual = true;
+  int? _groupMembers = 10;
+
+  int? indGrpValue = 0;
+
+  String? _indGroupType;
   showAlertDialog(BuildContext context, String title, String body) {
     // show the dialog
     showDialog(
@@ -79,7 +84,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
       print(_productCategory);
       print(_productBrand);
       print(_productDescription);
-      print(_productQuantity);
+      print(_gameTime);
       // Use those values to send our request ...
     }
     if (isValid) {
@@ -109,14 +114,13 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'productTitle': _productTitle,
             'price': _productPrice,
             'productImage': url,
-            'productCategory': _productCategory,
+            'productCategory': _indGroupType,
             'pallets': _pellets,
-                        'pallets': _pellets,
-            'pallets': _pellets,
-
+            "groupMembers": _isIndividual! ? 0 : _groupMembers,
             'productDescription': _productDescription,
-            'productQuantity': _productQuantity,
+            'gameTime': _gameTime,
             'userId': _uid,
+            "isIndividual": _isIndividual,
             'createdAt': Timestamp.now(),
           });
           Navigator.canPop(context) ? Navigator.pop(context) : null;
@@ -163,6 +167,13 @@ class _UploadProductFormState extends State<UploadProductForm> {
     setState(() {
       _pickedImage = null;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _gameTimeController = TextEditingController(text: _gameTime!);
   }
 
   @override
@@ -574,19 +585,21 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 9),
                                   child: TextFormField(
+                                    controller: _gameTimeController,
                                     keyboardType: TextInputType.number,
-                                    key: ValueKey('Quantity'),
+                                    key: ValueKey('Game Time'),
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return 'Quantity is missed';
+                                        return 'Game time is missing';
                                       }
                                       return null;
                                     },
                                     decoration: InputDecoration(
-                                      labelText: 'Quantity',
+                                      labelText: 'Game Time',
+                                      suffix: Text("min"),
                                     ),
                                     onSaved: (value) {
-                                      _productQuantity = value!;
+                                      _gameTime = value!;
                                     },
                                   ),
                                 ),
@@ -629,21 +642,23 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Text("Number of group members"),
+                          _isIndividual!
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Text("Number of group members"),
+                                      ),
+                                      Expanded(
+                                          flex: 2,
+                                          child: groupMembers(
+                                              controller: groupmemberNumbers)),
+                                    ],
+                                  ),
                                 ),
-                                Expanded(
-                                    flex: 2,
-                                    child: groupMembers(
-                                        controller: groupmemberNumbers)),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -672,10 +687,16 @@ class _UploadProductFormState extends State<UploadProductForm> {
         onSelectedItemChanged: (int value) {
           setState(() {
             if (value == 0) {
+              this.indGrpValue = value;
+
               _isIndividual = true;
-              print(IndGrp.values[value]);
+              _indGroupType = "individual";
             } else if (value == 1) {
               _isIndividual = false;
+              _indGroupType = "group";
+            } else {
+              _isIndividual = false;
+              _indGroupType = "either";
             }
           });
           print(_isIndividual);
@@ -717,13 +738,13 @@ class _UploadProductFormState extends State<UploadProductForm> {
         onSelectedItemChanged: (int value) {
           setState(() {
             if (value == 0) {
-              _isIndividual = true;
-              print(IndGrp.values[value]);
+              _groupMembers = 10;
             } else if (value == 1) {
-              _isIndividual = false;
+              _groupMembers = 20;
+            } else if (value == 2) {
+              _groupMembers = 50;
             }
           });
-          print(_isIndividual);
         },
         itemExtent: 25,
         scrollController: controller,

@@ -17,25 +17,24 @@ class Products with ChangeNotifier {
       _products = [];
       productsSnapshot.docs.forEach((element) {
         // print('element.get(productBrand), ${element.get('productBrand')}');
-        _products.insert(
-          0,
-          Product(
-              id: element.get('productId'),
-              title: element.get('productTitle'),
-              description: element.get('productDescription'),
-              price: double.parse(
-                element.get('price'),
-              ),
-              imageUrl: element.get('productImage'),
-              groupMembers: element.get('groupMembers'),
-              isFavorite: element.get('isFavorite'),
-              isIndividual: element.get('isIndividual'),
-              pallets: element.get('pallets'),
-              quantity: int.parse(
-                element.get('quantity'),
-              ),
-              isPopular: true),
-        );
+        _products.insert(0, Product.fromDocument(element)
+            // Product(
+            //     id: element.get('productId'),
+            //     title: element.get('productTitle'),
+            //     description: element.get('productDescription'),
+            //     price: double.parse(
+            //       element.get('price'),
+            //     ),
+            //     imageUrl: element.get('productImage'),
+            //     groupMembers: element.get('groupMembers'),
+            //     isFavorite: element.get('isFavorite'),
+            //     isIndividual: element.get('isIndividual'),
+            //     pallets: element.get('pallets'),
+            //     quantity: int.parse(
+            //       element.get('game'),
+            //     ),
+            //     isPopular: true),
+            );
       });
     });
   }

@@ -7,7 +7,7 @@ class Product with ChangeNotifier {
   final double? price;
   final String? imageUrl;
   final bool? isIndividual;
-  final int? quantity;
+  final int? gameTime;
   final bool? isFavorite;
   final bool? isPopular;
   final int? pallets;
@@ -21,7 +21,7 @@ class Product with ChangeNotifier {
     this.imageUrl,
     this.groupMembers,
     this.isIndividual,
-    this.quantity,
+    this.gameTime,
     this.isFavorite,
     this.isPopular,
     this.pallets,
@@ -32,11 +32,11 @@ class Product with ChangeNotifier {
       id: doc.data()["id"],
       title: doc.data()["title"],
       description: doc.data()["description"],
-      price: doc.data()["price"],
+      price: double.parse(doc.data()["price"]),
       imageUrl: doc.data()["imageUrl"],
       groupMembers: doc.data()["groupMembers"],
       isIndividual: doc.data()["isIndividual"],
-      quantity: doc.data()["quantity"],
+      gameTime: int.parse(doc.data()["gameTime"]),
       isFavorite: doc.data()["isFavorite"],
       isPopular: doc.data()["isPopular"],
       pallets: doc.data()["pallets"],

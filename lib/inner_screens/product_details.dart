@@ -177,8 +177,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           height: 1,
                         ),
                       ),
-                      _details(themeState.darkTheme, 'Quantity: ',
-                          '${prodAttr.quantity}'),
+                      _details(themeState.darkTheme, 'Game Time: ',
+                          '${prodAttr.gameTime} min'),
 
                       _details(themeState.darkTheme, 'Popularity: ',
                           prodAttr.isPopular! ? 'Popular' : 'Barely known'),

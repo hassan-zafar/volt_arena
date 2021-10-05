@@ -29,7 +29,6 @@ class _FeedsState extends State<Feeds> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _getProductsOnRefresh();
   }
