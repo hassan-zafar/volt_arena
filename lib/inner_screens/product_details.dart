@@ -179,7 +179,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                       _details(themeState.darkTheme, 'Game Time: ',
                           '${prodAttr.gameTime} min'),
+                      _details(themeState.darkTheme, 'Pallets Available: ',
+                          '${prodAttr.pallets} '),
+                      _details(themeState.darkTheme, 'Category: ',
+                          '${prodAttr.productCategoryName} '),
 
+                      prodAttr.isIndividual!
+                          ? Container()
+                          : _details(themeState.darkTheme, 'Group Members: ',
+                              '${prodAttr.groupMembers} '),
                       _details(themeState.darkTheme, 'Popularity: ',
                           prodAttr.isPopular! ? 'Popular' : 'Barely known'),
                       SizedBox(
