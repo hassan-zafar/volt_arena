@@ -59,6 +59,7 @@ dependencies:
   flutter_local_notifications:
   timeago:
   bot_toast:
+  get_storage:
 dev_dependencies:
   flutter_test:
     sdk: flutter

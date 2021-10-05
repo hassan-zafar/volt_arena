@@ -12,6 +12,8 @@ import 'package:volt_arena/models/meetingsModel.dart';
 class CalenderScreen extends StatefulWidget {
   static const routeName = '/CalenderScreen';
 
+  final int? gameTime;
+  CalenderScreen({this.gameTime});
   @override
   _CalenderScreenState createState() => _CalenderScreenState();
 }
@@ -84,7 +86,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                       CalendarView.timelineWorkWeek,
                       CalendarView.workWeek
                     ],
-                    view: CalendarView.month,
+                    view: CalendarView.week,
                     showDatePickerButton: true,
                     showNavigationArrow: true,
                     allowViewNavigation: true,

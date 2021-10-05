@@ -1,5 +1,6 @@
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
+import 'package:volt_arena/database/database.dart';
 import 'package:volt_arena/main_screen.dart';
 import 'package:volt_arena/screens/auth/forget_password.dart';
 import 'package:volt_arena/services/global_method.dart';
@@ -43,8 +44,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 email: _emailAddress.toLowerCase().trim(),
                 password: _password.trim())
             .then((value) {
-          Navigator.canPop(context) ? Navigator.pop(context) : null;
-          Navigator.of(context).popAndPushNamed(MainScreens.routeName);
+          DatabaseMethods()
+              .fetchUserInfoFromFirebase(uid: value.user!.uid)
+              .then((value) {
+            Navigator.canPop(context) ? Navigator.pop(context) : null;
+            Navigator.of(context).popAndPushNamed(MainScreens.routeName);
+          });
         });
       } catch (error) {
         _globalMethods.authErrorHandle(error.toString(), context);

@@ -190,53 +190,53 @@ class _ProductDetailsState extends State<ProductDetails> {
                         color: Colors.grey,
                         height: 1,
                       ),
-
+                      reviews(productId: productId, productItems: prodAttr),
                       // const SizedBox(height: 15.0),
-                      Container(
-                        // color: Theme.of(context).backgroundColor,
-                        width: double.infinity,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(height: 10.0),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'No reviews yet',
-                                style: TextStyle(
-                                    color: Theme.of(context).disabledColor,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 21.0),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: elevatedButtonStyle(),
-                                child: Text(
-                                  'Be the first to review!',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20.0,
-                                    color: themeState.darkTheme
-                                        ? Theme.of(context).canvasColor
-                                        : ColorsConsts.subTitle,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 70,
-                            ),
-                            Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                              height: 1,
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   // color: Theme.of(context).backgroundColor,
+                      //   width: double.infinity,
+                      //   child: Column(
+                      //     crossAxisAlignment: CrossAxisAlignment.center,
+                      //     children: [
+                      //       const SizedBox(height: 10.0),
+                      //       Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Text(
+                      //           'No reviews yet',
+                      //           style: TextStyle(
+                      //               color: Theme.of(context).disabledColor,
+                      //               fontWeight: FontWeight.w600,
+                      //               fontSize: 21.0),
+                      //         ),
+                      //       ),
+                      //       Padding(
+                      //         padding: const EdgeInsets.all(2.0),
+                      //         child: ElevatedButton(
+                      //           onPressed: () {},
+                      //           style: elevatedButtonStyle(),
+                      //           child: Text(
+                      //             'Be the first to review!',
+                      //             style: TextStyle(
+                      //               fontWeight: FontWeight.w400,
+                      //               fontSize: 20.0,
+                      //               color: themeState.darkTheme
+                      //                   ? Theme.of(context).canvasColor
+                      //                   : ColorsConsts.subTitle,
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       SizedBox(
+                      //         height: 70,
+                      //       ),
+                      //       Divider(
+                      //         thickness: 1,
+                      //         color: Colors.grey,
+                      //         height: 1,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -437,11 +437,11 @@ class _ProductDetailsState extends State<ProductDetails> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "Comments",
+              "Reviews",
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
           ),
-          writeReviews(),
+          writeReviews(productItems!),
           Column(
             children: <Widget>[
               GestureDetector(
@@ -452,7 +452,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           isProductComment: true,
                           isPostComment: false,
                           isAdmin: false,
-                          postMediaUrl: productItems!.imageUrl,
+                          postMediaUrl: productItems.imageUrl,
                           postId: productItems.productId,
                         ))),
               ),
@@ -466,7 +466,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     );
   }
 
-  writeReviews() {
+  writeReviews(Product productItems) {
     return Column(
       children: [
         // Row(
@@ -508,7 +508,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
           ),
           trailing: IconButton(
-            onPressed: addReview,
+            onPressed: () => addReview(productItems: productItems),
             icon: isUploading
                 ? Text('')
                 : Icon(
@@ -537,7 +537,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           allReviews.add(CommentsNMessages.fromDocument(doc));
         });
         return allReviews.isEmpty
-            ? Center(child: Text("Currently No comment"))
+            ? Center(child: Text("Currently No Review"))
             : Center(
                 child: Column(
                   children: [
@@ -555,7 +555,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       isProductComment: true,
                                     ))),
                         child: Text(
-                          'View All Comments',
+                          'View All Reviews',
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         )),

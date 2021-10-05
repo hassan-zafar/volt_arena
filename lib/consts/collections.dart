@@ -9,3 +9,4 @@ final calenderRef = FirebaseFirestore.instance.collection('calenderMeetings');
 final activityFeedRef = FirebaseFirestore.instance.collection('activityFeed');
 
 AppUserModel? currentUser;
+bool? isAdmin;
