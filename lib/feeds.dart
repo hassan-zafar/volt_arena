@@ -22,7 +22,9 @@ class Feeds extends StatefulWidget {
 class _FeedsState extends State<Feeds> {
   Future<void> _getProductsOnRefresh() async {
     await Provider.of<Products>(context, listen: false).fetchProducts();
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +17,8 @@ class UploadProductForm extends StatefulWidget {
   @override
   _UploadProductFormState createState() => _UploadProductFormState();
 }
+
+enum IndGrp { Individual, Group, Either }
 
 class _UploadProductFormState extends State<UploadProductForm> {
   final _formKey = GlobalKey<FormState>();
@@ -36,6 +39,12 @@ class _UploadProductFormState extends State<UploadProductForm> {
   bool _isLoading = false;
   String? url;
   var uuid = Uuid();
+  final FixedExtentScrollController groupIndividual =
+      FixedExtentScrollController(initialItem: 0);
+  final FixedExtentScrollController groupmemberNumbers =
+      FixedExtentScrollController(initialItem: 0);
+
+  bool? _isIndividual = true;
   showAlertDialog(BuildContext context, String title, String body) {
     // show the dialog
     showDialog(
@@ -577,7 +586,58 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   ),
                                 ),
                               ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 9),
+                                  child: TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    key: ValueKey('Pellets'),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Number of Pellets are missed';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Pellets',
+                                    ),
+                                    onSaved: (value) {
+                                      _productQuantity = value!;
+                                    },
+                                  ),
+                                ),
+                              ),
                             ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Text("Group / Individual / Either"),
+                                ),
+                                Expanded(
+                                    flex: 2,
+                                    child: groupIndividualPicker(
+                                        controller: groupIndividual)),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Text("Number of group members"),
+                                ),
+                                Expanded(
+                                    flex: 2,
+                                    child: groupMembers(
+                                        controller: groupmemberNumbers)),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -591,6 +651,96 @@ class _UploadProductFormState extends State<UploadProductForm> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Container groupIndividualPicker({
+    final controller,
+  }) {
+    return Container(
+      // width: 200,
+      height: 80,
+      child: CupertinoPicker(
+        selectionOverlay: null,
+        // squeeze: 1.5,
+        onSelectedItemChanged: (int value) {
+          setState(() {
+            if (value == 0) {
+              _isIndividual = true;
+              print(IndGrp.values[value]);
+            } else if (value == 1) {
+              _isIndividual = false;
+            }
+          });
+          print(_isIndividual);
+        },
+        itemExtent: 25,
+        scrollController: controller,
+        children: [
+          Text("Individual",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).dividerColor,
+              )),
+          Text("Group",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).dividerColor,
+              )),
+          Text("Either",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).dividerColor,
+              )),
+        ],
+        useMagnifier: true, diameterRatio: 1,
+        magnification: 1.1,
+      ),
+    );
+  }
+
+  Container groupMembers({
+    final controller,
+  }) {
+    return Container(
+      // width: 200,
+      height: 80,
+      child: CupertinoPicker(
+        selectionOverlay: null,
+        // squeeze: 1.5,
+        onSelectedItemChanged: (int value) {
+          setState(() {
+            if (value == 0) {
+              _isIndividual = true;
+              print(IndGrp.values[value]);
+            } else if (value == 1) {
+              _isIndividual = false;
+            }
+          });
+          print(_isIndividual);
+        },
+        itemExtent: 25,
+        scrollController: controller,
+        children: [
+          Text("10",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).dividerColor,
+              )),
+          Text("20",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).dividerColor,
+              )),
+          Text("50",
+              style: TextStyle(
+                fontSize: 15,
+                color: Theme.of(context).dividerColor,
+              )),
+        ],
+        useMagnifier: true, diameterRatio: 1,
+        magnification: 1.1,
       ),
     );
   }
