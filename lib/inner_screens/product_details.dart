@@ -369,7 +369,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => CalenderScreen(
-                                      gameTime: int.parse(prodAttr.gameTime!),
+                                      gameTime: int.parse(
+                                        prodAttr.gameTime!,
+                                      ),
+                                      title: prodAttr.title!,
                                     )))
                             .then((value) => Navigator.pop(context));
                       },

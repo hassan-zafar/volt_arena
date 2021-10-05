@@ -13,7 +13,8 @@ class CalenderScreen extends StatefulWidget {
   static const routeName = '/CalenderScreen';
 
   final int? gameTime;
-  CalenderScreen({this.gameTime});
+  final String? title;
+  CalenderScreen({this.gameTime, this.title});
   @override
   _CalenderScreenState createState() => _CalenderScreenState();
 }
@@ -135,6 +136,13 @@ class _CalenderScreenState extends State<CalenderScreen>
                         style: titleTextStyle(),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.title!,
+                        style: titleTextStyle(fontSize: 20),
+                      ),
+                    ),
                     ElevatedButton(
                       onPressed: () async {
                         TimeOfDay? startingTimeTemp = await showTimePicker(
@@ -143,6 +151,8 @@ class _CalenderScreenState extends State<CalenderScreen>
                             helpText: "Select Event Starting Time");
                         setState(() {
                           this.startingTime = startingTimeTemp!;
+                          this.endingTime =
+                              startingTime!.add(minute: widget.gameTime!);
                         });
                         print(startingTime);
                       },
@@ -154,24 +164,26 @@ class _CalenderScreenState extends State<CalenderScreen>
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        var endingTimeTemp = await showTimePicker(
-                            context: context,
-                            initialTime: TimeOfDay.now(),
-                            helpText: "Select Event Ending Time");
-                        setState(() {
-                          this.endingTime = endingTimeTemp!;
-                        });
-                      },
-                      child: Text(endingTime == null
-                          ? "Select Event Ending Time"
-                          : endingTime!.format(context)),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () async {
+                    //     var endingTimeTemp = await showTimePicker(
+                    //         context: context,
+                    //         initialTime: TimeOfDay.now(),
+                    //         helpText: "Select Event Ending Time");
+                    //     setState(() {
+                    //       this.endingTime = endingTimeTemp!;
+                    //     });
+                    //   },
+                    //   child:
+                    Text(endingTime == null
+                        ? "Ending Time"
+                        : endingTime!.format(context)),
+                    // ),
                     TextField(
                       controller: _titleController,
                       decoration: InputDecoration(
-                          labelText: "Title", hintText: "Enter Event Title"),
+                          labelText: "Booking Name",
+                          hintText: "Enter booking name"),
                     ),
                     ElevatedButton(
                         onPressed: () {
@@ -189,7 +201,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                         child: Row(
                           children: [
                             Icon(Icons.calendar_today_outlined),
-                            Text("Add Event"),
+                            Text("Book Event"),
                           ],
                         ))
                   ],

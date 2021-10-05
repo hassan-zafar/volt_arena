@@ -14,6 +14,12 @@ TextStyle ralewayStyle(double size,
   );
 }
 
+extension TimeOfDayExtension on TimeOfDay {
+  TimeOfDay add({int hour = 0, int minute = 0}) {
+    return this.replacing(hour: this.hour + hour, minute: this.minute + minute);
+  }
+}
+
 TextStyle montserratStyle(double size,
     [Color? color, FontWeight fontWeight = FontWeight.w700]) {
   return GoogleFonts.montserrat(

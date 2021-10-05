@@ -60,6 +60,7 @@ dependencies:
   timeago:
   bot_toast:
   get_storage:
+  share: null
 dev_dependencies:
   flutter_test:
     sdk: flutter
