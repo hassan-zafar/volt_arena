@@ -453,7 +453,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           isPostComment: false,
                           isAdmin: false,
                           postMediaUrl: productItems!.imageUrl,
-                          postId: productItems.id,
+                          postId: productItems.productId,
                         ))),
               ),
             ],
@@ -579,7 +579,10 @@ class _ProductDetailsState extends State<ProductDetails> {
       isUploading = true;
     });
     if (_reviewController.text.trim().length > 0) {
-      await commentsRef.doc(productItems!.id).collection("comments").add({
+      await commentsRef
+          .doc(productItems!.productId)
+          .collection("comments")
+          .add({
         "userName": currentUser!.userName,
         "userId": currentUser!.id,
         "androidNotificationToken": currentUser!.androidNotificationToken,
@@ -587,7 +590,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         "timestamp": DateTime.now(),
         "isComment": false,
         "isProductComment": true,
-        "postId": productItems.id,
+        "postId": productItems.productId,
         "commentId": commentId,
         "likesMap": {},
         "likes": 0,

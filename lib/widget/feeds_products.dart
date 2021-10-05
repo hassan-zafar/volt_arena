@@ -18,11 +18,12 @@ class _FeedProductsState extends State<FeedProducts> {
     final cartProvider = Provider.of<CartProvider>(context);
 
     final productsAttributes = Provider.of<Product>(context);
+    print(productsAttributes);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
-            arguments: productsAttributes.id),
+            arguments: productsAttributes.productId),
         child: Container(
           width: 150,
           height: 150,
@@ -114,7 +115,7 @@ class _FeedProductsState extends State<FeedProducts> {
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) => FeedDialog(
-                                    productId: productsAttributes.id!,
+                                    productId: productsAttributes.productId!,
                                   ),
                                 );
                               },

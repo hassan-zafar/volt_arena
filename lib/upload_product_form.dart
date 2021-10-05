@@ -122,6 +122,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
             'userId': _uid,
             "isIndividual": _isIndividual,
             'createdAt': Timestamp.now(),
+            
           });
           Navigator.canPop(context) ? Navigator.pop(context) : null;
         }

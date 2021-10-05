@@ -44,7 +44,7 @@ class PopularProducts extends StatelessWidget {
               bottomRight: Radius.circular(10.0),
             ),
             onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
-                arguments: productsAttributes.id),
+                arguments: productsAttributes.productId),
             child: Column(
               children: [
                 Stack(
@@ -62,7 +62,7 @@ class PopularProducts extends StatelessWidget {
                       child: Icon(
                         FontAwesomeIcons.star,
                         color: favsProvider.getFavsItems
-                                .containsKey(productsAttributes.id)
+                                .containsKey(productsAttributes.productId)
                             ? Colors.red
                             : Colors.grey.shade800,
                       ),
@@ -125,12 +125,12 @@ class PopularProducts extends StatelessWidget {
                               color: Colors.transparent,
                               child: InkWell(
                                 onTap: cartProvider.getCartItems.containsKey(
-                                  productsAttributes.id,
+                                  productsAttributes.productId,
                                 )
                                     ? () {}
                                     : () {
                                         cartProvider.addProductToCart(
-                                            productsAttributes.id!,
+                                            productsAttributes.productId!,
                                             productsAttributes.price!,
                                             productsAttributes.title!,
                                             productsAttributes.imageUrl!);
@@ -140,7 +140,7 @@ class PopularProducts extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Icon(
                                     cartProvider.getCartItems.containsKey(
-                                      productsAttributes.id,
+                                      productsAttributes.productId,
                                     )
                                         ? Icons.check
                                         : Icons.add_shopping_cart_outlined,

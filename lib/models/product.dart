@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 
 class Product with ChangeNotifier {
-  final String? id;
+  final String? productId;
   final String? title;
   final String? description;
   final double? price;
   final String? imageUrl;
   final bool? isIndividual;
-  final int? gameTime;
+  final String? gameTime;
   final bool? isFavorite;
   final bool? isPopular;
-  final int? pallets;
+  final String? pallets;
   final int? groupMembers;
   final String? productCategoryName;
   Product({
-    this.id,
+    this.productId,
     this.title,
     this.description,
     this.price,
@@ -29,18 +29,17 @@ class Product with ChangeNotifier {
   });
   factory Product.fromDocument(doc) {
     return Product(
-      id: doc.data()["id"],
-      title: doc.data()["title"],
-      description: doc.data()["description"],
-      price: double.parse(doc.data()["price"]),
-      imageUrl: doc.data()["imageUrl"],
-      groupMembers: doc.data()["groupMembers"],
-      isIndividual: doc.data()["isIndividual"],
-      gameTime: int.parse(doc.data()["gameTime"]),
-      isFavorite: doc.data()["isFavorite"],
-      isPopular: doc.data()["isPopular"],
-      pallets: doc.data()["pallets"],
-      productCategoryName: doc.data()["productCategoryName"],
-    );
+        productId: doc.data()["productId"],
+        title: doc.data()["productTitle"],
+        description: doc.data()["productDescription"],
+        price: double.parse(doc.data()["price"]),
+        imageUrl: doc.data()["productImage"],
+        groupMembers: doc.data()["groupMembers"],
+        isIndividual: doc.data()["isIndividual"],
+        gameTime: doc.data()["gameTime"],
+        isFavorite: doc.data()["isFavorite"],
+        pallets: doc.data()["pallets"],
+        productCategoryName: doc.data()["productCategory"],
+        isPopular: true);
   }
 }
