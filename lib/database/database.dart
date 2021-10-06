@@ -38,4 +38,6 @@ class DatabaseMethods {
       // UserLocalData().setToken(token!);
     });
   }
+
+  addUserInfoToFirebase({AppUserModel? userModel, String? userId, String? email, bool ?isStuTeacher}) {}
 }

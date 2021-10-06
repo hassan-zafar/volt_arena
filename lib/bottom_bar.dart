@@ -5,6 +5,7 @@ import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
+import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
@@ -36,6 +37,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       Feeds(),
       Search(),
       MyBookingsScreen(),
+      CalenderScreen(),
+      
       // UserInfo(),
     ];
     //
