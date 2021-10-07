@@ -53,9 +53,16 @@ class _UserNSearchState extends State<UserNSearch>
         controller: searchController,
         decoration: InputDecoration(
             hintText: "Search",
-            prefixIcon: Icon(Icons.search),
+            hintStyle: TextStyle(color: Colors.black),
+            prefixIcon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
             suffixIcon: IconButton(
-              icon: Icon(Icons.clear),
+              icon: Icon(
+                Icons.clear,
+                color: Colors.black,
+              ),
               onPressed: clearSearch,
             )),
         onFieldSubmitted: handleSearch,
@@ -116,8 +123,6 @@ class _UserNSearchState extends State<UserNSearch>
               }
               List<UserResult> userResults = [];
               List<UserResult> allAdmins = [];
-              List<UserResult> allTeachers = [];
-              List<UserResult> allStudents = [];
 
               snapshot.data!.docs.forEach((doc) {
                 AppUserModel user = AppUserModel.fromDocument(doc);
@@ -201,66 +206,6 @@ class _UserNSearchState extends State<UserNSearch>
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              typeSelected = "teachers";
-                                            });
-                                          },
-                                          child: GlassContainer(
-                                              opacity: 0.7,
-                                              shadowStrength: 8,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  "Teachers ${allTeachers.length}",
-                                                  style:
-                                                      TextStyle(fontSize: 20.0),
-                                                ),
-                                              )),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              typeSelected = "students";
-                                            });
-                                          },
-                                          child: GlassContainer(
-                                              opacity: 0.7,
-                                              shadowStrength: 8,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  "Students ${allStudents.length}",
-                                                  style:
-                                                      TextStyle(fontSize: 20.0),
-                                                ),
-                                              )),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                 ],
                               ),
                             ),
@@ -274,16 +219,6 @@ class _UserNSearchState extends State<UserNSearch>
                     typeSelected == 'users'
                         ? Column(
                             children: userResults,
-                          )
-                        : Text(''),
-                    typeSelected == 'teachers'
-                        ? Column(
-                            children: allTeachers,
-                          )
-                        : Text(''),
-                    typeSelected == 'students'
-                        ? Column(
-                            children: allStudents,
                           )
                         : Text(''),
                   ],

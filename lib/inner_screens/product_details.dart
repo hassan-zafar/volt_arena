@@ -377,6 +377,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => CalenderScreen(
+                                      price: prodAttr.price!.toInt(),
                                       gameTime: int.parse(
                                         prodAttr.gameTime!,
                                       ),
@@ -528,7 +529,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 : Icon(
                     Icons.send,
                     size: 40.0,
-                    color: Colors.black,
+                    // color: Colors.black,
                   ),
           ),
         ),
@@ -544,38 +545,40 @@ class _ProductDetailsState extends State<ProductDetails> {
           .orderBy("timestamp", descending: false)
           .snapshots(),
       builder: (context, snapshot) {
+        print(snapshot.data);
         if (!snapshot.hasData) {
           return LoadingIndicator();
+        } else {
+          snapshot.data!.docs.forEach((doc) {
+            allReviews.add(CommentsNMessages.fromDocument(doc));
+          });
+          return allReviews.isEmpty
+              ? Center(child: Text("Currently No Review"))
+              : Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: allReviews.last,
+                      ),
+                      GestureDetector(
+                          onTap: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => CommentsNChat(
+                                        postId: productId,
+                                        postMediaUrl: productItems!.imageUrl,
+                                        isAdmin: currentUser!.isAdmin,
+                                        isPostComment: false,
+                                        isProductComment: true,
+                                      ))),
+                          child: Text(
+                            'View All Reviews',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          )),
+                    ],
+                  ),
+                );
         }
-        snapshot.data!.docs.forEach((doc) {
-          allReviews.add(CommentsNMessages.fromDocument(doc));
-        });
-        return allReviews.isEmpty
-            ? Center(child: Text("Currently No Review"))
-            : Center(
-                child: Column(
-                  children: [
-                    Container(
-                      child: allReviews.last,
-                    ),
-                    GestureDetector(
-                        onTap: () =>
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => CommentsNChat(
-                                      postId: productId,
-                                      postMediaUrl: productItems!.imageUrl,
-                                      isAdmin: currentUser!.isAdmin,
-                                      isPostComment: false,
-                                      isProductComment: true,
-                                    ))),
-                        child: Text(
-                          'View All Reviews',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        )),
-                  ],
-                ),
-              );
       },
     );
   }

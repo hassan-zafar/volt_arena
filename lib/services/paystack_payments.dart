@@ -45,7 +45,7 @@ class MakePayment {
 
   //Method Charging card
   Future chargeCardAndMakePayment() async {
-    bool response = false;
+    print("here: chargeCardAndMakePayment");
     initializePlugin().then((_) async {
       Charge charge = Charge()
         ..amount = price! * 100
@@ -59,7 +59,10 @@ class MakePayment {
         charge: charge,
         method: CheckoutMethod.card,
         fullscreen: false,
-        logo: Image.asset(logo),
+        logo: Image.asset(
+          logo,
+          height: 24,
+        ),
       );
 
       print("Response $response");
@@ -72,7 +75,7 @@ class MakePayment {
 
         Fluttertoast.showToast(msg: "Transaction failed");
       }
-      return response.status;
+      // return response.status;
     });
   }
 }

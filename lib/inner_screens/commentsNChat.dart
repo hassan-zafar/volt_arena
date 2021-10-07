@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/consts/collections.dart';
+import 'package:volt_arena/consts/theme_data.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/services/notificationHandler.dart';
+import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class CommentsNChat extends StatefulWidget {
   final String? postId;
@@ -346,7 +348,7 @@ class CommentsNMessages extends StatefulWidget {
   });
   factory CommentsNMessages.fromDocument(doc) {
     return CommentsNMessages(
-      avatarUrl: doc.data()['avatarUrl'],
+      // avatarUrl: doc.data()['avatarUrl'],
       comment: doc.data()['comment'],
       timestamp: doc.data()['timestamp'],
       userId: doc.data()['userId'],
@@ -382,120 +384,126 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
   buildCommentBubble() {
     commentLikes = widget.likes;
     _isLiked = widget.likesMap![currentUser!.id] == true;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(widget.avatarUrl!),
-            ),
-            SizedBox(
-              width: 8,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      Text("${widget.userName} : ",
-                          style:
-                              TextStyle(fontSize: 14.0, color: Colors.black)),
-                      Flexible(
-                        child: Text(
-                          "${widget.comment}",
-                          style: TextStyle(fontSize: 14.0, color: Colors.black),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    timeago.format(widget.timestamp!.toDate()),
-                    style: TextStyle(color: Colors.black54, fontSize: 12),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      GestureDetector(
-                          onTap: () async {
-                            if (_isLiked) {
-                              setState(() {
-                                commentLikes -= 1;
-                                _isLiked = false;
-                              });
-                              await commentsRef
-                                  .doc(widget.postId)
-                                  .collection("comments")
-                                  .doc(widget.commentId)
-                                  .update({
-                                "likes": commentLikes,
-                                "likesMap": {currentUser!.id: false}
-                              });
-
-                              BotToast.showText(text: "Like Removed");
-                            } else {
-                              setState(() {
-                                commentLikes += 1;
-                                _isLiked = true;
-                              });
-                              await commentsRef
-                                  .doc(widget.postId)
-                                  .collection("comments")
-                                  .doc(widget.commentId)
-                                  .update({
-                                "likes": commentLikes,
-                                "likesMap": {currentUser!.id: true}
-                              });
-                              // activityFeedRef
-                              //     .doc(widget.postId)
-                              //     .collection('feedItems')
-                              //     .add({
-                              //   "type": "comment",
-                              //   "commentData":
-                              //       _commentNMessagesController.text,
-                              //   "userName": currentUser.userName,
-                              //   "userId": currentUser.id,
-                              //   "userProfileImg": currentUser.photoUrl,
-                              //   "postId": widget.postId,
-                              //   "mediaUrl": widget.avatarUrl,
-                              //   "timestamp": timestamp,
-                              // });
-                              sendAndRetrieveMessage(
-                                  token: widget.androidNotificationToken!,
-                                  message: _commentNMessagesController.text,
-                                  title: "Comment Liked",
-                                  context: context);
-
-                              BotToast.showText(text: "Comment Liked");
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 8),
-                            child: Text("$commentLikes  Like"),
-                          )),
-                      GestureDetector(
-                          onTap: () {
-                            _commentNMessagesController.text =
-                                "@${widget.userName} ";
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8, right: 8),
-                            child: Text("Reply"),
-                          ))
-                    ],
-                  ),
-                ],
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: [
+              // CircleAvatar(
+              //   backgroundImage: CachedNetworkImageProvider(widget.avatarUrl!),
+              // ),
+              SizedBox(
+                width: 8,
               ),
-            )
-          ],
-        ),
-      ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Text("${widget.userName} : ",
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Theme.of(context).dividerColor)),
+                        Flexible(
+                          child: Text(
+                            "${widget.comment}",
+                            style: TextStyle(
+                                fontSize: 14.0,
+                                color: Theme.of(context).dividerColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      timeago.format(widget.timestamp!.toDate()),
+                      style: TextStyle(
+                          color: Theme.of(context).dividerColor, fontSize: 12),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                            onTap: () async {
+                              if (_isLiked) {
+                                setState(() {
+                                  commentLikes -= 1;
+                                  _isLiked = false;
+                                });
+                                await commentsRef
+                                    .doc(widget.postId)
+                                    .collection("comments")
+                                    .doc(widget.commentId)
+                                    .update({
+                                  "likes": commentLikes,
+                                  "likesMap": {currentUser!.id: false}
+                                });
+
+                                BotToast.showText(text: "Like Removed");
+                              } else {
+                                setState(() {
+                                  commentLikes += 1;
+                                  _isLiked = true;
+                                });
+                                await commentsRef
+                                    .doc(widget.postId)
+                                    .collection("comments")
+                                    .doc(widget.commentId)
+                                    .update({
+                                  "likes": commentLikes,
+                                  "likesMap": {currentUser!.id: true}
+                                });
+                                // activityFeedRef
+                                //     .doc(widget.postId)
+                                //     .collection('feedItems')
+                                //     .add({
+                                //   "type": "comment",
+                                //   "commentData":
+                                //       _commentNMessagesController.text,
+                                //   "userName": currentUser.userName,
+                                //   "userId": currentUser.id,
+                                //   "userProfileImg": currentUser.photoUrl,
+                                //   "postId": widget.postId,
+                                //   "mediaUrl": widget.avatarUrl,
+                                //   "timestamp": timestamp,
+                                // });
+                                sendAndRetrieveMessage(
+                                    token: widget.androidNotificationToken!,
+                                    message: _commentNMessagesController.text,
+                                    title: "Comment Liked",
+                                    context: context);
+
+                                BotToast.showText(text: "Comment Liked");
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: Text("$commentLikes  Like"),
+                            )),
+                        GestureDetector(
+                            onTap: () {
+                              _commentNMessagesController.text =
+                                  "@${widget.userName} ";
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: Text("Reply"),
+                            ))
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -504,7 +512,7 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
       decoration: BoxDecoration(
-        color: isMe ? Colors.cyan : Colors.black26,
+        color: isMe ? Colors.cyan : Theme.of(context).dividerColor,
         borderRadius: isMe
             ? BorderRadius.only(
                 bottomLeft: Radius.circular(20),
@@ -543,19 +551,23 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                         children: [
                           Text("${widget.userName} : ",
                               style: TextStyle(
-                                  fontSize: 14.0, color: Colors.black)),
+                                  fontSize: 14.0,
+                                  color: Theme.of(context).dividerColor)),
                           Flexible(
                             child: Text(
                               "${widget.comment}",
                               style: TextStyle(
-                                  fontSize: 14.0, color: Colors.black),
+                                  fontSize: 14.0,
+                                  color: Theme.of(context).dividerColor),
                             ),
                           ),
                         ],
                       ),
                       Text(
                         timeago.format(widget.timestamp!.toDate()),
-                        style: TextStyle(color: Colors.black54, fontSize: 12),
+                        style: TextStyle(
+                            color: Theme.of(context).dividerColor,
+                            fontSize: 12),
                       ),
                     ],
                   ),

@@ -5,6 +5,7 @@ import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
+import 'package:volt_arena/screens/adminScreens/allUsers.dart';
 import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       Search(),
       MyBookingsScreen(),
       CalenderScreen(),
-      
+      UserNSearch(),
       // UserInfo(),
     ];
     //
@@ -128,8 +129,15 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                     ),
                     label: 'Search'),
                 BottomNavigationBarItem(
+                    icon: Icon(Icons.calendar_today), label: 'BOOKINGS'),
+                BottomNavigationBarItem(
                     icon: Icon(
                       MyAppIcons.bag,
+                    ),
+                    label: 'All Users'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      MyAppIcons.user,
                     ),
                     label: 'My Bookings'),
                 // BottomNavigationBarItem(

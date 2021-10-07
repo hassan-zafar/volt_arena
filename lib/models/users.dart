@@ -71,7 +71,7 @@ class AppUserModel {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  //String toJson() => json.encode(toMap());
 
   factory AppUserModel.fromJson(String source) =>
       AppUserModel.fromMap(json.decode(source));

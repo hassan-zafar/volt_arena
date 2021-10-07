@@ -89,7 +89,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                       CalendarView.timelineWorkWeek,
                       CalendarView.workWeek
                     ],
-                    view: CalendarView.week,
+                    view: CalendarView.month,
                     showDatePickerButton: true,
                     showNavigationArrow: true,
                     allowViewNavigation: true,

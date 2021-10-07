@@ -26,8 +26,8 @@ class DatabaseMethods {
     currentUser = AppUserModel.fromDocument(_user);
     createToken(uid);
     UserLocalData().setIsAdmin(currentUser!.isAdmin);
-    Map userData = json.decode(currentUser!.toJson());
-    UserLocalData().setUserModel(json.encode(userData));
+    // Map userData = json.decode(currentUser!.toJson());
+    // UserLocalData().setUserModel(json.encode(userData));
     var user = UserLocalData().getUserData();
     print(user);
     isAdmin = currentUser!.isAdmin;
