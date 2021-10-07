@@ -8,13 +8,15 @@ import 'package:volt_arena/consts/theme_data.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/database/database.dart';
 import 'package:volt_arena/models/meetingsModel.dart';
+import 'package:volt_arena/services/paystack_payments.dart';
 
 class CalenderScreen extends StatefulWidget {
   static const routeName = '/CalenderScreen';
 
   final int? gameTime;
   final String? title;
-  CalenderScreen({this.gameTime, this.title});
+  final int? price;
+  CalenderScreen({this.gameTime, this.title, this.price});
   @override
   _CalenderScreenState createState() => _CalenderScreenState();
 }
@@ -188,7 +190,10 @@ class _CalenderScreenState extends State<CalenderScreen>
                     ElevatedButton(
                         onPressed: () {
                           setState(() {
-
+                            MakePayment()
+                              ..ctx = context
+                              ..email = currentUser!.email
+                              ..price = widget.price;
                             meetingsList.add(getDataSource(
                               title: _titleController.text,
                               dateTime: asd,
@@ -213,7 +218,7 @@ class _CalenderScreenState extends State<CalenderScreen>
         });
   }
 
-Meeting getDataSource(
+  Meeting getDataSource(
       {TimeOfDay? startTimeOfDay,
       TimeOfDay? endTimeOfDay,
       String? title,
