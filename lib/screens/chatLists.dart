@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/inner_screens/commentsNChat.dart';
@@ -63,17 +64,20 @@ class _ChatListsState extends State<ChatLists> {
                                       chatHeads[index].androidNotificationToken,
                                   heroMsg: chatHeads[index].comment,
                                 ))),
-                    child: ListTile(
-                      leading: Hero(
-                        tag: chatHeads[index].comment!,
-                        child: CircleAvatar(
-                          child: Icon(Icons.person),
+                    child: GlassContainer(
+                      opacity: 0.6,
+                      child: ListTile(
+                        leading: Hero(
+                          tag: chatHeads[index].comment!,
+                          child: CircleAvatar(
+                            child: Icon(Icons.person),
+                          ),
                         ),
-                      ),
-                      title: Text(chatHeads[index].userName!),
-                      subtitle: Text(
-                        chatHeads[index].comment!,
-                        overflow: TextOverflow.ellipsis,
+                        title: Text(chatHeads[index].userName!),
+                        subtitle: Text(
+                          chatHeads[index].comment!,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ),

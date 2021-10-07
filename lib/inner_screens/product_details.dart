@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:badges/badges.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/collections.dart';
@@ -443,9 +444,10 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   Widget reviews({String? productId, Product? productItems}) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.87,
-      margin: EdgeInsets.all(8.0),
+    return GlassContainer(
+      opacity: 0.6,
+      // width: MediaQuery.of(context).size.width * 0.87,
+      // margin: EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

@@ -7,6 +7,7 @@ import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/screens/adminScreens/allUsers.dart';
 import 'package:volt_arena/screens/calender.dart';
+import 'package:volt_arena/screens/chatLists.dart';
 import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
@@ -40,6 +41,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       MyBookingsScreen(),
       CalenderScreen(),
       UserNSearch(),
+      ChatLists(),
       // UserInfo(),
     ];
     //
@@ -140,6 +142,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                       MyAppIcons.user,
                     ),
                     label: 'My Bookings'),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.chat_bubble,
+                    ),
+                    label: 'Admin Chats'),
                 // BottomNavigationBarItem(
                 //     icon: Icon(MyAppIcons.user), label: 'User'),
               ],
