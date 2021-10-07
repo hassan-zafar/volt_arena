@@ -1,11 +1,15 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class AppUserModel {
   final String? id;
-  final String? userName;
-  final String? phoneNo;
+  final String? name;
+  final String? imageUrl;
+  final int? phoneNo;
   final String? password;
-  final String? timestamp;
+  final Timestamp? createdAt;
+  final String? joinedAt;
   final bool? isAdmin;
   final String? email;
   final String? androidNotificationToken;
@@ -13,24 +17,27 @@ class AppUserModel {
   // final Map? sectionsAppointed;
   AppUserModel(
       {this.id,
-      this.userName,
-
+      this.name,
       this.phoneNo,
       this.password,
-      this.timestamp,
+      this.createdAt,
       this.isAdmin,
       this.email,
+      this.joinedAt,
+      this.imageUrl,
       this.androidNotificationToken});
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'userName': userName,
+      'name': name,
       'phoneNo': phoneNo,
       'password': password,
-      'timestamp': timestamp,
+      'createdAt': createdAt,
       'isAdmin': isAdmin,
       'email': email,
+      'joinedAt': joinedAt,
+      'imageUrl': imageUrl,
       'androidNotificationToken': androidNotificationToken,
     };
   }
@@ -38,26 +45,30 @@ class AppUserModel {
   factory AppUserModel.fromMap(Map<String, dynamic> map) {
     return AppUserModel(
         id: map['id'],
-        userName: map['userName'],
+        name: map['userName'],
         phoneNo: map['phoneNo'],
         password: map['password'],
-        timestamp: map['timestamp'],
+        createdAt: map['createdAt'],
+        imageUrl: map['imageUrl'],
         isAdmin: map['isAdmin'],
         email: map['email'],
+        joinedAt: map['joinedAt'],
         androidNotificationToken: map['androidNotificationToken']);
   }
 
   factory AppUserModel.fromDocument(doc) {
     return AppUserModel(
-        id: doc.data()["id"],
-        password: doc.data()["password"],
-        userName: doc.data()["userName"],
-        timestamp: doc.data()["timestamp"],
-        email: doc.data()["email"],
-        isAdmin: doc.data()["isAdmin"],
-        phoneNo: doc.data()["phoneNo"],
-        androidNotificationToken: doc.data()["androidNotificationToken"],
-        );
+      id: doc.data()["id"],
+      password: doc.data()["password"],
+      name: doc.data()["name"],
+      createdAt: doc.data()["createdAt"],
+      email: doc.data()["email"],
+      imageUrl: doc.data()["imageUrl"],
+      isAdmin: doc.data()["isAdmin"],
+      phoneNo: doc.data()["phoneNo"],
+      joinedAt: doc.data()["joinedAt"],
+      androidNotificationToken: doc.data()["androidNotificationToken"],
+    );
   }
 
   String toJson() => json.encode(toMap());

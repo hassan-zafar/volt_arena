@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:volt_arena/consts/colors.dart';
+import 'package:volt_arena/services/authentication_service.dart';
 import 'package:volt_arena/services/global_method.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -69,15 +70,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
           user.updateDisplayName(_fullName);
           user.updatePhotoURL(url);
           user.reload();
-          await FirebaseFirestore.instance.collection('users').doc(_uid).set({
-            'id': _uid,
-            'name': _fullName,
-            'email': _emailAddress,
-            'phoneNumber': _phoneNumber,
-            'imageUrl': url,
-            'joinedAt': formattedDate,
-            'createdAt': Timestamp.now(),
-          });
+          await AuthenticationService().signUp(
+              password: _password!.trim(),
+              userName: _fullName,
+              createdAt: Timestamp.now(),
+              email: _emailAddress!,              phoneNo: _phoneNumber!,
+
+              joinedAt: formattedDate,
+              imageUrl: url,
+              isAdmin: false
+              );
+
           Navigator.canPop(context) ? Navigator.pop(context) : null;
         }
       } catch (error) {

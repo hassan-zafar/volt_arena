@@ -137,7 +137,7 @@ class CommentsNChatState extends State<CommentsNChat> {
                 .add({
               "type": "commentMention",
               "commentData": _commentNMessagesController.text,
-              "userName": currentUser!.userName,
+              "userName": currentUser!.name,
               "userId": currentUser!.id,
               "postId": postId,
               "mediaUrl": postMediaUrl,
@@ -166,7 +166,7 @@ class CommentsNChatState extends State<CommentsNChat> {
       //
       // }
       commentsRef.doc(postId).collection("comments").doc(commentId).set({
-        "userName": currentUser!.userName,
+        "userName": currentUser!.name,
         "userId": currentUser!.id,
         "androidNotificationToken": currentUser!.androidNotificationToken,
         "comment": _commentNMessagesController.text,
@@ -224,7 +224,7 @@ class CommentsNChatState extends State<CommentsNChat> {
           .collection("chats")
           .doc(commentId)
           .set({
-        "userName": currentUser!.userName,
+        "userName": currentUser!.name,
         "userId": currentUser!.id,
         "androidNotificationToken": currentUser!.androidNotificationToken,
         "comment": _commentNMessagesController.text,

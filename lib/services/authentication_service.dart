@@ -72,8 +72,11 @@ class AuthenticationService {
   Future<UserCredential?> signUp({
     required final String password,
     required final String? userName,
-    required final String? timestamp,
+    required final String? joinedAt,
+    required final String? imageUrl,
+    required final Timestamp? createdAt,
     required final String email,
+    required final int phoneNo,
     final bool? isAdmin,
   }) async {
     print("1st stop");
@@ -88,69 +91,20 @@ class AuthenticationService {
       assert(user != null);
       assert(await user.user!.getIdToken() != null);
       if (user != null) {
-        currentUser = AppUserModel(
-            id: user.user!.uid,
-            email: email.trim(),
-            password: password,
-            userName: userName
-            //  firebaseUuid: user.user!.uid,
-            );
         await DatabaseMethods().addUserInfoToFirebase(
-            userModel: currentUser!,
-            userId: user.user!.uid,
+            password: password,
+            userName: userName,
+            createdAt: createdAt,
             email: email,
-            isStuTeacher: false);
+            joinedAt: joinedAt,
+            userId: user.user!.uid,
+            phoneNo: phoneNo,
+            imageUrl: imageUrl,
+            isAdmin: false);
       }
       return user;
     } on FirebaseAuthException catch (e) {
       errorToast(message: "$e.message");
-    }
-  }
-
-  Future addNewUser({
-    String? password,
-    final String? firstName,
-    final String? userName,
-    final String? lastName,
-    final String? timestamp,
-    final String? email,
-    final String? rollNo,
-    final String? section,
-    final String? phoneNo,
-    final bool? isTeacher,
-    final String? branch,
-    final String? className,
-    final String? grades,
-  }) async {
-    try {
-      final UserCredential result = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email!, password: password!)
-          .catchError((Object obj) {
-        errorToast(message: obj.toString());
-      });
-      final User user = result.user!;
-      assert(user != null);
-      assert(await user.getIdToken() != null);
-      if (user != null) {
-        final AppUserModel currentUser = AppUserModel(
-          id: user.uid,
-          userName: userName,
-          phoneNo: phoneNo!.trim(),
-          email: email.trim(),
-          password: password,
-          timestamp: Timestamp.now().toString(),
-          isAdmin: false,
-        );
-        await DatabaseMethods().addUserInfoToFirebase(
-          userModel: currentUser,
-          userId: user.uid,
-          email: email,
-          isStuTeacher: true,
-        );
-      }
-     return user;
-    } on FirebaseAuthException catch (e) {
-      errorToast(message: e.message!);
     }
   }
 }

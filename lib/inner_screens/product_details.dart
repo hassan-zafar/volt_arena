@@ -597,7 +597,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           .doc(productItems!.productId)
           .collection("comments")
           .add({
-        "userName": currentUser!.userName,
+        "userName": currentUser!.name,
         "userId": currentUser!.id,
         "androidNotificationToken": currentUser!.androidNotificationToken,
         "comment": _reviewController.text,

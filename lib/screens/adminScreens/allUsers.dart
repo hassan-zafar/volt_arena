@@ -334,11 +334,11 @@ class UserResult extends StatelessWidget {
                     child: Icon(Icons.person),
                   ),
                   title: Text(
-                    user.userName.toString(),
+                    user.name.toString(),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Text(
-                    user.userName.toString(),
+                    user.name.toString(),
                   ),
                   trailing: Text(user.isAdmin != null && user.isAdmin == true
                       ? "Admin"
