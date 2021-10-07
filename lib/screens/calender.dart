@@ -188,21 +188,32 @@ class _CalenderScreenState extends State<CalenderScreen>
                           hintText: "Enter booking name"),
                     ),
                     ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            MakePayment()
-                              ..ctx = context
-                              ..email = currentUser!.email
-                              ..price = widget.price;
-                            meetingsList.add(getDataSource(
-                              title: _titleController.text,
-                              dateTime: asd,
-                              startTimeOfDay: startingTime,
-                              endTimeOfDay: endingTime,
-                            ));
-                          });
-
+                        onPressed: () async {
                           Navigator.pop(context);
+
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          await MakePayment(
+                                  ctx: context,
+                                  email: currentUser!.email,
+                                  price: widget.price)
+                              .chargeCardAndMakePayment()
+                              .then((value) {
+                            if (value) {
+                              setState(() {
+                                meetingsList.add(getDataSource(
+                                  title: _titleController.text,
+                                  dateTime: asd,
+                                  startTimeOfDay: startingTime,
+                                  endTimeOfDay: endingTime,
+                                ));
+                              });
+                            }
+                          });
+                          setState(() {
+                            _isLoading = false;
+                          });
                         },
                         child: Row(
                           children: [

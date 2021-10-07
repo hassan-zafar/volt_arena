@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 
 class ConstantKey {
@@ -43,7 +44,8 @@ class MakePayment {
   }
 
   //Method Charging card
-  chargeCardAndMakePayment() async {
+  Future chargeCardAndMakePayment() async {
+    bool response = false;
     initializePlugin().then((_) async {
       Charge charge = Charge()
         ..amount = price! * 100
@@ -63,10 +65,14 @@ class MakePayment {
       print("Response $response");
 
       if (response.status == true) {
+        Fluttertoast.showToast(msg: "Transaction successful");
         print("Transaction successful");
       } else {
         print("Transaction failed");
+
+        Fluttertoast.showToast(msg: "Transaction failed");
       }
+      return response.status;
     });
   }
 }
