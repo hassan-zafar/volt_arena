@@ -1,7 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:volt_arena/consts/universal_variables.dart';
 
 class ConstantKey {
   static const String PAYSTACK_KEY =
@@ -11,11 +12,11 @@ class ConstantKey {
 class MakePayment {
   MakePayment({this.ctx, this.price, this.email});
 
-  BuildContext ctx;
+  BuildContext? ctx;
 
-  int price;
+  int? price;
 
-  String email;
+  String? email;
 
   PaystackPlugin paystack = PaystackPlugin();
 
@@ -45,19 +46,18 @@ class MakePayment {
   chargeCardAndMakePayment() async {
     initializePlugin().then((_) async {
       Charge charge = Charge()
-        ..amount = price * 100
+        ..amount = price! * 100
         ..email = email
+        ..currency = "USD"
         ..reference = _getReference()
         ..card = _getCardUI();
 
       CheckoutResponse response = await paystack.checkout(
-        ctx,
+        ctx!,
         charge: charge,
         method: CheckoutMethod.card,
         fullscreen: false,
-        logo: FlutterLogo(
-          size: 24,
-        ),
+        logo: Image.asset(logo),
       );
 
       print("Response $response");
