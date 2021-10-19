@@ -62,6 +62,7 @@ dependencies:
   get_storage:
   share: null
   flutter_paystack:
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

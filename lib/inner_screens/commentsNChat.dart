@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/consts/collections.dart';
-import 'package:volt_arena/consts/theme_data.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/services/notificationHandler.dart';
