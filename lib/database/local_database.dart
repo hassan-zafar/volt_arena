@@ -1,6 +1,6 @@
 import 'package:get_storage/get_storage.dart';
 
-class UserLocalData {
+class LocalDB {
   String s = 'sd';
   final getStorageProference = GetStorage();
 

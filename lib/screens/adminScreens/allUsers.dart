@@ -6,7 +6,7 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
-import 'package:volt_arena/landing_page.dart';
+import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/services/authentication_service.dart';
 
@@ -231,7 +231,7 @@ class _UserNSearchState extends State<UserNSearch>
             child: GestureDetector(
               onTap: () {
                 AuthenticationService().signOut();
-                Get.off(LandingPage());
+                Get.off(LandingScreen());
               },
               child: Container(
                   decoration: BoxDecoration(

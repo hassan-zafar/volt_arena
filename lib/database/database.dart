@@ -25,10 +25,10 @@ class DatabaseMethods {
     final DocumentSnapshot _user = await userRef.doc(uid).get();
     currentUser = AppUserModel.fromDocument(_user);
     createToken(uid);
-    UserLocalData().setIsAdmin(currentUser!.isAdmin);
+    LocalDB().setIsAdmin(currentUser!.isAdmin);
     // Map userData = json.decode(currentUser!.toJson());
     // UserLocalData().setUserModel(json.encode(userData));
-    var user = UserLocalData().getUserData();
+    var user = LocalDB().getUserData();
     print(user);
     isAdmin = currentUser!.isAdmin;
     print(currentUser!.email);

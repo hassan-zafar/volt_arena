@@ -9,7 +9,6 @@ import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/feeds.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/main_screen.dart';
-import 'package:volt_arena/orders/order.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';

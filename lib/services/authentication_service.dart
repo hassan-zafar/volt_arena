@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/database/database.dart';
 import 'package:volt_arena/database/local_database.dart';
-import 'package:volt_arena/models/users.dart';
+import 'package:volt_arena/database/user_local_data.dart';
+import 'package:volt_arena/screens/landing_page.dart';
+
+
 import 'package:volt_arena/widget/custom_toast.dart';
 
-import '../landing_page.dart';
+
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -17,7 +20,7 @@ class AuthenticationService {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
-    UserLocalData().logOut();
+    LocalDB().logOut();
   }
 
   Future logIn({
@@ -36,7 +39,7 @@ class AuthenticationService {
         // return value.user!.uid;
         DatabaseMethods()
             .fetchUserInfoFromFirebase(uid: value.user!.uid)
-            .then((value) => Get.off(() => LandingPage()));
+            .then((value) => Get.off(() => LandingScreen()));
       });
       // return result.user!.uid;
     } on FirebaseAuthException catch (e) {
