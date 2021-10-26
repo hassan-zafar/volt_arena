@@ -1,246 +1,116 @@
-import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/consts/universal_variables.dart';
-import 'package:volt_arena/database/database.dart';
-import 'package:volt_arena/main_screen.dart';
-import 'package:volt_arena/screens/auth/forget_password.dart';
-import 'package:volt_arena/services/global_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
+import 'package:volt_arena/database/auth_methods.dart';
+import 'package:volt_arena/main_screen.dart';
+import 'package:volt_arena/utilities/custom_validator.dart';
+import 'package:volt_arena/utilities/utilities.dart';
+import 'package:volt_arena/widget/tools/custom_button.dart';
+import 'package:volt_arena/widget/tools/custom_textformfield.dart';
+import 'package:volt_arena/widget/tools/custom_toast.dart';
+import 'package:volt_arena/widget/tools/password_textformfield.dart';
+import 'package:volt_arena/widget/tools/show_loading.dart';
+
+import 'forget_password.dart';
 
 class LoginScreen extends StatefulWidget {
-  static const routeName = '/LoginScreen';
+  const LoginScreen({Key? key}) : super(key: key);
+  static const String routeName = '/LoginScreen';
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FocusNode _passwordFocusNode = FocusNode();
-  bool _obscureText = true;
-  String _emailAddress = '';
-  String _password = '';
-  final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  GlobalMethods _globalMethods = GlobalMethods();
-  bool _isLoading = false;
-  @override
-  void dispose() {
-    _passwordFocusNode.dispose();
-    super.dispose();
-  }
-
-  void _submitForm() async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-    if (isValid) {
-      setState(() {
-        _isLoading = true;
-      });
-      _formKey.currentState!.save();
-      try {
-        await _auth
-            .signInWithEmailAndPassword(
-                email: _emailAddress.toLowerCase().trim(),
-                password: _password.trim())
-            .then((value) {
-          DatabaseMethods()
-              .fetchUserInfoFromFirebase(uid: value.user!.uid)
-              .then((value) {
-            Navigator.canPop(context) ? Navigator.pop(context) : null;
-            Navigator.of(context).popAndPushNamed(MainScreens.routeName);
-          });
-        });
-      } catch (error) {
-        _globalMethods.authErrorHandle(error.toString(), context);
-        print('error occured ${error.toString()}');
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-  }
-
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.95,
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: WaveWidget(
-                config: CustomConfig(
-                  gradients: [
-                    [ColorsConsts.gradiendFStart, ColorsConsts.gradiendLStart],
-                    [ColorsConsts.gradiendFEnd, ColorsConsts.gradiendLEnd],
-                  ],
-                  durations: [19440, 10800],
-                  heightPercentages: [0.20, 0.25],
-                  blur: MaskFilter.blur(BlurStyle.solid, 10),
-                  gradientBegin: Alignment.bottomLeft,
-                  gradientEnd: Alignment.topRight,
-                ),
-                waveAmplitude: 0,
-                size: Size(
-                  double.infinity,
-                  double.infinity,
-                ),
-              ),
-            ),
-          ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 80),
-                  height: 120.0,
-                  width: 120.0,
-                  decoration: BoxDecoration(
-                    //  color: Theme.of(context).backgroundColor,
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      image: AssetImage(logo),
-                      fit: BoxFit.fill,
-                    ),
-                    shape: BoxShape.rectangle,
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: TextFormField(
-                            key: ValueKey('email'),
-                            validator: (value) {
-                              if (value!.isEmpty || !value.contains('@')) {
-                                return 'Please enter a valid email address';
-                              }
-                              return null;
-                            },
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(_passwordFocusNode),
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                filled: true,
-                                prefixIcon: Icon(Icons.email),
-                                labelText: 'Email Address',
-                                fillColor: Theme.of(context).backgroundColor),
-                            onSaved: (value) {
-                              _emailAddress = value!;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: TextFormField(
-                            key: ValueKey('Password'),
-                            validator: (value) {
-                              if (value!.isEmpty || value.length < 7) {
-                                return 'Please enter a valid Password';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.emailAddress,
-                            focusNode: _passwordFocusNode,
-                            decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                filled: true,
-                                prefixIcon: Icon(Icons.lock),
-                                suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _obscureText = !_obscureText;
-                                    });
-                                  },
-                                  child: Icon(_obscureText
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                ),
-                                labelText: 'Password',
-                                fillColor: Theme.of(context).backgroundColor),
-                            onSaved: (value) {
-                              _password = value!;
-                            },
-                            obscureText: _obscureText,
-                            onEditingComplete: _submitForm,
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 2, horizontal: 20),
-                            child: TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, ForgetPassword.routeName);
-                                },
-                                child: Text(
-                                  'Forget password?',
-                                  style: TextStyle(
-                                      color: Colors.blue.shade900,
-                                      decoration: TextDecoration.underline),
-                                )),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            SizedBox(width: 10),
-                            _isLoading
-                                ? CircularProgressIndicator()
-                                : ElevatedButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
-                                        side: BorderSide(
-                                            color:
-                                                ColorsConsts.backgroundColor),
-                                      ),
-                                    )),
-                                    onPressed: _submitForm,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Login',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Icon(
-                                          Icons.person,
-                                          size: 18,
-                                        )
-                                      ],
-                                    )),
-                            SizedBox(width: 20),
-                          ],
-                        ),
-                      ],
-                    ))
-              ],
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
+        child: Form(
+          key: _key,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              _loginWord(context),
+              const SizedBox(height: 30),
+              CustomTextFormField(
+                title: 'Email',
+                controller: _email,
+                hint: 'test@test.com',
+                validator: (String? value) => CustomValidator.email(value),
+                autoFocus: true,
+              ),
+              PasswordTextFormField(controller: _password),
+              _forgetPassword(),
+              CustomTextButton(
+                onTap: () async {
+                  if (_key.currentState!.validate()) {
+                    showLoadingDislog(context);
+                    final User? _user =
+                        await AuthMethod().loginWithEmailAndPassword(
+                      _email.text.trim(),
+                      _password.text.trim(),
+                    );
+                    if (_user != null) {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        MainScreens.routeName,
+                        (Route<dynamic> route) => false,
+                      );
+                    } else {
+                      Navigator.of(context).pop();
+                      CustomToast.errorToast(
+                          message: 'email OR password in incorrect');
+                    }
+                  }
+                },
+                text: 'Login',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  GestureDetector _forgetPassword() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, ForgetPassword.routeName);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(6),
+        alignment: Alignment.centerRight,
+        child: const Text('Forget password?'),
+      ),
+    );
+  }
+
+  Row _loginWord(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Text(
+          'Login',
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          child: Icon(
+            Icons.fiber_manual_record,
+            size: 18,
+          ),
+        )
+      ],
     );
   }
 }

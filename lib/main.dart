@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/bottom_bar.dart';
 import 'package:volt_arena/cart/cart.dart';
+import 'package:volt_arena/database/user_local_data.dart';
 import 'package:volt_arena/feeds.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/main_screen.dart';
@@ -43,6 +44,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  UserLocalData.init();
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -140,7 +142,7 @@ class _MyAppState extends State<MyApp> {
                     MainScreens.routeName: (ctx) => MainScreens(),
                     ProductDetails.routeName: (ctx) => ProductDetails(),
                     LoginScreen.routeName: (ctx) => LoginScreen(),
-                    SignUpScreen.routeName: (ctx) => SignUpScreen(),
+                    SignupScreen.routeName: (ctx) => SignupScreen(),
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
                     UploadProductForm.routeName: (ctx) => UploadProductForm(),
                     ForgetPassword.routeName: (ctx) => ForgetPassword(),

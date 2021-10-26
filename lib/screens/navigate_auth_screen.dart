@@ -77,7 +77,7 @@ class _NavigateAuthScreenState extends State<NavigateAuthScreen> {
                   ),
                   InkWell(
                     onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => SignUpScreen())),
+                        MaterialPageRoute(builder: (ctx) => SignupScreen())),
                     child: Container(
                       width: MediaQuery.of(context).size.width / 2,
                       height: 60,

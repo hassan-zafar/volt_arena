@@ -14,10 +14,6 @@ import 'package:volt_arena/widget/tools/show_loading.dart';
 import '../main_screen.dart';
 import 'auth/sign_up.dart';
 
-
-
-
-
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
   static const String routeName = '/LandingScreen';
@@ -117,7 +113,7 @@ class _LandingScreenState extends State<LandingScreen> {
         const Text('''Don't have a account? '''),
         TextButton(
           onPressed: () {
-            Navigator.of(context).pushNamed(SignUpScreen.routeName);
+            Navigator.of(context).pushNamed(SignupScreen.routeName);
           },
           child: const Text('Sign Up'),
         ),
@@ -319,7 +315,7 @@ class _LandingScreenState extends State<LandingScreen> {
 //           crossAxisAlignment: CrossAxisAlignment.center,
 //           children: [
 //             Image.asset(
-//               "assets/images/volt_arenaLogo.png",
+//               "assets/images/logo.png",
 //               errorBuilder: (context, url, error) =>
 //                   Center(child: Icon(Icons.error)),
 //             ),

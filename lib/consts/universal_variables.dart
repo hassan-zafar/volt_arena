@@ -40,7 +40,7 @@ TextStyle titleTextStyle({double fontSize = 25, Color color = Colors.black}) {
 CollectionReference userCollection =
     FirebaseFirestore.instance.collection("users");
 
-String logo = "assets/images/volt_arenaLogo.png";
+String logo = "assets/images/logo.png";
 
 class LoadingIndicator extends StatelessWidget {
   @override

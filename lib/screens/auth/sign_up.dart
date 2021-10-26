@@ -1,452 +1,197 @@
 import 'dart:io';
-
-import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/services/authentication_service.dart';
-import 'package:volt_arena/services/global_method.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:volt_arena/models/users.dart';
+import 'package:volt_arena/widget/tools/custom_button.dart';
+import 'package:volt_arena/widget/tools/custom_textformfield.dart';
+import 'package:volt_arena/widget/tools/custom_toast.dart';
+import 'package:volt_arena/widget/tools/password_textformfield.dart';
+import 'package:volt_arena/widget/tools/show_loading.dart';
+import '../../../database/auth_methods.dart';
+import '../../../database/user_api.dart';
+import '../../../utilities/custom_images.dart';
+import '../../../utilities/custom_validator.dart';
+import '../../../utilities/utilities.dart';
 
-class SignUpScreen extends StatefulWidget {
-  static const routeName = '/SignUpScreen';
+import '../landing_page.dart';
+
+
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
+  static const String routeName = '/SignupScreen';
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  final FocusNode _passwordFocusNode = FocusNode();
-  final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _phoneNumberFocusNode = FocusNode();
-  bool? _obscureText = true;
-  String? _emailAddress = '';
-  String? _password = '';
-  String? _fullName = '';
-  int? _phoneNumber;
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   File? _pickedImage;
-  String? url;
-  final _formKey = GlobalKey<FormState>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  GlobalMethods _globalMethods = GlobalMethods();
-  bool _isLoading = false;
-  @override
-  void dispose() {
-    _passwordFocusNode.dispose();
-    _emailFocusNode.dispose();
-    _phoneNumberFocusNode.dispose();
-    super.dispose();
-  }
-
   void _submitForm() async {
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-    var date = DateTime.now().toString();
-    var dateparse = DateTime.parse(date);
-    var formattedDate = "${dateparse.day}-${dateparse.month}-${dateparse.year}";
-    if (isValid) {
-      _formKey.currentState!.save();
-      try {
-        if (_pickedImage == null) {
-          _globalMethods.authErrorHandle('Please pick an image', context);
-        } else {
-          setState(() {
-            _isLoading = true;
-          });
-          final ref = FirebaseStorage.instance
-              .ref()
-              .child('usersImages')
-              .child(_fullName! + '.jpg');
-          await ref.putFile(_pickedImage!);
-          url = await ref.getDownloadURL();
-          await _auth.createUserWithEmailAndPassword(
-              email: _emailAddress!.toLowerCase().trim(),
-              password: _password!.trim());
-          final User? user = _auth.currentUser;
-          final _uid = user!.uid;
-          user.updateDisplayName(_fullName);
-          user.updatePhotoURL(url);
-          user.reload();
-          await AuthenticationService().signUp(
-              password: _password!.trim(),
-              userName: _fullName,
-              createdAt: Timestamp.now(),
-              email: _emailAddress!,              phoneNo: _phoneNumber!,
-
-              joinedAt: formattedDate,
-              imageUrl: url,
-              isAdmin: false
-              );
-
-          Navigator.canPop(context) ? Navigator.pop(context) : null;
+    if (_key.currentState!.validate()) {
+      if (_password.text.trim() == _confirmPassword.text.trim()) {
+        showLoadingDislog(context);
+        FocusScope.of(context).unfocus();
+        final User? _user = await AuthMethod().signupWithEmailAndPassword(
+          email: _email.text,
+          password: _password.text,
+        );
+        if (_user == null) {
+          Navigator.of(context).pop();
+          return;
         }
-      } catch (error) {
-        _globalMethods.authErrorHandle(error.toString(), context);
-        print('error occured ${error.toString()}');
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        String date = DateTime.now().toString();
+        DateTime dateparse = DateTime.parse(date);
+        String formattedDate =
+            '${dateparse.day}-${dateparse.month}-${dateparse.year}';
+        String _imageURL = '';
+        if (_pickedImage != null) {
+          _imageURL =
+              await UserAPI().uploadImage(File(_pickedImage!.path), _user.uid);
+        }
+        AppUserModel _appUser = AppUserModel(
+          id: _user.uid,
+          name: _name.text.trim(),
+          email: _email.text.trim(),
+          imageUrl: _imageURL,
+          createdAt: Timestamp.now(),
+          joinedAt: formattedDate,
+          password: _password.text.trim(),
+        );
+        final bool _save = await UserAPI().addUser(_appUser);
+        if (_save) {
+          CustomToast.successToast(message: 'Signup successfully');
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              LandingScreen.routeName, (Route<dynamic> route) => false);
+        } else {
+          Navigator.of(context).pop();
+        }
+      } else {
+        CustomToast.errorToast(
+          message: 'Password and confirm password should be same',
+        );
       }
     }
   }
 
-  void _pickImageCamera() async {
-    final picker = ImagePicker();
-    final pickedImage =
-        await picker.getImage(source: ImageSource.camera, imageQuality: 10);
-    final pickedImageFile = File(pickedImage!.path);
-    setState(() {
-      _pickedImage = pickedImageFile;
-    });
-    Navigator.pop(context);
-  }
-
-  void _pickImageGallery() async {
-    final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: ImageSource.gallery);
-    final pickedImageFile = File(pickedImage!.path);
-    setState(() {
-      _pickedImage = pickedImageFile;
-    });
-    Navigator.pop(context);
-  }
-
-  void _remove() {
-    setState(() {
-      _pickedImage = null;
-    });
-    Navigator.pop(context);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.95,
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: WaveWidget(
-                config: CustomConfig(
-                  gradients: [
-                    [ColorsConsts.gradiendFStart, ColorsConsts.gradiendLStart],
-                    [ColorsConsts.gradiendFEnd, ColorsConsts.gradiendLEnd],
-                  ],
-                  durations: [19440, 10800],
-                  heightPercentages: [0.20, 0.25],
-                  blur: MaskFilter.blur(BlurStyle.solid, 10),
-                  gradientBegin: Alignment.bottomLeft,
-                  gradientEnd: Alignment.topRight,
-                ),
-                waveAmplitude: 0,
-                size: Size(
-                  double.infinity,
-                  double.infinity,
-                ),
+    void _pickImageGallery() async {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedImage =
+          await picker.pickImage(source: ImageSource.gallery);
+      final File pickedImageFile = File(pickedImage!.path);
+      setState(() {
+        _pickedImage = pickedImageFile;
+      });
+    }
+
+    Widget _imageWidget() {
+      return Stack(
+        children: <Widget>[
+          CircleAvatar(
+            radius: 68,
+            backgroundColor: Theme.of(context).primaryColor,
+            child: CircleAvatar(
+              radius: 66,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              child: CircleAvatar(
+                radius: 60,
+                backgroundColor: Theme.of(context).primaryColor,
+                backgroundImage: _pickedImage != null
+                    ? FileImage(_pickedImage!)
+                    : AssetImage(CustomImages.icon) as ImageProvider,
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30,
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      margin:
-                          EdgeInsets.symmetric(vertical: 30, horizontal: 30),
-                      child: CircleAvatar(
-                        radius: 71,
-                        backgroundColor: ColorsConsts.gradiendLEnd,
-                        child: CircleAvatar(
-                          radius: 65,
-                          backgroundColor: ColorsConsts.gradiendFEnd,
-                          backgroundImage: _pickedImage == null
-                              ? null
-                              : FileImage(_pickedImage!),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                        top: 120,
-                        left: 110,
-                        child: RawMaterialButton(
-                          elevation: 10,
-                          fillColor: ColorsConsts.gradiendLEnd,
-                          child: Icon(Icons.add_a_photo),
-                          padding: EdgeInsets.all(15.0),
-                          shape: CircleBorder(),
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text(
-                                      'Choose option',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorsConsts.gradiendLStart),
-                                    ),
-                                    content: SingleChildScrollView(
-                                      child: ListBody(
-                                        children: [
-                                          InkWell(
-                                            onTap: _pickImageCamera,
-                                            splashColor: Colors.purpleAccent,
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Icon(
-                                                    Icons.camera,
-                                                    color: Colors.purpleAccent,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Camera',
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color:
-                                                          ColorsConsts.title),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: _pickImageGallery,
-                                            splashColor: Colors.purpleAccent,
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Icon(
-                                                    Icons.image,
-                                                    color: Colors.purpleAccent,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Gallery',
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color:
-                                                          ColorsConsts.title),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          InkWell(
-                                            onTap: _remove,
-                                            splashColor: Colors.purpleAccent,
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Icon(
-                                                    Icons.remove_circle,
-                                                    color: Colors.red,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  'Remove',
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.red),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                });
-                          },
-                        ))
-                  ],
-                ),
-                Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: TextFormField(
-                            key: ValueKey('name'),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'name cannot be null';
-                              }
-                              return null;
-                            },
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(_emailFocusNode),
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                filled: true,
-                                prefixIcon: Icon(Icons.person),
-                                labelText: 'Full name',
-                                fillColor: Theme.of(context).backgroundColor),
-                            onSaved: (value) {
-                              _fullName = value;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: TextFormField(
-                            key: ValueKey('email'),
-                            focusNode: _emailFocusNode,
-                            validator: (value) {
-                              if (value!.isEmpty || !value.contains('@')) {
-                                return 'Please enter a valid email address';
-                              }
-                              return null;
-                            },
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(_passwordFocusNode),
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                filled: true,
-                                prefixIcon: Icon(Icons.email),
-                                labelText: 'Email Address',
-                                fillColor: Theme.of(context).backgroundColor),
-                            onSaved: (value) {
-                              _emailAddress = value;
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: TextFormField(
-                            key: ValueKey('Password'),
-                            validator: (value) {
-                              if (value!.isEmpty || value.length < 7) {
-                                return 'Please enter a valid Password';
-                              }
-                              return null;
-                            },
-                            keyboardType: TextInputType.emailAddress,
-                            focusNode: _passwordFocusNode,
-                            decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                filled: true,
-                                prefixIcon: Icon(Icons.lock),
-                                suffixIcon: GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      _obscureText = !_obscureText!;
-                                    });
-                                  },
-                                  child: Icon(_obscureText!
-                                      ? Icons.visibility
-                                      : Icons.visibility_off),
-                                ),
-                                labelText: 'Password',
-                                fillColor: Theme.of(context).backgroundColor),
-                            onSaved: (value) {
-                              _password = value;
-                            },
-                            obscureText: _obscureText!,
-                            onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(_phoneNumberFocusNode),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: TextFormField(
-                            key: ValueKey('phone number'),
-                            focusNode: _phoneNumberFocusNode,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a valid phone number';
-                              }
-                              return null;
-                            },
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: _submitForm,
-                            keyboardType: TextInputType.phone,
-                            decoration: InputDecoration(
-                                border: const UnderlineInputBorder(),
-                                filled: true,
-                                prefixIcon: Icon(Icons.phone_android),
-                                labelText: 'Phone number',
-                                fillColor: Theme.of(context).backgroundColor),
-                            onSaved: (value) {
-                              _phoneNumber = int.parse(value!);
-                            },
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            SizedBox(width: 10),
-                            _isLoading
-                                ? CircularProgressIndicator()
-                                : ElevatedButton(
-                                    style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30.0),
-                                        side: BorderSide(
-                                            color:
-                                                ColorsConsts.backgroundColor),
-                                      ),
-                                    )),
-                                    onPressed: _submitForm,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Sign up',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 17),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Icon(
-                                          Icons.person,
-                                          size: 18,
-                                        )
-                                      ],
-                                    )),
-                            SizedBox(width: 20),
-                          ],
-                        ),
-                      ],
-                    ))
-              ],
+          Positioned(
+            top: -6,
+            right: -6,
+            child: IconButton(
+              tooltip: 'Edit Image',
+              onPressed: () {
+                _pickImageGallery();
+              },
+              icon: Icon(
+                Icons.edit,
+                size: 40,
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
           ),
         ],
+      );
+    }
+
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
+        child: Form(
+          key: _key,
+          child: Column(
+            children: <Widget>[
+              _signupLine(context),
+              const SizedBox(height: 20),
+              _imageWidget(),
+              const SizedBox(height: 20),
+              CustomTextFormField(
+                title: 'Name',
+                controller: _name,
+                autoFocus: true,
+                validator: (String? value) => CustomValidator.lessThen4(value),
+              ),
+              CustomTextFormField(
+                title: 'Email',
+                controller: _email,
+                hint: 'test@test.com',
+                validator: (String? value) => CustomValidator.email(value),
+              ),
+              PasswordTextFormField(controller: _password),
+              PasswordTextFormField(
+                controller: _confirmPassword,
+                title: 'Confirm Password',
+              ),
+              CustomTextButton(
+                onTap: () => _submitForm(),
+                text: 'Sign up',
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row _signupLine(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Text(
+          'Sign up',
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 4),
+          child: Icon(
+            Icons.fiber_manual_record,
+            size: 18,
+          ),
+        )
+      ],
     );
   }
 }
