@@ -1,6 +1,6 @@
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/inner_screens/product_details.dart';
+import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
