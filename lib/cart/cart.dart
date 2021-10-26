@@ -1,4 +1,3 @@
-import 'package:pay/pay.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/services/global_method.dart';
@@ -27,7 +26,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
     // StripeService.init();
   }
 
-  final _paymentItems = <PaymentItem>[];
+  // final _paymentItems = <PaymentItem>[];
 
   // var response;
   // Future<void> payWithCard({required int amount}) async {
@@ -83,13 +82,13 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                     //     amount: "200",
                     //     label: "bla bla",
                     //     status: PaymentItemStatus.final_price));
-                    _paymentItems.add(PaymentItem(
-                        amount:
-                            "${cartProvider.getCartItems.values.toList()[index].price}",
-                        label: cartProvider.getCartItems.values
-                            .toList()[index]
-                            .title,
-                        status: PaymentItemStatus.final_price));
+                    // _paymentItems.add(PaymentItem(
+                    //     amount:
+                    //         "${cartProvider.getCartItems.values.toList()[index].price}",
+                    //     label: cartProvider.getCartItems.values
+                    //         .toList()[index]
+                    //         .title,
+                    //     status: PaymentItemStatus.final_price));
                     return ChangeNotifierProvider.value(
                       value: cartProvider.getCartItems.values.toList()[index],
                       child: CartFull(
@@ -194,48 +193,49 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               //   ),
               // ),
 
-              GooglePayButton(
-                paymentConfigurationAsset: 'gpay.json',
-                paymentItems: _paymentItems,
-                width: 200,
-                height: 50,
-                style: GooglePayButtonStyle.black,
-                type: GooglePayButtonType.pay,
-                margin: const EdgeInsets.only(top: 15.0),
-                onPaymentResult: (data) {
-                  print(data);
-                  double amountInCents = subtotal * 1000;
-                  int intengerAmount = (amountInCents / 10).ceil();
+              // GooglePayButton(
+              //   paymentConfigurationAsset: 'gpay.json',
+              //   paymentItems: _paymentItems,
+              //   width: 200,
+              //   height: 50,
+              //   style: GooglePayButtonStyle.black,
+              //   type: GooglePayButtonType.pay,
+              //   margin: const EdgeInsets.only(top: 15.0),
+              //   onPaymentResult: (data) {
+              //     print(data);
+              //     double amountInCents = subtotal * 1000;
+              //     int intengerAmount = (amountInCents / 10).ceil();
 
-                  // await payWithCard(amount: intengerAmount);
+              //     // await payWithCard(amount: intengerAmount);
 
-                  User user = _auth.currentUser!;
-                  final _uid = user.uid;
-                  cartProvider.getCartItems.forEach((key, orderValue) async {
-                    final orderId = uuid.v4();
-                    try {
-                      await FirebaseFirestore.instance
-                          .collection('order')
-                          .doc(orderId)
-                          .set({
-                        'orderId': orderId,
-                        'userId': _uid,
-                        'productId': orderValue.productId,
-                        'title': orderValue.title,
-                        'price': orderValue.price! * orderValue.quantity!,
-                        'imageUrl': orderValue.imageUrl,
-                        'quantity': orderValue.quantity,
-                        'orderDate': Timestamp.now(),
-                      });
-                    } catch (err) {
-                      print('error occured $err');
-                    }
-                  });
-                },
-                loadingIndicator: const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
+              //     User user = _auth.currentUser!;
+              //     final _uid = user.uid;
+              //     cartProvider.getCartItems.forEach((key, orderValue) async {
+              //       final orderId = uuid.v4();
+              //       try {
+              //         await FirebaseFirestore.instance
+              //             .collection('order')
+              //             .doc(orderId)
+              //             .set({
+              //           'orderId': orderId,
+              //           'userId': _uid,
+              //           'productId': orderValue.productId,
+              //           'title': orderValue.title,
+              //           'price': orderValue.price! * orderValue.quantity!,
+              //           'imageUrl': orderValue.imageUrl,
+              //           'quantity': orderValue.quantity,
+              //           'orderDate': Timestamp.now(),
+              //         });
+              //       } catch (err) {
+              //         print('error occured $err');
+              //       }
+              //     });
+              //   },
+              //   loadingIndicator: const Center(
+              //     child: CircularProgressIndicator(),
+              //   ),
+              // ),
+
               Spacer(),
               Text(
                 'Total:',

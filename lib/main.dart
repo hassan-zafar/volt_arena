@@ -27,7 +27,6 @@ import 'screens/auth/forget_password.dart';
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   "high_importance_channel",
   "High Importance Notifications",
-  "This channel is used for important notifications",
   importance: Importance.high,
   playSound: true,
 );
@@ -146,7 +145,6 @@ class _MyAppState extends State<MyApp> {
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
                     UploadProductForm.routeName: (ctx) => UploadProductForm(),
                     ForgetPassword.routeName: (ctx) => ForgetPassword(),
-                    MyBookingsScreen.routeName: (ctx) => MyBookingsScreen(),
                   },
                 );
               },
