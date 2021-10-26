@@ -12,7 +12,7 @@ import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'cart/cart.dart';
-import 'feeds.dart';
+import 'servicesScreen.dart';
 import 'package:share/share.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -35,7 +35,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   void initState() {
     pages = [
-      Feeds(),
+      ServicesScreen(),
       Search(),
       MyBookingsScreen(),
       CalenderScreen(),

@@ -150,7 +150,7 @@ class _SearchState extends State<Search> {
                         value: _searchTextController!.text.isEmpty
                             ? productsList[index]
                             : _searchList[index],
-                        child: FeedProducts(),
+                        child: ServiceCardWidget(),
                       );
                     }),
                   ),

@@ -269,7 +269,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext ctx, int index) {
                       return ChangeNotifierProvider.value(
-                          value: productsList[index], child: FeedProducts());
+                          value: productsList[index], child: ServiceCardWidget());
                     },
                   ),
                 ),

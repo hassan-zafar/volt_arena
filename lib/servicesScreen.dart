@@ -6,20 +6,18 @@ import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/widget/feeds_products.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
-
-import 'cart/cart.dart';
 import 'consts/colors.dart';
 import 'consts/my_icons.dart';
 import 'models/product.dart';
 
-class Feeds extends StatefulWidget {
+class ServicesScreen extends StatefulWidget {
   static const routeName = '/Feeds';
 
   @override
-  _FeedsState createState() => _FeedsState();
+  _ServicesScreenState createState() => _ServicesScreenState();
 }
 
-class _FeedsState extends State<Feeds> {
+class _ServicesScreenState extends State<ServicesScreen> {
   Future<void> _getProductsOnRefresh() async {
     await Provider.of<Products>(context, listen: false).fetchProducts();
     if (mounted) {
@@ -109,7 +107,7 @@ class _FeedsState extends State<Feeds> {
             children: List.generate(productsList.length, (index) {
               return ChangeNotifierProvider.value(
                 value: productsList[index],
-                child: FeedProducts(),
+                child: ServiceCardWidget(),
               );
             }),
           ),

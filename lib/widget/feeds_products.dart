@@ -7,12 +7,12 @@ import 'package:provider/provider.dart';
 
 import 'feedsdialog.dart';
 
-class FeedProducts extends StatefulWidget {
+class ServiceCardWidget extends StatefulWidget {
   @override
-  _FeedProductsState createState() => _FeedProductsState();
+  _ServiceCardWidgetState createState() => _ServiceCardWidgetState();
 }
 
-class _FeedProductsState extends State<FeedProducts> {
+class _ServiceCardWidgetState extends State<ServiceCardWidget> {
   @override
   Widget build(BuildContext context) {
     // final cartProvider = Provider.of<CartProvider>(context);

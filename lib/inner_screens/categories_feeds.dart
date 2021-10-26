@@ -42,7 +42,7 @@ class CategoriesFeedsScreen extends StatelessWidget {
               children: List.generate(productsList.length, (index) {
                 return ChangeNotifierProvider.value(
                   value: productsList[index],
-                  child: FeedProducts(),
+                  child: ServiceCardWidget(),
                 );
               }),
             ),

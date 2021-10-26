@@ -4,7 +4,7 @@ import 'package:volt_arena/consts/my_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/screens/adminScreens/upload_product_form.dart';
 
-import '../feeds.dart';
+import '../servicesScreen.dart';
 
 class BackLayerMenu extends StatelessWidget {
   @override
@@ -114,7 +114,7 @@ class BackLayerMenu extends StatelessWidget {
                 ),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, Feeds.routeName);
+                  navigateTo(context, ServicesScreen.routeName);
                 }, 'Feeds', 0),
                 const SizedBox(height: 10.0),
                 content(context, () {
@@ -122,7 +122,7 @@ class BackLayerMenu extends StatelessWidget {
                 }, 'Cart', 1),
                 const SizedBox(height: 10.0),
                 content(context, () {
-                  navigateTo(context, Feeds.routeName);
+                  navigateTo(context, ServicesScreen.routeName);
                 }, 'Wishlist', 2),
                 const SizedBox(height: 10.0),
                 content(context, () {

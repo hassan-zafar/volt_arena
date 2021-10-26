@@ -1,5 +1,5 @@
 import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/feeds.dart';
+import 'package:volt_arena/servicesScreen.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +52,7 @@ class WishlistEmpty extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.06,
             child: RaisedButton(
               onPressed: () => {
-                Navigator.of(context).pushNamed(Feeds.routeName),
+                Navigator.of(context).pushNamed(ServicesScreen.routeName),
               },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/bottom_bar.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/database/user_local_data.dart';
-import 'package:volt_arena/feeds.dart';
+import 'package:volt_arena/servicesScreen.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/main_screen.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
@@ -137,7 +137,7 @@ class _MyAppState extends State<MyApp> {
                     //     WebhookPaymentScreen(),
                     MyBookingsScreen.routeName: (ctx) => MyBookingsScreen(),
                     CalenderScreen.routeName: (ctx) => CalenderScreen(),
-                    Feeds.routeName: (ctx) => Feeds(),
+                    ServicesScreen.routeName: (ctx) => ServicesScreen(),
                     WishlistScreen.routeName: (ctx) => WishlistScreen(),
                     MainScreens.routeName: (ctx) => MainScreens(),
                     ProductDetails.routeName: (ctx) => ProductDetails(),

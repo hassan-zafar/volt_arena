@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 
-import '../feeds.dart';
+import '../servicesScreen.dart';
 
 class MyBookingsEmpty extends StatelessWidget {
   @override
@@ -52,7 +52,7 @@ class MyBookingsEmpty extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.06,
           child: RaisedButton(
-            onPressed: () { Navigator.of(context).pushNamed(Feeds.routeName);},
+            onPressed: () { Navigator.of(context).pushNamed(ServicesScreen.routeName);},
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
               side: BorderSide(color: Colors.red),
