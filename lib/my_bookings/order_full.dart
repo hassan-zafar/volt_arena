@@ -7,12 +7,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class OrderFull extends StatefulWidget {
+class MyBookingsFull extends StatefulWidget {
   @override
-  _OrderFullState createState() => _OrderFullState();
+  _MyBookingsFullState createState() => _MyBookingsFullState();
 }
 
-class _OrderFullState extends State<OrderFull> {
+class _MyBookingsFullState extends State<MyBookingsFull> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {

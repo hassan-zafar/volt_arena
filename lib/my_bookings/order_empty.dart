@@ -6,7 +6,7 @@ import 'package:volt_arena/provider/dark_theme_provider.dart';
 
 import '../feeds.dart';
 
-class OrderEmpty extends StatelessWidget {
+class MyBookingsEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);

@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/orders/order.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:share/share.dart';
@@ -184,7 +183,7 @@ class _UserInfoState extends State<UserInfo> {
                     ),
                     ListTile(
                       onTap: () => Navigator.of(context)
-                          .pushNamed(OrderScreen.routeName),
+                          .pushNamed(MyBookingsScreen.routeName),
                       title: Text('Completed Sessions'),
                       trailing: Icon(Icons.chevron_right_rounded),
                       leading: Icon(MyAppIcons.bag),

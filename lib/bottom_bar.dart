@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'cart/cart.dart';
 import 'feeds.dart';
-import 'orders/order.dart';
 import 'package:share/share.dart';
 
 class BottomBarScreen extends StatefulWidget {
@@ -198,7 +197,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               ),
               ListTile(
                 onTap: () =>
-                    Navigator.of(context).pushNamed(OrderScreen.routeName),
+                    Navigator.of(context).pushNamed(MyBookingsScreen.routeName),
                 title: Text('Completed Sessions'),
                 trailing: Icon(Icons.chevron_right_rounded),
                 leading: Icon(MyAppIcons.bag),
