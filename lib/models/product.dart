@@ -4,7 +4,7 @@ class Product with ChangeNotifier {
   final String? productId;
   final String? title;
   final String? description;
-  final double? price;
+  final String? price;
   final String? imageUrl;
   final bool? isIndividual;
   final String? gameTime;
@@ -32,7 +32,7 @@ class Product with ChangeNotifier {
         productId: doc.data()["productId"],
         title: doc.data()["productTitle"],
         description: doc.data()["productDescription"],
-        price: double.parse(doc.data()["price"]),
+        price:doc.data()["price"],
         imageUrl: doc.data()["productImage"],
         groupMembers: doc.data()["groupMembers"],
         isIndividual: doc.data()["isIndividual"],
@@ -41,5 +41,21 @@ class Product with ChangeNotifier {
         pallets: doc.data()["pallets"],
         productCategoryName: doc.data()["productCategory"],
         isPopular: true);
+  }
+    Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'productId': productId,
+      'title': title,
+      'description': description,
+      'price': price,
+      'imageUrl': imageUrl,
+      'isIndividual': isIndividual,
+      'gameTime': gameTime,
+      'isFavorite': isFavorite,
+      'isPopular': isPopular,
+      'pallets': pallets,
+      'groupMembers': groupMembers,
+      'productCategoryName': productCategoryName,
+    };
   }
 }

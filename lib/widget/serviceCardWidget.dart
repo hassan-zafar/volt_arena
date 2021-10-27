@@ -22,7 +22,7 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
+        onTap: () => Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
             arguments: productsAttributes.productId),
         child: Container(
           width: 150,

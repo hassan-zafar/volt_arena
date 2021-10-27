@@ -6,7 +6,7 @@ class AppUserModel {
   final String? id;
   final String? name;
   final String? imageUrl;
-  final int? phoneNo;
+  final String? phoneNo;
   final String? password;
   final Timestamp? createdAt;
   final String? joinedAt;

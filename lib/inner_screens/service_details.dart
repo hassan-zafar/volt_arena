@@ -8,7 +8,6 @@ import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/consts/theme_data.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/models/product.dart';
 import 'package:volt_arena/models/users.dart';
@@ -17,22 +16,21 @@ import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/screens/calender.dart';
-import 'package:volt_arena/services/stripeDemo.dart';
-import 'package:volt_arena/widget/feeds_products.dart';
+import 'package:volt_arena/widget/serviceCardWidget.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'commentsNChat.dart';
 
-class ProductDetails extends StatefulWidget {
-  static const routeName = '/ProductDetails';
+class ServiceDetailsScreen extends StatefulWidget {
+  static const routeName = '/ServiceDetailsScreen';
 
   @override
-  _ProductDetailsState createState() => _ProductDetailsState();
+  _ServiceDetailsScreenState createState() => _ServiceDetailsScreenState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
   GlobalKey previewContainer = new GlobalKey();
   TextEditingController _reviewController = TextEditingController();
   bool isUploading = false;
@@ -269,7 +267,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext ctx, int index) {
                       return ChangeNotifierProvider.value(
-                          value: productsList[index], child: ServiceCardWidget());
+                          value: productsList[index],
+                          child: ServiceCardWidget());
                     },
                   ),
                 ),
@@ -353,7 +352,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               : () {
                                   cartProvider.addProductToCart(
                                       productId,
-                                      prodAttr.price!,
+                                      double.parse(prodAttr.price!),
                                       prodAttr.title!,
                                       prodAttr.imageUrl!);
                                 },
@@ -378,7 +377,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         Navigator.of(context)
                             .push(MaterialPageRoute(
                                 builder: (context) => CalenderScreen(
-                                      price: prodAttr.price!.toInt(),
+                                      price: int.parse(prodAttr.price!),
                                       gameTime: int.parse(
                                         prodAttr.gameTime!,
                                       ),
@@ -419,7 +418,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       onTap: () {
                         favsProvider.addAndRemoveFromFav(
                             productId,
-                            prodAttr.price!,
+                            double.parse(prodAttr.price!),
                             prodAttr.title!,
                             prodAttr.imageUrl!);
                       },

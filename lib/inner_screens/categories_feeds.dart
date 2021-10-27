@@ -1,5 +1,5 @@
 import 'package:volt_arena/provider/products.dart';
-import 'package:volt_arena/widget/feeds_products.dart';
+import 'package:volt_arena/widget/serviceCardWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -22,7 +22,7 @@ class _MyBookingsFullState extends State<MyBookingsFull> {
     final orderAttrProvider = Provider.of<OrdersAttr>(context);
 
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
+      onTap: () => Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
           arguments: orderAttrProvider.productId),
       child: Container(
         height: 150,

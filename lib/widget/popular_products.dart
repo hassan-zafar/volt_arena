@@ -43,7 +43,7 @@ class PopularProducts extends StatelessWidget {
               ),
               bottomRight: Radius.circular(10.0),
             ),
-            onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
+            onTap: () => Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
                 arguments: productsAttributes.productId),
             child: Column(
               children: [
@@ -131,7 +131,8 @@ class PopularProducts extends StatelessWidget {
                                     : () {
                                         cartProvider.addProductToCart(
                                             productsAttributes.productId!,
-                                            productsAttributes.price!,
+                                            double.parse(
+                                                productsAttributes.price!),
                                             productsAttributes.title!,
                                             productsAttributes.imageUrl!);
                                       },

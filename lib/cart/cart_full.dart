@@ -39,7 +39,7 @@ class _CartFullState extends State<CartFull> {
     final cartProvider = Provider.of<CartProvider>(context);
     double subTotal = cartAttr.price! * cartAttr.quantity!;
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, ProductDetails.routeName,
+      onTap: () => Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
           arguments: widget.productId),
       child: Container(
         height: 135,

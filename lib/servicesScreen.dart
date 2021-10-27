@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
-import 'package:volt_arena/widget/feeds_products.dart';
+import 'package:volt_arena/widget/serviceCardWidget.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'consts/colors.dart';
 import 'consts/my_icons.dart';

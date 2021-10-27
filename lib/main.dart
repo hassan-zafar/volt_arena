@@ -139,7 +139,7 @@ class _MyAppState extends State<MyApp> {
                     ServicesScreen.routeName: (ctx) => ServicesScreen(),
                     WishlistScreen.routeName: (ctx) => WishlistScreen(),
                     MainScreens.routeName: (ctx) => MainScreens(),
-                    ProductDetails.routeName: (ctx) => ProductDetails(),
+                    ServiceDetailsScreen.routeName: (ctx) => ServiceDetailsScreen(),
                     LoginScreen.routeName: (ctx) => LoginScreen(),
                     SignupScreen.routeName: (ctx) => SignupScreen(),
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),

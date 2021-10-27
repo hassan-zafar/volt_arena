@@ -54,7 +54,7 @@ class FeedDialog extends StatelessWidget {
                         () => {
                               favsProvider.addAndRemoveFromFav(
                                   productId,
-                                  prodAttr.price!,
+                                  double.parse(prodAttr.price!),
                                   prodAttr.title!,
                                   prodAttr.imageUrl!),
                               Navigator.canPop(context)
@@ -68,7 +68,7 @@ class FeedDialog extends StatelessWidget {
                         1,
                         () => {
                               Navigator.pushNamed(
-                                      context, ProductDetails.routeName,
+                                      context, ServiceDetailsScreen.routeName,
                                       arguments: prodAttr.productId)
                                   .then((value) => Navigator.canPop(context)
                                       ? Navigator.pop(context)
@@ -84,7 +84,7 @@ class FeedDialog extends StatelessWidget {
                           : () {
                               cartProvider.addProductToCart(
                                   productId,
-                                  prodAttr.price!,
+                                  double.parse(prodAttr.price!),
                                   prodAttr.title!,
                                   prodAttr.imageUrl!);
                               Navigator.canPop(context)

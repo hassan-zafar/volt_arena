@@ -35,7 +35,7 @@ class CartProvider with ChangeNotifier {
               id: DateTime.now().toString(),
               productId: productId,
               title: title,
-              price: price,
+              price:price,
               quantity: 1,
               imageUrl: imageUrl));
     }
