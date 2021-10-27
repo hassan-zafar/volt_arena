@@ -104,7 +104,9 @@ class ServicesTileWidget extends StatelessWidget {
                       prodAttr.imageUrl!);
                 },
                 icon: Icon(
-                  Icons.favorite_border,
+                  favsProvider.getFavsItems.containsKey(_product.productId)
+                      ? Icons.favorite_border
+                      : Icons.favorite_border,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
@@ -118,7 +120,9 @@ class ServicesTileWidget extends StatelessWidget {
                       prodAttr.imageUrl!);
                   Navigator.canPop(context) ? Navigator.pop(context) : null;
                 },
-                icon: const Icon(Icons.add_shopping_cart_outlined),
+                icon: cartProvider.getCartItems.containsKey(_product.productId)
+                    ? const Icon(Icons.shopping_cart)
+                    : const Icon(Icons.add_shopping_cart_outlined),
               ),
             ],
           ),

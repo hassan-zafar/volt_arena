@@ -105,7 +105,10 @@ class ServiceCardWidget extends StatelessWidget {
                               prodAttr.imageUrl!);
                         },
                         icon: Icon(
-                          Icons.favorite_border,
+                          favsProvider.getFavsItems
+                                  .containsKey(product.productId)
+                              ? Icons.favorite_border
+                              : Icons.favorite_border,
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
@@ -117,7 +120,10 @@ class ServiceCardWidget extends StatelessWidget {
                               prodAttr.title!,
                               prodAttr.imageUrl!);
                         },
-                        icon: const Icon(Icons.add_shopping_cart_outlined),
+                        icon: cartProvider.getCartItems
+                                .containsKey(product.productId)
+                            ? const Icon(Icons.shopping_cart)
+                            : const Icon(Icons.add_shopping_cart_outlined),
                       ),
                     ],
                   ),
