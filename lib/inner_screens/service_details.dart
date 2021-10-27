@@ -443,42 +443,37 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
   }
 
   Widget reviews({String? productId, Product? productItems}) {
-    return GlassContainer(
-      opacity: 0.6,
-      // width: MediaQuery.of(context).size.width * 0.87,
-      // margin: EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "Reviews",
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Reviews",
+            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+        writeReviews(productItems!),
+        Column(
+          children: <Widget>[
+            GestureDetector(
+              child: buildReviews(
+                  productId: productId!, productItems: productItems),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CommentsNChat(
+                        isProductComment: true,
+                        isPostComment: false,
+                        isAdmin: false,
+                        postMediaUrl: productItems.imageUrl,
+                        postId: productItems.productId,
+                      ))),
             ),
-          ),
-          writeReviews(productItems!),
-          Column(
-            children: <Widget>[
-              GestureDetector(
-                child: buildReviews(
-                    productId: productId!, productItems: productItems),
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CommentsNChat(
-                          isProductComment: true,
-                          isPostComment: false,
-                          isAdmin: false,
-                          postMediaUrl: productItems.imageUrl,
-                          postId: productItems.productId,
-                        ))),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-        ],
-      ),
+          ],
+        ),
+        SizedBox(
+          height: 20.0,
+        ),
+      ],
     );
   }
 
@@ -520,8 +515,9 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
           title: TextFormField(
             controller: _reviewController,
             decoration: InputDecoration(
-              hintText: "Review",
-            ),
+                hintText: "Review",
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20))),
           ),
           trailing: IconButton(
             onPressed: () => addReview(productItems: productItems),

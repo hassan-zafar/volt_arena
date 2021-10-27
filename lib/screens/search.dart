@@ -6,6 +6,7 @@ import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/utilities/utilities.dart';
 import 'package:volt_arena/widget/service_card_widget.dart';
 import 'package:volt_arena/widget/service_tile_widget.dart';
+import 'package:volt_arena/widget/tools/empty_iconic_widget.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -78,88 +79,79 @@ class _SearchState extends State<Search> {
           //       ),
           //     ),
           //     SliverToBoxAdapter(
-          SingleChildScrollView(
-        child: _searchTextController!.text.isNotEmpty && _searchList.isEmpty
-            ? Column(
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: Utilities.padding),
-                    child: TextField(
-                      controller: _searchTextController,
-                      minLines: 1,
-                      focusNode: _node,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            width: 0,
-                            style: BorderStyle.none,
-                          ),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                        ),
-                        hintText: 'Search',
-                        filled: true,
-                        fillColor: Theme.of(context).cardColor,
-                        suffixIcon: IconButton(
-                          onPressed: _searchTextController!.text.isEmpty
-                              ? null
-                              : () {
-                                  _searchTextController!.clear();
-                                  _node.unfocus();
-                                },
-                          icon: Icon(Icons.remove_from_queue,
-                              color: _searchTextController!.text.isNotEmpty
-                                  ? Colors.red
-                                  : Colors.grey),
-                        ),
-                      ),
-                      onChanged: (value) {
-                        _searchTextController!.text.toLowerCase();
-                        setState(() {
-                          _searchList = productsData.searchQuery(value);
-                        });
-                      },
-                    ),
+          Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
+            child: TextField(
+              controller: _searchTextController,
+              minLines: 1,
+              focusNode: _node,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(
+                    width: 0,
+                    style: BorderStyle.none,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Icon(
-                    Icons.search,
-                    size: 60,
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Text(
-                    'No results found',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-                  ),
-                ],
-              )
-            : ListView.builder(
-                itemCount: _searchTextController!.text.isEmpty
-                    ? productsList.length
-                    : _searchList.length,
-                itemBuilder: (context, index) {
-                  return ChangeNotifierProvider.value(
-                    value: _searchTextController!.text.isEmpty
-                        ? productsList[index]
-                        : _searchList[index],
-                    child: _searchTextController!.text.isEmpty
-                        ? ServiceCardWidget(
-                            product: productsList[index],
-                          )
-                        : ServicesTileWidget(product: _searchList[index]),
-                  );
-                },
+                ),
+                prefixIcon: Icon(
+                  Icons.search,
+                ),
+                hintText: 'Search',
+                filled: true,
+                fillColor: Theme.of(context).cardColor,
+                suffixIcon: IconButton(
+                  onPressed: _searchTextController!.text.isEmpty
+                      ? null
+                      : () {
+                          _searchTextController!.clear();
+                          _node.unfocus();
+                        },
+                  icon: Icon(Icons.remove_from_queue,
+                      color: _searchTextController!.text.isNotEmpty
+                          ? Colors.red
+                          : Colors.grey),
+                ),
               ),
+              onChanged: (value) {
+                _searchTextController!.text.toLowerCase();
+                setState(() {
+                  _searchList = productsData.searchQuery(value);
+                });
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          _searchTextController!.text.isNotEmpty && _searchList.isEmpty
+              ? EmptyIconicWidget(
+                  icon: Icons.error_outline,
+                  title: 'No service found!!!',
+                  subtitle: 'You can checkout all service',
+                )
+              : Expanded(
+                  child: ListView.builder(
+                    itemCount: _searchTextController!.text.isEmpty
+                        ? productsList.length
+                        : _searchList.length,
+                    itemBuilder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                        value: _searchTextController!.text.isEmpty
+                            ? productsList[index]
+                            : _searchList[index],
+                        child: _searchTextController!.text.isEmpty
+                            ? ServiceCardWidget(
+                                product: productsList[index],
+                              )
+                            : ServicesTileWidget(product: _searchList[index]),
+                      );
+                    },
+                  ),
+                ),
+        ],
       ),
-      //   ],
-      // ),
     );
   }
 }

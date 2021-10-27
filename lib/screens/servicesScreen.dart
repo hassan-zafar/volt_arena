@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
-import 'package:volt_arena/widget/serviceCardWidget.dart';
+import 'package:volt_arena/widget/service_card_widget.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import '../consts/colors.dart';
 import '../consts/my_icons.dart';
@@ -99,18 +99,14 @@ class _ServicesScreenState extends State<ServicesScreen> {
         ),
         body: RefreshIndicator(
           onRefresh: _getProductsOnRefresh,
-          child: GridView.count(
-            crossAxisCount: 2,
-            childAspectRatio: 9 / 12,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            children: List.generate(productsList.length, (index) {
-              return ChangeNotifierProvider.value(
-                value: productsList[index],
-                child: ServiceCardWidget(),
-              );
-            }),
-          ),
+          child: ListView.builder(
+              itemCount: productsList.length,
+              itemBuilder: (context, index) {
+                return ChangeNotifierProvider.value(
+                  value: productsList[index],
+                  child: ServiceCardWidget(product: productsList[index]),
+                );
+              }),
         ),
 
         //         StaggeredGridView.countBuilder(

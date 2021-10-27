@@ -19,16 +19,15 @@ class ServiceCardWidget extends StatelessWidget {
 
     final favsProvider = Provider.of<FavsProvider>(context);
     final productsData = Provider.of<Products>(context, listen: false);
+    final productsAttributes = Provider.of<Product>(context);
 
     final prodAttr = productsData.findById(product.productId!);
+    print(productsAttributes);
 
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute<ServiceDetailsScreen>(
-            builder: (BuildContext context) => ServiceDetailsScreen(),
-          ),
-        );
+        Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
+            arguments: productsAttributes.productId);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
@@ -38,7 +37,7 @@ class ServiceCardWidget extends StatelessWidget {
             children: <Widget>[
               AspectRatio(
                 aspectRatio: 2 / 1,
-                child: (product.imageUrl != null || product.imageUrl!.isEmpty)
+                child: (product.imageUrl == null || product.imageUrl!.isEmpty)
                     ? Image.asset(CustomImages.icon, fit: BoxFit.cover)
                     : Image.network(product.imageUrl!),
               ),
