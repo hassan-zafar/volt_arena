@@ -22,8 +22,8 @@ class ServicesTileWidget extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
 
     final favsProvider = Provider.of<FavsProvider>(context);
-
     final prodAttr = productsData.findById(_product.productId!);
+
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: Utilities.padding,
