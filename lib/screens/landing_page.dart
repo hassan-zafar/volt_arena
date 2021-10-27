@@ -1,16 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/database/auth_methods.dart';
 import 'package:volt_arena/screens/auth/login.dart';
-import 'package:volt_arena/services/global_method.dart';
 import 'package:volt_arena/utilities/custom_images.dart';
 import 'package:volt_arena/utilities/utilities.dart';
 import 'package:volt_arena/widget/tools/show_loading.dart';
-
 import '../main_screen.dart';
 import 'auth/sign_up.dart';
 

@@ -4,7 +4,7 @@ import 'package:volt_arena/consts/my_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/screens/adminScreens/upload_product_form.dart';
 
-import '../servicesScreen.dart';
+import '../screens/servicesScreen.dart';
 
 class BackLayerMenu extends StatelessWidget {
   @override

@@ -6,9 +6,9 @@ import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/widget/serviceCardWidget.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
-import 'consts/colors.dart';
-import 'consts/my_icons.dart';
-import 'models/product.dart';
+import '../consts/colors.dart';
+import '../consts/my_icons.dart';
+import '../models/product.dart';
 
 class ServicesScreen extends StatefulWidget {
   static const routeName = '/Feeds';

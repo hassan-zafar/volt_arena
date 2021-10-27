@@ -1,6 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
+import 'package:volt_arena/provider/cart_provider.dart';
+import 'package:volt_arena/provider/favs_provider.dart';
+import 'package:volt_arena/provider/products.dart';
 import '../../../../models/product.dart';
 import '../../../../utilities/custom_images.dart';
 import '../../../../utilities/utilities.dart';
@@ -11,6 +15,13 @@ class ServiceCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    final favsProvider = Provider.of<FavsProvider>(context);
+    final productsData = Provider.of<Products>(context, listen: false);
+
+    final prodAttr = productsData.findById(product.productId!);
+
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -87,14 +98,26 @@ class ServiceCardWidget extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          favsProvider.addAndRemoveFromFav(
+                              product.productId!,
+                              double.parse(prodAttr.price!),
+                              prodAttr.title!,
+                              prodAttr.imageUrl!);
+                        },
                         icon: Icon(
                           Icons.favorite_border,
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cartProvider.addProductToCart(
+                              product.productId!,
+                              double.parse(prodAttr.price!),
+                              prodAttr.title!,
+                              prodAttr.imageUrl!);
+                        },
                         icon: const Icon(Icons.add_shopping_cart_outlined),
                       ),
                     ],

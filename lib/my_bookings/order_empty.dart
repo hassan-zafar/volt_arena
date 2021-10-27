@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 
-import '../servicesScreen.dart';
+import '../screens/servicesScreen.dart';
 
 class MyBookingsEmpty extends StatelessWidget {
   @override

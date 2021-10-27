@@ -1,5 +1,5 @@
 import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/servicesScreen.dart';
+import 'package:volt_arena/screens/servicesScreen.dart';
 import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

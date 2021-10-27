@@ -3,7 +3,7 @@ import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../servicesScreen.dart';
+import '../screens/servicesScreen.dart';
 
 class CartEmpty extends StatelessWidget {
   @override

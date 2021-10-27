@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/bottom_bar.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/database/user_local_data.dart';
-import 'package:volt_arena/servicesScreen.dart';
+import 'package:volt_arena/screens/servicesScreen.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/main_screen.dart';
 import 'package:volt_arena/provider/cart_provider.dart';

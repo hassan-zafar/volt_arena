@@ -12,7 +12,7 @@ import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'cart/cart.dart';
-import 'servicesScreen.dart';
+import 'screens/servicesScreen.dart';
 import 'package:share/share.dart';
 
 class BottomBarScreen extends StatefulWidget {
