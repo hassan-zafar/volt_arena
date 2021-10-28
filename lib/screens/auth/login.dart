@@ -30,48 +30,50 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
-        child: Form(
-          key: _key,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              _loginWord(context),
-              const SizedBox(height: 30),
-              CustomTextFormField(
-                title: 'Email',
-                controller: _email,
-                hint: 'test@test.com',
-                validator: (String? value) => CustomValidator.email(value),
-                autoFocus: true,
-              ),
-              PasswordTextFormField(controller: _password),
-              _forgetPassword(),
-              CustomTextButton(
-                onTap: () async {
-                  if (_key.currentState!.validate()) {
-                    showLoadingDislog(context);
-                    final User? _user =
-                        await AuthMethod().loginWithEmailAndPassword(
-                      _email.text.trim(),
-                      _password.text.trim(),
-                    );
-                    if (_user != null) {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                        MainScreens.routeName,
-                        (Route<dynamic> route) => false,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
+          child: Form(
+            key: _key,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                _loginWord(context),
+                const SizedBox(height: 30),
+                CustomTextFormField(
+                  title: 'Email',
+                  controller: _email,
+                  hint: 'test@test.com',
+                  validator: (String? value) => CustomValidator.email(value),
+                  autoFocus: true,
+                ),
+                PasswordTextFormField(controller: _password),
+                _forgetPassword(),
+                CustomTextButton(
+                  onTap: () async {
+                    if (_key.currentState!.validate()) {
+                      showLoadingDislog(context);
+                      final User? _user =
+                          await AuthMethod().loginWithEmailAndPassword(
+                        _email.text.trim(),
+                        _password.text.trim(),
                       );
-                    } else {
-                      Navigator.of(context).pop();
-                      CustomToast.errorToast(
-                          message: 'email OR password in incorrect');
+                      if (_user != null) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          MainScreens.routeName,
+                          (Route<dynamic> route) => false,
+                        );
+                      } else {
+                        Navigator.of(context).pop();
+                        CustomToast.errorToast(
+                            message: 'email OR password in incorrect');
+                      }
                     }
-                  }
-                },
-                text: 'Login',
-              ),
-            ],
+                  },
+                  text: 'Login',
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -17,7 +17,6 @@ import '../../../utilities/utilities.dart';
 
 import '../landing_page.dart';
 
-
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
   static const String routeName = '/SignupScreen';
@@ -79,93 +78,96 @@ class _SignupScreenState extends State<SignupScreen> {
     }
   }
 
+  void _pickImageGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+    final File pickedImageFile = File(pickedImage!.path);
+    setState(() {
+      _pickedImage = pickedImageFile;
+    });
+  }
+
+  Widget _imageWidget() {
+    return Stack(
+      children: <Widget>[
+        CircleAvatar(
+          radius: 68,
+          backgroundColor: Theme.of(context).primaryColor,
+          child: CircleAvatar(
+            radius: 66,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            child: CircleAvatar(
+              radius: 60,
+              backgroundColor: Theme.of(context).primaryColor,
+              backgroundImage: _pickedImage != null
+                  ? FileImage(_pickedImage!)
+                  : AssetImage(CustomImages.icon) as ImageProvider,
+            ),
+          ),
+        ),
+        Positioned(
+          top: -6,
+          right: -6,
+          child: IconButton(
+            tooltip: 'Edit Image',
+            onPressed: () {
+              _pickImageGallery();
+            },
+            icon: Icon(
+              Icons.edit,
+              size: 40,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _pickImageGallery() async {
-      final ImagePicker picker = ImagePicker();
-      final XFile? pickedImage =
-          await picker.pickImage(source: ImageSource.gallery);
-      final File pickedImageFile = File(pickedImage!.path);
-      setState(() {
-        _pickedImage = pickedImageFile;
-      });
-    }
-
-    Widget _imageWidget() {
-      return Stack(
-        children: <Widget>[
-          CircleAvatar(
-            radius: 68,
-            backgroundColor: Theme.of(context).primaryColor,
-            child: CircleAvatar(
-              radius: 66,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              child: CircleAvatar(
-                radius: 60,
-                backgroundColor: Theme.of(context).primaryColor,
-                backgroundImage: _pickedImage != null
-                    ? FileImage(_pickedImage!)
-                    : AssetImage(CustomImages.icon) as ImageProvider,
-              ),
-            ),
-          ),
-          Positioned(
-            top: -6,
-            right: -6,
-            child: IconButton(
-              tooltip: 'Edit Image',
-              onPressed: () {
-                _pickImageGallery();
-              },
-              icon: Icon(
-                Icons.edit,
-                size: 40,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
-        child: Form(
-          key: _key,
-          child: Column(
-            children: <Widget>[
-              _signupLine(context),
-              const SizedBox(height: 20),
-              _imageWidget(),
-              const SizedBox(height: 20),
-              CustomTextFormField(
-                title: 'Name',
-                controller: _name,
-                autoFocus: true,
-                validator: (String? value) => CustomValidator.lessThen4(value),
-              ),
-              CustomTextFormField(
-                title: 'Email',
-                controller: _email,
-                hint: 'test@test.com',
-                validator: (String? value) => CustomValidator.email(value),
-              ),
-              PasswordTextFormField(controller: _password),
-              PasswordTextFormField(
-                controller: _confirmPassword,
-                title: 'Confirm Password',
-              ),
-              CustomTextButton(
-                onTap: () => _submitForm(),
-                text: 'Sign up',
-              )
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
+          child: Form(
+            key: _key,
+            child: Column(
+              children: <Widget>[
+                _signupLine(context),
+                const SizedBox(height: 20),
+                _imageWidget(),
+                const SizedBox(height: 20),
+                CustomTextFormField(
+                  title: 'Name',
+                  controller: _name,
+                  autoFocus: true,
+                  validator: (String? value) =>
+                      CustomValidator.lessThen4(value),
+                ),
+                CustomTextFormField(
+                  title: 'Email',
+                  controller: _email,
+                  hint: 'test@test.com',
+                  validator: (String? value) => CustomValidator.email(value),
+                ),
+                PasswordTextFormField(controller: _password),
+                PasswordTextFormField(
+                  controller: _confirmPassword,
+                  title: 'Confirm Password',
+                ),
+                CustomTextButton(
+                  onTap: () => _submitForm(),
+                  text: 'Sign up',
+                )
+              ],
+            ),
           ),
         ),
       ),
