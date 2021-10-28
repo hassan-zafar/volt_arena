@@ -19,16 +19,16 @@ class CartProvider with ChangeNotifier {
   void addProductToCart(
       String productId, double price, String title, String imageUrl) {
     if (_cartItems.containsKey(productId)) {
-      removeItem(productId);
-      // _cartItems.update(
-      //     productId,
-      //     (exitingCartItem) => CartAttr(
-      //         id: exitingCartItem.id,
-      //         productId: exitingCartItem.productId,
-      //         title: exitingCartItem.title,
-      //         price: exitingCartItem.price,
-      //         quantity: exitingCartItem.quantity! + 1,
-      //         imageUrl: exitingCartItem.imageUrl));
+      // removeItem(productId);
+      _cartItems.update(
+          productId,
+          (exitingCartItem) => CartAttr(
+              id: exitingCartItem.id,
+              productId: exitingCartItem.productId,
+              title: exitingCartItem.title,
+              price: exitingCartItem.price,
+              quantity: exitingCartItem.quantity! + 1,
+              imageUrl: exitingCartItem.imageUrl));
     } else {
       _cartItems.putIfAbsent(
           productId,
