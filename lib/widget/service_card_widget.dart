@@ -1,6 +1,8 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:volt_arena/consts/colors.dart';
+import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
@@ -107,9 +109,12 @@ class ServiceCardWidget extends StatelessWidget {
                         icon: Icon(
                           favsProvider.getFavsItems
                                   .containsKey(product.productId)
-                              ? Icons.favorite_border
-                              : Icons.favorite_border,
-                          color: Theme.of(context).colorScheme.secondary,
+                              ? Icons.favorite
+                              : MyAppIcons.wishlist,
+                          color: favsProvider.getFavsItems
+                                  .containsKey(product.productId)
+                              ? Colors.red
+                              : ColorsConsts.white,
                         ),
                       ),
                       IconButton(

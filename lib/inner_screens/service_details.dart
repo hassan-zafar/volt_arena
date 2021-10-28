@@ -388,7 +388,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       child: Row(
                         children: [
                           Text(
-                            'Buy now'.toUpperCase(),
+                            'Book now'.toUpperCase(),
                             style: TextStyle(
                                 fontSize: 14,
                                 color: Theme.of(context).textSelectionColor),
