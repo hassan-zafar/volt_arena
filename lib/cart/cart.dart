@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/utilities/custom_images.dart';
+import 'package:volt_arena/utilities/utilities.dart';
 import 'package:volt_arena/widget/tools/empty_image_widget.dart';
 
 import 'cart_empty.dart';
@@ -37,12 +38,9 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
         : Scaffold(
             bottomSheet: checkoutSection(context, cartProvider.totalAmount),
             appBar: AppBar(
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               title: Text('Cart (${cartProvider.getCartItems.length})'),
-              leading: IconButton(
-                icon: Icon(Icons.dehaze_outlined),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -58,7 +56,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               ],
             ),
             body: Container(
-              margin: EdgeInsets.only(bottom: 60),
+              padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
               child: cartProvider.getCartItems.isEmpty
                   ? EmptyImageWidget(
                       assetImage: CustomImages.emptyCart,
@@ -77,7 +75,8 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                                 cartProvider.getCartItems.keys.toList()[index],
                           ),
                         );
-                      }),
+                      },
+                    ),
             ),
           );
   }
@@ -215,17 +214,17 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
               Text(
                 'Total:',
                 style: TextStyle(
-                    color: Theme.of(ctx).textSelectionColor,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 'US ${subtotal.toStringAsFixed(3)}',
-                //textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Colors.yellow,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500),
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

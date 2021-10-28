@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
@@ -12,7 +13,6 @@ import '../models/product.dart';
 
 class ServicesScreen extends StatefulWidget {
   static const routeName = '/Feeds';
-
   @override
   _ServicesScreenState createState() => _ServicesScreenState();
 }
@@ -91,7 +91,7 @@ class _ServicesScreenState extends State<ServicesScreen> {
                     color: ColorsConsts.cartColor,
                   ),
                   onPressed: () {
-                    // Navigator.of(context).pushNamed(CartScreen.routeName);
+                    Navigator.of(context).pushNamed(MyBookingsScreen.routeName);
                   },
                 ),
               ),

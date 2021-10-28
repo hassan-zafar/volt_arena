@@ -155,11 +155,6 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                         padding: const EdgeInsets.all(16.0),
                         child: Text(
                           prodAttr.description!,
-                          style: TextStyle(
-                            // fontWeight: FontWeight.w400,
-                            // fontSize: 21.0,
-                            color: ColorsConsts.subTitle,
-                          ),
                         ),
                       ),
                       const SizedBox(height: 5.0),
@@ -171,6 +166,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           height: 1,
                         ),
                       ),
+                      SizedBox(height: 15),
                       _details('Game Time: ', '${prodAttr.gameTime} min'),
                       _details('Pallets Available: ', '${prodAttr.pallets} '),
                       _details(
@@ -180,11 +176,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           ? Container()
                           : _details(
                               'Group Members: ', '${prodAttr.groupMembers} '),
-                      _details('Popularity: ',
-                          prodAttr.isPopular! ? 'Popular' : 'Barely known'),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: 15),
                       Divider(
                         thickness: 1,
                         color: Colors.grey,
@@ -265,6 +257,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                     },
                   ),
                 ),
+                const SizedBox(height: 16),
               ],
             ),
           ),
@@ -273,64 +266,65 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             left: 0,
             right: 0,
             child: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                centerTitle: true,
-                title: Text(
-                  "DETAIL",
-                  style:
-                      TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              centerTitle: true,
+              title: Text(
+                "DETAIL",
+                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal),
+              ),
+              actions: <Widget>[
+                Consumer<FavsProvider>(
+                  builder: (_, favs, ch) => Badge(
+                    badgeColor: ColorsConsts.cartBadgeColor,
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    position: BadgePosition.topEnd(top: 5, end: 7),
+                    badgeContent: Text(
+                      favs.getFavsItems.length.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        MyAppIcons.wishlist,
+                        color: ColorsConsts.favColor,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(WishlistScreen.routeName);
+                      },
+                    ),
+                  ),
                 ),
-                actions: <Widget>[
-                  Consumer<FavsProvider>(
-                    builder: (_, favs, ch) => Badge(
-                      badgeColor: ColorsConsts.cartBadgeColor,
-                      animationType: BadgeAnimationType.slide,
-                      toAnimate: true,
-                      position: BadgePosition.topEnd(top: 5, end: 7),
-                      badgeContent: Text(
-                        favs.getFavsItems.length.toString(),
-                        style: TextStyle(color: Colors.white),
+                Consumer<CartProvider>(
+                  builder: (_, cart, ch) => Badge(
+                    badgeColor: ColorsConsts.cartBadgeColor,
+                    animationType: BadgeAnimationType.slide,
+                    toAnimate: true,
+                    position: BadgePosition.topEnd(top: 5, end: 7),
+                    badgeContent: Text(
+                      cart.getCartItems.length.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        MyAppIcons.cart,
+                        color: ColorsConsts.cartColor,
                       ),
-                      child: IconButton(
-                        icon: Icon(
-                          MyAppIcons.wishlist,
-                          color: ColorsConsts.favColor,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(WishlistScreen.routeName);
-                        },
-                      ),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(MyBookingsScreen.routeName);
+                      },
                     ),
                   ),
-                  Consumer<CartProvider>(
-                    builder: (_, cart, ch) => Badge(
-                      badgeColor: ColorsConsts.cartBadgeColor,
-                      animationType: BadgeAnimationType.slide,
-                      toAnimate: true,
-                      position: BadgePosition.topEnd(top: 5, end: 7),
-                      badgeContent: Text(
-                        cart.getCartItems.length.toString(),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      child: IconButton(
-                        icon: Icon(
-                          MyAppIcons.cart,
-                          color: ColorsConsts.cartColor,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context)
-                              .pushNamed(MyBookingsScreen.routeName);
-                        },
-                      ),
-                    ),
-                  ),
-                ],),
+                ),
+              ],
+            ),
           ),
           Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(children: [
+            alignment: Alignment.bottomCenter,
+            child: Row(
+              children: [
                 Expanded(
                   flex: 3,
                   child: Container(
@@ -383,8 +377,8 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           Text(
                             'Book now'.toUpperCase(),
                             style: TextStyle(
-                                fontSize: 14,
-),
+                              fontSize: 14,
+                            ),
                           ),
                           SizedBox(
                             width: 5,
@@ -427,7 +421,9 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                     ),
                   ),
                 ),
-              ],),)
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -635,23 +631,20 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
 
   Widget _details(String title, String info) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15, left: 16, right: 16),
+      padding: const EdgeInsets.only(top: 2, left: 16, right: 16),
       child: Row(
-        //  mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             title,
             style: TextStyle(
               fontWeight: FontWeight.w600,
-              fontSize: 21.0,
             ),
           ),
           Text(
             info,
             style: TextStyle(
               fontWeight: FontWeight.w400,
-              fontSize: 20.0,
-              color: ColorsConsts.subTitle,
+              color: Colors.grey,
             ),
           ),
         ],

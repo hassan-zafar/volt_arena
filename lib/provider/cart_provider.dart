@@ -62,6 +62,7 @@ class CartProvider with ChangeNotifier {
               quantity: exitingCartItem.quantity! - 1,
               imageUrl: exitingCartItem.imageUrl));
     }
+
     notifyListeners();
   }
 

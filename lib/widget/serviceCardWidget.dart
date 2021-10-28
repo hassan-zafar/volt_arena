@@ -25,8 +25,7 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
       child: Container(
         height: 120,
         width: 150,
-        padding:
-            EdgeInsets.symmetric(vertical: 4,horizontal: 4),
+        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(
