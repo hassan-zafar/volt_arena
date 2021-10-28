@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:share/share.dart';
 
@@ -68,7 +67,6 @@ class _UserInfoState extends State<UserInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       body: Stack(
         children: [
@@ -220,19 +218,19 @@ class _UserInfoState extends State<UserInfo> {
                         color: Colors.yellow,
                       ),
                     ),
-                    ListTileSwitch(
-                      value: themeChange.darkTheme,
-                      leading: Icon(FontAwesomeIcons.moon),
-                      onChanged: (value) {
-                        setState(() {
-                          themeChange.darkTheme = value;
-                        });
-                      },
-                      visualDensity: VisualDensity.comfortable,
-                      switchType: SwitchType.cupertino,
-                      switchActiveColor: Colors.indigo,
-                      title: Text('Dark theme'),
-                    ),
+                    // ListTileSwitch(
+                    //   value: themeChange.darkTheme,
+                    //   leading: Icon(FontAwesomeIcons.moon),
+                    //   onChanged: (value) {
+                    //     setState(() {
+                    //       themeChange.darkTheme = value;
+                    //     });
+                    //   },
+                    //   visualDensity: VisualDensity.comfortable,
+                    //   switchType: SwitchType.cupertino,
+                    //   switchActiveColor: Colors.indigo,
+                    //   title: Text('Dark theme'),
+                    // ),
 
                     Material(
                       color: Colors.transparent,

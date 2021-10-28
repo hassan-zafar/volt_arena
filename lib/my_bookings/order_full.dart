@@ -1,7 +1,6 @@
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/models/orders_attr.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/services/global_method.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class _MyBookingsFullState extends State<MyBookingsFull> {
   @override
   Widget build(BuildContext context) {
     GlobalMethods globalMethods = GlobalMethods();
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
     final orderAttrProvider = Provider.of<OrdersAttr>(context);
 

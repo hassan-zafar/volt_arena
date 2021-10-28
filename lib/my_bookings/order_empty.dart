@@ -2,14 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/colors.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
-
 import '../screens/servicesScreen.dart';
 
 class MyBookingsEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -39,9 +36,7 @@ class MyBookingsEmpty extends StatelessWidget {
           'Looks Like You didn\'t \n order anything yet',
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: themeChange.darkTheme
-                  ? Theme.of(context).disabledColor
-                  : ColorsConsts.subTitle,
+              color: ColorsConsts.subTitle,
               fontSize: 26,
               fontWeight: FontWeight.w600),
         ),

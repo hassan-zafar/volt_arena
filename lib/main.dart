@@ -2,16 +2,18 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/bottom_bar.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/database/user_local_data.dart';
+import 'package:volt_arena/provider/bottom_navigation_bar_provider.dart';
+import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/screens/servicesScreen.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/main_screen.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/orders_provider.dart';
 import 'package:volt_arena/provider/products.dart';
@@ -40,10 +42,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp();
+  await UserLocalData.init();
+  await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  UserLocalData.init();
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
@@ -64,104 +69,52 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DarkThemeProvider themeChangeProvider = DarkThemeProvider();
-
-  void getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme =
-        await themeChangeProvider.darkThemePreferences.getTheme();
-  }
-
-  @override
-  void initState() {
-    getCurrentAppTheme();
-    super.initState();
-  }
-
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _initialization,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return MaterialApp(
-              home: Scaffold(
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            );
-          } else if (snapshot.hasError) {
-            MaterialApp(
-              builder: BotToastInit(),
-              navigatorObservers: [BotToastNavigatorObserver()],
-              home: Scaffold(
-                body: Center(
-                  child: Text('Error occured'),
-                ),
-              ),
-              theme: ThemeData(
-                primaryColor: Colors.orange,
-                accentColor: Colors.orange,
-              ),
-            );
-          }
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(create: (_) {
-                return themeChangeProvider;
-              }),
-              ChangeNotifierProvider(
-                create: (_) => Products(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => CartProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => FavsProvider(),
-              ),
-              ChangeNotifierProvider(
-                create: (_) => OrdersProvider(),
-              ),
-            ],
-            child: Consumer<DarkThemeProvider>(
-              builder: (context, themeChangeProvider, ch) {
-                return MaterialApp(
-                  title: 'Volt Arena',
-                  theme: ThemeData(
-                    scaffoldBackgroundColor: Colors.black,
-                    primaryColor: Colors.orange,
-                    dividerTheme: const DividerThemeData(
-                        color: Colors.orange, thickness: 0.5),
-                    colorScheme: const ColorScheme.dark(
-                      primary: Colors.orange,
-                      secondary: Colors.red,
-                    ),
-                  ),
-                  home: UserState(),
-                  //initialRoute: '/',
-                  routes: {
-                    // '/': (ctx) => LandingPage(),
-                    // WebhookPaymentScreen.routeName: (ctx) =>
-                    //     WebhookPaymentScreen(),
-                    MyBookingsScreen.routeName: (ctx) => MyBookingsScreen(),
-                    CalenderScreen.routeName: (ctx) => CalenderScreen(),
-                    ServicesScreen.routeName: (ctx) => ServicesScreen(),
-                    WishlistScreen.routeName: (ctx) => WishlistScreen(),
-                    MainScreens.routeName: (ctx) => MainScreens(),
-                    ServiceDetailsScreen.routeName: (ctx) =>
-                        ServiceDetailsScreen(),
-                    LoginScreen.routeName: (ctx) => LoginScreen(),
-                    SignupScreen.routeName: (ctx) => SignupScreen(),
-                    BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
-                    UploadProductForm.routeName: (ctx) => UploadProductForm(),
-                    ForgetPassword.routeName: (ctx) => ForgetPassword(),
-                  },
-                );
-              },
-            ),
-          );
-        });
+    return MultiProvider(
+      // ignore: always_specify_types
+      providers: [
+        ChangeNotifierProvider<BottomNavigationBarProvider>.value(
+          value: BottomNavigationBarProvider(),
+        ),
+        ChangeNotifierProvider<CartProvider>.value(value: CartProvider()),
+        ChangeNotifierProvider<FavsProvider>.value(value: FavsProvider()),
+        ChangeNotifierProvider<OrdersProvider>.value(value: OrdersProvider()),
+        ChangeNotifierProvider<Products>.value(value: Products()),
+      ],
+      child: MaterialApp(
+        title: 'Volt Arena',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.black,
+          primaryColor: Colors.orange,
+          dividerTheme:
+              const DividerThemeData(color: Colors.orange, thickness: 0.5),
+          colorScheme: const ColorScheme.dark(
+            primary: Colors.orange,
+            secondary: Colors.red,
+          ),
+        ),
+        home: (UserLocalData.getUserUID == '')
+            ? const LandingScreen()
+            : MainScreens(),
+        routes: {
+          // '/': (ctx) => LandingPage(),
+          // WebhookPaymentScreen.routeName: (ctx) =>
+          //     WebhookPaymentScreen(),
+          MyBookingsScreen.routeName: (ctx) => MyBookingsScreen(),
+          CalenderScreen.routeName: (ctx) => CalenderScreen(),
+          ServicesScreen.routeName: (ctx) => ServicesScreen(),
+          WishlistScreen.routeName: (ctx) => WishlistScreen(),
+          MainScreens.routeName: (ctx) => MainScreens(),
+          ServiceDetailsScreen.routeName: (ctx) => ServiceDetailsScreen(),
+          LoginScreen.routeName: (ctx) => LoginScreen(),
+          SignupScreen.routeName: (ctx) => SignupScreen(),
+          BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
+          UploadProductForm.routeName: (ctx) => UploadProductForm(),
+          ForgetPassword.routeName: (ctx) => ForgetPassword(),
+        },
+      ),
+    );
   }
 }
 

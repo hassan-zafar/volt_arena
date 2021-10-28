@@ -12,7 +12,6 @@ import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/models/product.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/screens/calender.dart';
@@ -38,7 +37,6 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeState = Provider.of<DarkThemeProvider>(context);
     final productsData = Provider.of<Products>(context, listen: false);
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final cartProvider = Provider.of<CartProvider>(context);
@@ -133,9 +131,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             Text(
                               'US \$ ${prodAttr.price}',
                               style: TextStyle(
-                                color: themeState.darkTheme
-                                    ? Theme.of(context).disabledColor
-                                    : ColorsConsts.subTitle,
+                                color:ColorsConsts.subTitle,
                                 fontWeight: FontWeight.bold,
                                 // fontSize: 21.0
                               ),
@@ -161,9 +157,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           style: TextStyle(
                             // fontWeight: FontWeight.w400,
                             // fontSize: 21.0,
-                            color: themeState.darkTheme
-                                ? Theme.of(context).disabledColor
-                                : ColorsConsts.subTitle,
+                            color:  ColorsConsts.subTitle,
                           ),
                         ),
                       ),
@@ -176,18 +170,18 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           height: 1,
                         ),
                       ),
-                      _details(themeState.darkTheme, 'Game Time: ',
+                      _details('Game Time: ',
                           '${prodAttr.gameTime} min'),
-                      _details(themeState.darkTheme, 'Pallets Available: ',
+                      _details('Pallets Available: ',
                           '${prodAttr.pallets} '),
-                      _details(themeState.darkTheme, 'Category: ',
+                      _details('Category: ',
                           '${prodAttr.productCategoryName} '),
 
                       prodAttr.isIndividual!
                           ? Container()
-                          : _details(themeState.darkTheme, 'Group Members: ',
+                          : _details( 'Group Members: ',
                               '${prodAttr.groupMembers} '),
-                      _details(themeState.darkTheme, 'Popularity: ',
+                      _details('Popularity: ',
                           prodAttr.isPopular! ? 'Popular' : 'Barely known'),
                       SizedBox(
                         height: 15,
@@ -409,9 +403,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    color: themeState.darkTheme
-                        ? Theme.of(context).disabledColor
-                        : ColorsConsts.subTitle,
+                    color: ColorsConsts.subTitle,
                     height: 50,
                     child: InkWell(
                       splashColor: ColorsConsts.favColor,
@@ -642,7 +634,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
     });
   }
 
-  Widget _details(bool themeState, String title, String info) {
+  Widget _details(String title, String info) {
     return Padding(
       padding: const EdgeInsets.only(top: 15, left: 16, right: 16),
       child: Row(
@@ -660,9 +652,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 20.0,
-              color: themeState
-                  ? Theme.of(context).disabledColor
-                  : ColorsConsts.subTitle,
+              color:ColorsConsts.subTitle,
             ),
           ),
         ],

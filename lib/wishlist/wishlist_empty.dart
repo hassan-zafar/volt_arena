@@ -1,13 +1,11 @@
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/screens/servicesScreen.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WishlistEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,9 +36,7 @@ class WishlistEmpty extends StatelessWidget {
             'Explore more and shortlist some items',
             textAlign: TextAlign.center,
             style: TextStyle(
-                color: themeChange.darkTheme
-                    ? Theme.of(context).disabledColor
-                    : ColorsConsts.subTitle,
+                color: ColorsConsts.subTitle,
                 // fontSize: 26,
                 fontWeight: FontWeight.w300),
           ),

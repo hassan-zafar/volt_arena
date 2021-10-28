@@ -2,7 +2,6 @@ import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/models/cart_attr.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
-import 'package:volt_arena/provider/dark_theme_provider.dart';
 import 'package:volt_arena/services/global_method.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +33,6 @@ class _CartFullState extends State<CartFull> {
   @override
   Widget build(BuildContext context) {
     GlobalMethods globalMethods = GlobalMethods();
-    final themeChange = Provider.of<DarkThemeProvider>(context);
     final cartAttr = Provider.of<CartAttr>(context);
     final cartProvider = Provider.of<CartProvider>(context);
     double subTotal = cartAttr.price! * cartAttr.quantity!;
@@ -128,9 +126,7 @@ class _CartFullState extends State<CartFull> {
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: themeChange.darkTheme
-                                    ? Colors.yellow.shade900
-                                    : Theme.of(context).accentColor),
+                                color: Theme.of(context).accentColor),
                           ),
                         ),
                       ],
@@ -139,10 +135,8 @@ class _CartFullState extends State<CartFull> {
                       children: [
                         Text(
                           '  ',
-                          style: TextStyle(
-                              color: themeChange.darkTheme
-                                  ? Colors.brown.shade900
-                                  : Theme.of(context).accentColor),
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor),
                         ),
                         Spacer(),
                         Material(
