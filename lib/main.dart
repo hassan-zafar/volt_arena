@@ -101,7 +101,9 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
               theme: ThemeData(
-                  primaryColor: Colors.yellow, accentColor: Colors.orange),
+                primaryColor: Colors.orange,
+                accentColor: Colors.orange,
+              ),
             );
           }
           return MultiProvider(
@@ -139,7 +141,8 @@ class _MyAppState extends State<MyApp> {
                     ServicesScreen.routeName: (ctx) => ServicesScreen(),
                     WishlistScreen.routeName: (ctx) => WishlistScreen(),
                     MainScreens.routeName: (ctx) => MainScreens(),
-                    ServiceDetailsScreen.routeName: (ctx) => ServiceDetailsScreen(),
+                    ServiceDetailsScreen.routeName: (ctx) =>
+                        ServiceDetailsScreen(),
                     LoginScreen.routeName: (ctx) => LoginScreen(),
                     SignupScreen.routeName: (ctx) => SignupScreen(),
                     BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
