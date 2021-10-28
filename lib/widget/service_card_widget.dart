@@ -32,7 +32,8 @@ class ServiceCardWidget extends StatelessWidget {
             arguments: productsAttributes.productId);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4),
+        padding:
+            EdgeInsets.symmetric(vertical: 4, horizontal: Utilities.padding),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(16),
           child: Stack(
@@ -41,7 +42,7 @@ class ServiceCardWidget extends StatelessWidget {
                 aspectRatio: 2 / 1,
                 child: (product.imageUrl == null || product.imageUrl!.isEmpty)
                     ? Image.asset(CustomImages.icon, fit: BoxFit.cover)
-                    : Image.network(product.imageUrl!),
+                    : Image.network(product.imageUrl!, fit: BoxFit.cover),
               ),
               Badge(
                 alignment: Alignment.center,

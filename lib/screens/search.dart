@@ -37,49 +37,7 @@ class _SearchState extends State<Search> {
     final productsData = Provider.of<Products>(context);
     final productsList = productsData.products;
     return Scaffold(
-      body:
-          // CustomScrollView(
-          //   slivers: <Widget>[
-          //     SliverPersistentHeader(
-          //       floating: true,
-          //       pinned: true,
-          //       delegate: SearchByHeader(
-          //         stackPaddingTop: 175,
-          //         titlePaddingTop: 50,
-          //         title: RichText(
-          //           text: TextSpan(
-          //             children: [
-          //               TextSpan(
-          //                 text: "Search",
-          //                 style: TextStyle(
-          //                   fontWeight: FontWeight.bold,
-          //                   color: ColorsConsts.title,
-          //                   fontSize: 24,
-          //                 ),
-          //               ),
-          //             ],
-          //           ),
-          //         ),
-          //         stackChild: Container(
-          //           decoration: BoxDecoration(
-          //             color: Colors.white,
-          //             borderRadius: BorderRadius.all(
-          //               Radius.circular(10),
-          //             ),
-          //             boxShadow: [
-          //               BoxShadow(
-          //                 color: Colors.black12,
-          //                 spreadRadius: 1,
-          //                 blurRadius: 3,
-          //               ),
-          //             ],
-          //           ),
-          //           margin: EdgeInsets.symmetric(horizontal: 16),
-          //           child: ),
-          //       ),
-          //     ),
-          //     SliverToBoxAdapter(
-          Column(
+      body: Column(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Utilities.padding),
@@ -142,7 +100,7 @@ class _SearchState extends State<Search> {
                             ? productsList[index]
                             : _searchList[index],
                         child: _searchTextController!.text.isEmpty
-                            ? ServiceCardWidget(
+                            ? ServicesTileWidget(
                                 product: productsList[index],
                               )
                             : ServicesTileWidget(product: _searchList[index]),

@@ -54,6 +54,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             width: double.infinity,
             child: Image.network(
               prodAttr.imageUrl!,
+              fit: BoxFit.cover,
             ),
           ),
           SingleChildScrollView(
@@ -131,7 +132,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             Text(
                               'US \$ ${prodAttr.price}',
                               style: TextStyle(
-                                color:ColorsConsts.subTitle,
+                                color: ColorsConsts.subTitle,
                                 fontWeight: FontWeight.bold,
                                 // fontSize: 21.0
                               ),
@@ -157,7 +158,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           style: TextStyle(
                             // fontWeight: FontWeight.w400,
                             // fontSize: 21.0,
-                            color:  ColorsConsts.subTitle,
+                            color: ColorsConsts.subTitle,
                           ),
                         ),
                       ),
@@ -170,17 +171,15 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           height: 1,
                         ),
                       ),
-                      _details('Game Time: ',
-                          '${prodAttr.gameTime} min'),
-                      _details('Pallets Available: ',
-                          '${prodAttr.pallets} '),
-                      _details('Category: ',
-                          '${prodAttr.productCategoryName} '),
+                      _details('Game Time: ', '${prodAttr.gameTime} min'),
+                      _details('Pallets Available: ', '${prodAttr.pallets} '),
+                      _details(
+                          'Category: ', '${prodAttr.productCategoryName} '),
 
                       prodAttr.isIndividual!
                           ? Container()
-                          : _details( 'Group Members: ',
-                              '${prodAttr.groupMembers} '),
+                          : _details(
+                              'Group Members: ', '${prodAttr.groupMembers} '),
                       _details('Popularity: ',
                           prodAttr.isPopular! ? 'Popular' : 'Barely known'),
                       SizedBox(
@@ -254,7 +253,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                 Container(
                   margin: EdgeInsets.only(bottom: 30),
                   width: double.infinity,
-                  height: 260,
+                  height: 120,
                   child: ListView.builder(
                     itemCount:
                         productsList.length < 7 ? productsList.length : 7,
@@ -327,7 +326,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       ),
                     ),
                   ),
-                ]),
+                ],),
           ),
           Align(
               alignment: Alignment.bottomCenter,
@@ -339,7 +338,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                     child: RaisedButton(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       shape: RoundedRectangleBorder(side: BorderSide.none),
-                      color: Colors.yellow,
+                      color: Theme.of(context).primaryColor,
                       onPressed:
                           cartProvider.getCartItems.containsKey(productId)
                               ? () {}
@@ -385,7 +384,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             'Book now'.toUpperCase(),
                             style: TextStyle(
                                 fontSize: 14,
-                                color: Theme.of(context).textSelectionColor),
+),
                           ),
                           SizedBox(
                             width: 5,
@@ -428,7 +427,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                     ),
                   ),
                 ),
-              ]))
+              ],),)
         ],
       ),
     );
@@ -643,16 +642,16 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
           Text(
             title,
             style: TextStyle(
-                color: Theme.of(context).textSelectionColor,
-                fontWeight: FontWeight.w600,
-                fontSize: 21.0),
+              fontWeight: FontWeight.w600,
+              fontSize: 21.0,
+            ),
           ),
           Text(
             info,
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 20.0,
-              color:ColorsConsts.subTitle,
+              color: ColorsConsts.subTitle,
             ),
           ),
         ],

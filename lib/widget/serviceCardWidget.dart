@@ -4,8 +4,8 @@ import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
-
-import 'feedsdialog.dart';
+import 'package:volt_arena/utilities/custom_images.dart';
+import 'package:volt_arena/utilities/utilities.dart';
 
 class ServiceCardWidget extends StatefulWidget {
   @override
@@ -15,119 +15,69 @@ class ServiceCardWidget extends StatefulWidget {
 class _ServiceCardWidgetState extends State<ServiceCardWidget> {
   @override
   Widget build(BuildContext context) {
-    // final cartProvider = Provider.of<CartProvider>(context);
-
     final productsAttributes = Provider.of<Product>(context);
     print(productsAttributes);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () => Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
-            arguments: productsAttributes.productId),
-        child: Container(
-          width: 150,
-          height: 150,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: Theme.of(context).backgroundColor),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Column(
-                children: [
-                  Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(2),
-                        child: Container(
-                          width: double.infinity,
-                          height: 150,
-                          // MediaQuery.of(context).size.height * 0.2,
-                          child: Image.network(
-                            productsAttributes.imageUrl!,
-                            fit: BoxFit.cover,
-                          ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, ServiceDetailsScreen.routeName,
+            arguments: productsAttributes.productId);
+      },
+      child: Container(
+        height: 120,
+        width: 150,
+        padding:
+            EdgeInsets.symmetric(vertical: 4,horizontal: 4),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
+            children: <Widget>[
+              SizedBox(
+                height: double.infinity,
+                width: double.infinity,
+                child: (productsAttributes.imageUrl == null ||
+                        productsAttributes.imageUrl!.isEmpty)
+                    ? Image.asset(CustomImages.icon, fit: BoxFit.cover)
+                    : Image.network(productsAttributes.imageUrl!,
+                        fit: BoxFit.cover),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: EdgeInsets.all(Utilities.padding / 2),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: <Color>[
+                        Theme.of(context).primaryColor,
+                        Theme.of(context).primaryColor.withOpacity(0.9)
+                      ],
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        productsAttributes.title!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
                       ),
-                      Positioned(
-                        // bottom: 0,
-                        // right: 5,
-                        // top: 5,
-                        child: Badge(
-                          alignment: Alignment.center,
-                          toAnimate: true,
-                          shape: BadgeShape.square,
-                          badgeColor: Colors.pink,
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(8)),
-                          badgeContent: Text('New',
-                              style: TextStyle(color: Colors.white)),
+                      Text(
+                        '\$${productsAttributes.price}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 5),
-                margin: EdgeInsets.only(left: 5, bottom: 2, right: 3),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      productsAttributes.description!,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        '\$ ${productsAttributes.price}',
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w900),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '${productsAttributes.pallets}',
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w600),
-                        ),
-                        Material(
-                          color: Colors.transparent,
-                          child: InkWell(
-                              onTap: () async {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => FeedDialog(
-                                    productId: productsAttributes.productId!,
-                                  ),
-                                );
-                              },
-                              borderRadius: BorderRadius.circular(18.0),
-                              child: Icon(
-                                Icons.more_horiz,
-                                color: Colors.grey,
-                              )),
-                        )
-                      ],
-                    ),
-                  ],
                 ),
               )
             ],

@@ -45,7 +45,8 @@ class _ServicesScreenState extends State<ServicesScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).cardColor,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           title: Text('Services'),
           centerTitle: true,
           leading: IconButton(
@@ -99,14 +100,39 @@ class _ServicesScreenState extends State<ServicesScreen> {
         ),
         body: RefreshIndicator(
           onRefresh: _getProductsOnRefresh,
-          child: ListView.builder(
-              itemCount: productsList.length,
-              itemBuilder: (context, index) {
-                return ChangeNotifierProvider.value(
-                  value: productsList[index],
-                  child: ServiceCardWidget(product: productsList[index]),
-                );
-              }),
+          child: productsList.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.room_service_outlined,
+                        size: 60,
+                        color: Colors.grey.shade600,
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'No Service Available',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w300),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Look like no service\nis available yet',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: productsList.length,
+                  itemBuilder: (context, index) {
+                    return ChangeNotifierProvider.value(
+                      value: productsList[index],
+                      child: ServiceCardWidget(product: productsList[index]),
+                    );
+                  }),
         ),
 
         //         StaggeredGridView.countBuilder(

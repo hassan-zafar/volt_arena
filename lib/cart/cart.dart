@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+import 'package:volt_arena/utilities/custom_images.dart';
+import 'package:volt_arena/widget/tools/empty_image_widget.dart';
 
 import 'cart_empty.dart';
 import 'cart_full.dart';
@@ -23,25 +25,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // StripeService.init();
   }
-
-  // final _paymentItems = <PaymentItem>[];
-
-  // var response;
-  // Future<void> payWithCard({required int amount}) async {
-  //   // ProgressDialog dialog = ProgressDialog(context: context);
-  //   // await dialog.show(max: 100, msg: "Please wait...");
-  //   print("please wait...");
-  //   response = await StripeService.payWithNewCard(
-  //       currency: 'USD', amount: amount.toString());
-  //   // dialog.close();
-  //   print('response : ${response.success}');
-  //   Scaffold.of(context).showSnackBar(SnackBar(
-  //     content: Text(response.message),
-  //     duration: Duration(milliseconds: response.success == true ? 1200 : 3000),
-  //   ));
-  // }
 
   GlobalMethods globalMethods = GlobalMethods();
   @override
@@ -75,34 +59,25 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
             ),
             body: Container(
               margin: EdgeInsets.only(bottom: 60),
-              child: ListView.builder(
-                  itemCount: cartProvider.getCartItems.length,
-                  itemBuilder: (BuildContext ctx, int index) {
-                    // _paymentItems.add(PaymentItem(
-                    //     amount: "200",
-                    //     label: "bla bla",
-                    //     status: PaymentItemStatus.final_price));
-                    // _paymentItems.add(PaymentItem(
-                    //     amount:
-                    //         "${cartProvider.getCartItems.values.toList()[index].price}",
-                    //     label: cartProvider.getCartItems.values
-                    //         .toList()[index]
-                    //         .title,
-                    //     status: PaymentItemStatus.final_price));
-                    return ChangeNotifierProvider.value(
-                      value: cartProvider.getCartItems.values.toList()[index],
-                      child: CartFull(
-                        productId:
-                            cartProvider.getCartItems.keys.toList()[index],
-                        // id:  cartProvider.getCartItems.values.toList()[index].id,
-                        // productId: cartProvider.getCartItems.keys.toList()[index],
-                        // price: cartProvider.getCartItems.values.toList()[index].price,
-                        // title: cartProvider.getCartItems.values.toList()[index].title,
-                        // imageUrl: cartProvider.getCartItems.values.toList()[index].imageUrl,
-                        // quatity: cartProvider.getCartItems.values.toList()[index].quantity,
-                      ),
-                    );
-                  }),
+              child: cartProvider.getCartItems.isEmpty
+                  ? EmptyImageWidget(
+                      assetImage: CustomImages.emptyCart,
+                      title: 'No Booking found',
+                      subtitle:
+                          '''Looks like you don't\nadd anything in your booking yet''',
+                    )
+                  : ListView.builder(
+                      itemCount: cartProvider.getCartItems.length,
+                      itemBuilder: (BuildContext ctx, int index) {
+                        return ChangeNotifierProvider.value(
+                          value:
+                              cartProvider.getCartItems.values.toList()[index],
+                          child: CartFull(
+                            productId:
+                                cartProvider.getCartItems.keys.toList()[index],
+                          ),
+                        );
+                      }),
             ),
           );
   }

@@ -4,7 +4,7 @@ class ColorsConsts {
   static Color black = Color(0xFF000000);
   static Color white = Color(0xFFFFFFFF);
   static Color title = Color(0xDD000000);
-  static Color subTitle = Colors.yellow;
+  static Color subTitle = Colors.orange;
   // Color(0x8A000000);
   static Color backgroundColor = Colors.orange; //grey shade 300
   static Color loginColor = Color(0xFFF7A000); // red 500
