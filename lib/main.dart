@@ -128,8 +128,16 @@ class _MyAppState extends State<MyApp> {
               builder: (context, themeChangeProvider, ch) {
                 return MaterialApp(
                   title: 'Volt Arena',
-                  theme:
-                      Styles.themeData(themeChangeProvider.darkTheme, context),
+                  theme: ThemeData(
+                    scaffoldBackgroundColor: Colors.black,
+                    primaryColor: Colors.orange,
+                    dividerTheme: const DividerThemeData(
+                        color: Colors.orange, thickness: 0.5),
+                    colorScheme: const ColorScheme.dark(
+                      primary: Colors.orange,
+                      secondary: Colors.red,
+                    ),
+                  ),
                   home: UserState(),
                   //initialRoute: '/',
                   routes: {
