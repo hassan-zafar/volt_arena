@@ -171,7 +171,7 @@ class _UserNSearchState extends State<UserNSearch>
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
-                                              )),
+                                              ),),
                                         ),
                                       ),
                                     ],
@@ -201,7 +201,7 @@ class _UserNSearchState extends State<UserNSearch>
                                                   style:
                                                       TextStyle(fontSize: 20.0),
                                                 ),
-                                              )),
+                                              ),),
                                         ),
                                       ),
                                     ],

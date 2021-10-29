@@ -193,7 +193,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
             ),
           ),
           child: Material(
-            color: Theme.of(context).backgroundColor,
             child: InkWell(
               onTap: _trySubmit,
               splashColor: Colors.grey,
@@ -353,14 +352,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     child: FlatButton.icon(
                                       textColor: Colors.white,
                                       onPressed: _pickImageCamera,
-                                      icon: Icon(Icons.camera,
-                                          color: Colors.purpleAccent),
+                                      icon: Icon(Icons.camera),
                                       label: Text(
                                         'Camera',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
-                                          color: Theme.of(context)
-                                              .textSelectionColor,
                                         ),
                                       ),
                                     ),
@@ -369,14 +365,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                     child: FlatButton.icon(
                                       textColor: Colors.white,
                                       onPressed: _pickImageGallery,
-                                      icon: Icon(Icons.image,
-                                          color: Colors.purpleAccent),
+                                      icon: Icon(Icons.image),
                                       label: Text(
                                         'Gallery',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
-                                          color: Theme.of(context)
-                                              .textSelectionColor,
                                         ),
                                       ),
                                     ),
@@ -393,7 +386,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         'Remove',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
-                                          color: Colors.redAccent,
                                         ),
                                       ),
                                     ),
@@ -402,155 +394,6 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               ),
                             ],
                           ),
-
-                          //    SizedBox(height: 5),
-                          // Row(
-                          //   crossAxisAlignment: CrossAxisAlignment.end,
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Expanded(
-                          //       // flex: 3,
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.only(right: 9),
-                          //         child: Container(
-                          //           child: TextFormField(
-                          //             controller: _categoryController,
-
-                          //             key: ValueKey('Category'),
-                          //             validator: (value) {
-                          //               if (value!.isEmpty) {
-                          //                 return 'Please enter a Category';
-                          //               }
-                          //               return null;
-                          //             },
-                          //             //keyboardType: TextInputType.emailAddress,
-                          //             decoration: InputDecoration(
-                          //               labelText: 'Add a new Category',
-                          //             ),
-                          //             onSaved: (value) {
-                          //               _productCategory = value!;
-                          //             },
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     //   DropdownButton<String>(
-                          //     //     items: [
-                          //     //       DropdownMenuItem<String>(
-                          //     //         child: Text('Phones'),
-                          //     //         value: 'Phones',
-                          //     //       ),
-                          //     //       DropdownMenuItem<String>(
-                          //     //         child: Text('Clothes'),
-                          //     //         value: 'Clothes',
-                          //     //       ),
-                          //     //       DropdownMenuItem<String>(
-                          //     //         child: Text('Beauty & health'),
-                          //     //         value: 'Beauty',
-                          //     //       ),
-                          //     //       DropdownMenuItem<String>(
-                          //     //         child: Text('Shoes'),
-                          //     //         value: 'Shoes',
-                          //     //       ),
-                          //     //       DropdownMenuItem<String>(
-                          //     //         child: Text('Funiture'),
-                          //     //         value: 'Funiture',
-                          //     //       ),
-                          //     //       DropdownMenuItem<String>(
-                          //     //         child: Text('Watches'),
-                          //     //         value: 'Watches',
-                          //     //       ),
-                          //     //     ],
-                          //     //     onChanged: (String value) {
-                          //     //       setState(() {
-                          //     //         _categoryValue = value;
-                          //     //         _categoryController.text = value;
-                          //     //         //_controller.text= _productCategory;
-                          //     //         print(_productCategory);
-                          //     //       });
-                          //     //     },
-                          //     //     hint: Text('Select a Category'),
-                          //     //     value: _categoryValue,
-                          //     //   ),
-                          //   ],
-                          // ),
-                          // SizedBox(height: 10),
-                          // Row(
-                          //   crossAxisAlignment: CrossAxisAlignment.end,
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Expanded(
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.only(right: 9),
-                          //         child: Container(
-                          //           child: TextFormField(
-                          //             controller: _brandController,
-
-                          //             key: ValueKey('Brand'),
-                          //             validator: (value) {
-                          //               if (value!.isEmpty) {
-                          //                 return 'Brand is missed';
-                          //               }
-                          //               return null;
-                          //             },
-                          //             //keyboardType: TextInputType.emailAddress,
-                          //             decoration: InputDecoration(
-                          //               labelText: 'Brand',
-                          //             ),
-                          //             onSaved: (value) {
-                          //               _productBrand = value!;
-                          //             },
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //     // DropdownButton<String>(
-                          //     //   items: [
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('Brandless'),
-                          //     //       value: 'Brandless',
-                          //     //     ),
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('Addidas'),
-                          //     //       value: 'Addidas',
-                          //     //     ),
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('Apple'),
-                          //     //       value: 'Apple',
-                          //     //     ),
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('Dell'),
-                          //     //       value: 'Dell',
-                          //     //     ),
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('H&M'),
-                          //     //       value: 'H&M',
-                          //     //     ),
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('Nike'),
-                          //     //       value: 'Nike',
-                          //     //     ),
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('Samsung'),
-                          //     //       value: 'Samsung',
-                          //     //     ),
-                          //     //     DropdownMenuItem<String>(
-                          //     //       child: Text('Huawei'),
-                          //     //       value: 'Huawei',
-                          //     //     ),
-                          //     //   ],
-                          //     //   onChanged: (String value) {
-                          //     //     setState(() {
-                          //     //       _brandValue = value;
-                          //     //       _brandController.text = value;
-                          //     //       print(_productBrand);
-                          //     //     });
-                          //     //   },
-                          //     //   hint: Text('Select a Brand'),
-                          //     //   value: _brandValue,
-                          //     // ),
-                          //   ],
-                          // ),
                           SizedBox(height: 15),
                           TextFormField(
                               key: ValueKey('Description'),
@@ -636,9 +479,11 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                   child: Text("Group / Individual / Either"),
                                 ),
                                 Expanded(
-                                    flex: 2,
-                                    child: groupIndividualPicker(
-                                        controller: groupIndividual)),
+                                  flex: 2,
+                                  child: groupIndividualPicker(
+                                    controller: groupIndividual,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -704,21 +549,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
         itemExtent: 25,
         scrollController: controller,
         children: [
-          Text("Individual",
-              style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).dividerColor,
-              )),
-          Text("Group",
-              style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).dividerColor,
-              )),
-          Text("Either",
-              style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).dividerColor,
-              )),
+          Text("Individual"),
+          Text("Group"),
+          Text("Either"),
         ],
         useMagnifier: true, diameterRatio: 1,
         magnification: 1.1,
@@ -749,21 +582,9 @@ class _UploadProductFormState extends State<UploadProductForm> {
         itemExtent: 25,
         scrollController: controller,
         children: [
-          Text("10",
-              style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).dividerColor,
-              )),
-          Text("20",
-              style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).dividerColor,
-              )),
-          Text("50",
-              style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).dividerColor,
-              )),
+          Text("10"),
+          Text("20"),
+          Text("50"),
         ],
         useMagnifier: true, diameterRatio: 1,
         magnification: 1.1,

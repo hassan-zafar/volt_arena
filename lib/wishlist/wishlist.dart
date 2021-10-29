@@ -14,22 +14,30 @@ class WishlistScreen extends StatelessWidget {
     GlobalMethods globalMethods = GlobalMethods();
     final favsProvider = Provider.of<FavsProvider>(context);
     return favsProvider.getFavsItems.isEmpty
-        ? Scaffold(body: WishlistEmpty())
+        ? Scaffold(
+            appBar: AppBar(
+              title: Text('Wish List'),
+              centerTitle: true,
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
+            body: WishlistEmpty(),)
         : Scaffold(
             appBar: AppBar(
               title: Text('Wishlist (${favsProvider.getFavsItems.length})'),
               actions: [
-                IconButton(
+                TextButton(
                   onPressed: () {
                     globalMethods.showDialogg(
                         'Clear wishlist!',
                         'Your wishlist will be cleared!',
                         () => favsProvider.clearFavs(),
-                        context);
+                        context,);
                     // cartProvider.clearCart();
                   },
-                  icon: Icon(MyAppIcons.trash),
-                )
+                  child: Text('Clear List'),
+                ),
+                const SizedBox(width: 16),
               ],
             ),
             body: ListView.builder(
