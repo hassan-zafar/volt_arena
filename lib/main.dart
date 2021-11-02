@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +20,7 @@ import 'package:volt_arena/screens/auth/login.dart';
 import 'package:volt_arena/screens/auth/sign_up.dart';
 import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/adminScreens/upload_product_form.dart';
-import 'package:volt_arena/user_state.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
-import 'consts/theme_data.dart';
 import 'screens/auth/forget_password.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(

@@ -105,7 +105,7 @@ class ServicesTileWidget extends StatelessWidget {
                 },
                 icon: Icon(
                   favsProvider.getFavsItems.containsKey(_product.productId)
-                      ? Icons.favorite_border
+                      ? Icons.favorite
                       : Icons.favorite_border,
                   color: Theme.of(context).colorScheme.secondary,
                 ),

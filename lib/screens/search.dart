@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/models/product.dart';
 import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/utilities/utilities.dart';
-import 'package:volt_arena/widget/service_card_widget.dart';
 import 'package:volt_arena/widget/service_tile_widget.dart';
 import 'package:volt_arena/widget/tools/empty_iconic_widget.dart';
 
