@@ -1,4 +1,4 @@
-package com.hassan.volt_arena
+package com.hassan.voltarena
 
 import io.flutter.embedding.android.FlutterActivity
 

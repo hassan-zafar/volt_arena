@@ -1,41 +1,70 @@
 {
   "project_info": {
-    "project_number": "997539088876",
-    "project_id": "volt-arena",
-    "storage_bucket": "volt-arena.appspot.com"
+    "project_number": "719954588611",
+    "project_id": "volt-arena-12dba",
+    "storage_bucket": "volt-arena-12dba.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:997539088876:android:8744536ca88d3f7eecd8c9",
+        "mobilesdk_app_id": "1:719954588611:android:60043af0d22f35b9320376",
         "android_client_info": {
           "package_name": "com.hassan.volt_arena"
         }
       },
       "oauth_client": [
         {
-          "client_id": "997539088876-n0r87s14l1b4vp19domvhfbkc2lc4djt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hassan.volt_arena",
-            "certificate_hash": "387accc7b18bc054a3d2c235d89180c8014d7a46"
-          }
-        },
-        {
-          "client_id": "997539088876-sjjqhd3mppkulosqotu0d4tgp3ajbloa.apps.googleusercontent.com",
+          "client_id": "719954588611-p2gk1g26n025f64j3jbs8isklqgke0ma.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAd-NI9rnmuhZsshRb4hKTbV26myFz5u2Y"
+          "current_key": "AIzaSyA4Bs9okavJmzyLuDYS143RnzpoiZzHDoY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "997539088876-sjjqhd3mppkulosqotu0d4tgp3ajbloa.apps.googleusercontent.com",
+              "client_id": "719954588611-p2gk1g26n025f64j3jbs8isklqgke0ma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719954588611:android:dc72f3e4058ed952320376",
+        "android_client_info": {
+          "package_name": "com.hassan.voltarena"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719954588611-k5kqngcp1udaq43ssqhpia4bobuotk1c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hassan.voltarena",
+            "certificate_hash": "387accc7b18bc054a3d2c235d89180c8014d7a46"
+          }
+        },
+        {
+          "client_id": "719954588611-p2gk1g26n025f64j3jbs8isklqgke0ma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Bs9okavJmzyLuDYS143RnzpoiZzHDoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719954588611-p2gk1g26n025f64j3jbs8isklqgke0ma.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
