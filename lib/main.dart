@@ -20,6 +20,7 @@ import 'package:volt_arena/screens/auth/login.dart';
 import 'package:volt_arena/screens/auth/sign_up.dart';
 import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/adminScreens/upload_product_form.dart';
+import 'package:volt_arena/user_state.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'screens/auth/forget_password.dart';
 
@@ -91,9 +92,7 @@ class _MyAppState extends State<MyApp> {
             secondary: Colors.red,
           ),
         ),
-        home: (UserLocalData.getUserUID == '')
-            ? const LandingScreen()
-            : MainScreens(),
+        home: UserState(),
         routes: {
           // '/': (ctx) => LandingPage(),
           // WebhookPaymentScreen.routeName: (ctx) =>
@@ -102,6 +101,7 @@ class _MyAppState extends State<MyApp> {
           CalenderScreen.routeName: (ctx) => CalenderScreen(),
           ServicesScreen.routeName: (ctx) => ServicesScreen(),
           WishlistScreen.routeName: (ctx) => WishlistScreen(),
+          LandingScreen.routeName: (ctx) => LandingScreen(),
           MainScreens.routeName: (ctx) => MainScreens(),
           ServiceDetailsScreen.routeName: (ctx) => ServiceDetailsScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),

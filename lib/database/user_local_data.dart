@@ -64,6 +64,7 @@ class UserLocalData {
   void storeAppUserData({required AppUserModel appUser, String token = ''}) {
     setUserUID(appUser.id!);
     setUserEmail(appUser.email!);
+    setIsAdmin(appUser.isAdmin!);
     setUserDisplayName(appUser.name!);
     setUserImageUrl(appUser.imageUrl!);
     setUserCreatedAt(appUser.joinedAt!);

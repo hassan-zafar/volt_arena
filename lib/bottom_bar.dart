@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/screens/adminScreens/allUsers.dart';
 import 'package:volt_arena/screens/calender.dart';
+import 'package:volt_arena/screens/chatLists.dart';
 import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/widget/tools/custom_drawer.dart';
@@ -20,8 +21,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     ServicesScreen(),
     Search(),
     MyBookingsScreen(),
-    CalenderScreen(),
-    UserNSearch(),
+    // CalenderScreen(),
+    // UserNSearch(),
     // ChatLists(),
     // UserInfo(),
   ];
@@ -41,7 +42,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           onTap: (int updatedPage) => _page.updateSelectedPage(updatedPage),
           backgroundColor: Theme.of(context).colorScheme.primary,
           unselectedItemColor: Colors.grey.shade700,
-          selectedItemColor: Theme.of(context).colorScheme.primary,
+          selectedItemColor: Colors.black,
           currentIndex: _page.selectedPage,
           items: [
             BottomNavigationBarItem(
@@ -53,23 +54,29 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: 'Search',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
+              icon: Icon(Icons.shopping_cart_rounded),
               label: 'BOOKINGS',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(MyAppIcons.user),
-              label: 'All Users',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.calendar_today),
+            //   label: 'ALL BOOKINGS',
+            // ),
+
             // BottomNavigationBarItem(
             //     icon: Icon(
             //       MyAppIcons.user,
             //     ),
             //     label: 'My Bookings'),
+
+            // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.people),
+            //   label: 'All Users',
+            // ),
             // BottomNavigationBarItem(
             //   icon: Icon(Icons.chat_bubble),
             //   label: 'Admin Chats',
             // ),
-            BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
           ],
         ),
       ),
