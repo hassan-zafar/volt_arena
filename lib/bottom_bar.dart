@@ -62,11 +62,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               icon: Icon(Icons.calendar_today),
               label: 'ALL BOOKINGS',
             ),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  MyAppIcons.user,
-                ),
-                label: 'My Bookings'),
             BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
             BottomNavigationBarItem(
               icon: Icon(Icons.people),
