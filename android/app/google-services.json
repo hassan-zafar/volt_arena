@@ -7,35 +7,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:719954588611:android:60043af0d22f35b9320376",
-        "android_client_info": {
-          "package_name": "com.hassan.volt_arena"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "719954588611-p2gk1g26n025f64j3jbs8isklqgke0ma.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA4Bs9okavJmzyLuDYS143RnzpoiZzHDoY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "719954588611-p2gk1g26n025f64j3jbs8isklqgke0ma.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:719954588611:android:dc72f3e4058ed952320376",
         "android_client_info": {
           "package_name": "com.hassan.voltarena"
