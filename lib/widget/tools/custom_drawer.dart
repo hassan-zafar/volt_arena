@@ -7,7 +7,6 @@ import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/utilities/utilities.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'circular_profile_image.dart';
-import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({Key? key}) : super(key: key);
@@ -83,7 +82,6 @@ class CustomDrawer extends StatelessWidget {
             onTap: () async {
               showLicensePage(context: context);
               await AuthMethod().signOut();
-              // Get.off(() => LandingScreen());
               Navigator.of(context).pushNamedAndRemoveUntil(
                 LandingScreen.routeName,
                 (Route<dynamic> route) => false,
