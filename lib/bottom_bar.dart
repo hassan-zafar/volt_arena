@@ -1,3 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:list_tile_switch/list_tile_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/screens/adminScreens/allUsers.dart';
@@ -6,9 +10,11 @@ import 'package:volt_arena/screens/chatLists.dart';
 import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/widget/tools/custom_drawer.dart';
+import 'package:volt_arena/wishlist/wishlist.dart';
 import 'cart/cart.dart';
 import 'provider/bottom_navigation_bar_provider.dart';
 import 'screens/servicesScreen.dart';
+import 'package:share/share.dart';
 
 class BottomBarScreen extends StatefulWidget {
   static const routeName = '/BottomBarScreen';
@@ -21,9 +27,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     ServicesScreen(),
     Search(),
     MyBookingsScreen(),
-    // CalenderScreen(),
+    CalenderScreen(),
     // UserNSearch(),
-    // ChatLists(),
+    ChatLists(),
     // UserInfo(),
   ];
 
@@ -42,41 +48,34 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           onTap: (int updatedPage) => _page.updateSelectedPage(updatedPage),
           backgroundColor: Theme.of(context).colorScheme.primary,
           unselectedItemColor: Colors.grey.shade700,
-          selectedItemColor: Colors.black,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
           currentIndex: _page.selectedPage,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.room_service),
-              label: 'Services',
-            ),
+                icon: Icon(Icons.room_service), label: 'Services',),
             BottomNavigationBarItem(
               icon: Icon(MyAppIcons.search),
               label: 'Search',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_rounded),
+              icon: Icon(Icons.calendar_today),
               label: 'BOOKINGS',
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.calendar_today),
-            //   label: 'ALL BOOKINGS',
-            // ),
-
+            BottomNavigationBarItem(
+              icon: Icon(MyAppIcons.bag),
+              label: 'All Users',
+            ),
             // BottomNavigationBarItem(
             //     icon: Icon(
             //       MyAppIcons.user,
             //     ),
             //     label: 'My Bookings'),
-
-            // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble),
+              label: 'Admin Chats',
+            ),
             // BottomNavigationBarItem(
-            //   icon: Icon(Icons.people),
-            //   label: 'All Users',
-            // ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.chat_bubble),
-            //   label: 'Admin Chats',
-            // ),
+            //     icon: Icon(MyAppIcons.user), label: 'User'),
           ],
         ),
       ),

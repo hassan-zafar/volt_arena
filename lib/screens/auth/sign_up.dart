@@ -60,7 +60,6 @@ class _SignupScreenState extends State<SignupScreen> {
           imageUrl: _imageURL,
           createdAt: Timestamp.now(),
           joinedAt: formattedDate,
-          isAdmin: false,
           password: _password.text.trim(),
         );
         final bool _save = await UserAPI().addUser(_appUser);
