@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/adminScreens/upload_product_form.dart';
 import 'package:volt_arena/user_state.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
-import 'consts/theme_data.dart';
 import 'screens/auth/forget_password.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -94,9 +92,7 @@ class _MyAppState extends State<MyApp> {
             secondary: Colors.red,
           ),
         ),
-        home: (UserLocalData.getUserUID == '')
-            ? const LandingScreen()
-            : MainScreens(),
+        home: UserState(),
         routes: {
           // '/': (ctx) => LandingPage(),
           // WebhookPaymentScreen.routeName: (ctx) =>
@@ -105,6 +101,7 @@ class _MyAppState extends State<MyApp> {
           CalenderScreen.routeName: (ctx) => CalenderScreen(),
           ServicesScreen.routeName: (ctx) => ServicesScreen(),
           WishlistScreen.routeName: (ctx) => WishlistScreen(),
+          LandingScreen.routeName: (ctx) => LandingScreen(),
           MainScreens.routeName: (ctx) => MainScreens(),
           ServiceDetailsScreen.routeName: (ctx) => ServiceDetailsScreen(),
           LoginScreen.routeName: (ctx) => LoginScreen(),
@@ -117,59 +114,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-
-// import 'package:volt_arena/screens/home_screen.dart';
-// import 'package:volt_arena/screens/introduction_auth_screen.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:flutter/material.dart';
-
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       home: NavigationPage(),
-//     );
-//   }
-// }
-
-// class NavigationPage extends StatefulWidget {
-//   @override
-//   _NavigationPageState createState() => _NavigationPageState();
-// }
-
-// class _NavigationPageState extends State<NavigationPage> {
-//   bool isLoggedIn = false;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     FirebaseAuth.instance.authStateChanges().listen((event) {
-//       if (event != null) {
-//         setState(() {
-//           isLoggedIn = true;
-//         });
-//       } else {
-//         setState(() {
-//           isLoggedIn = false;
-//         });
-//       }
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: isLoggedIn == false ? IntroductionAuthScreen() : HomeScreen(),
-//     );
-//   }
-// }
