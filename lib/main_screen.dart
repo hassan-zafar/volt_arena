@@ -10,7 +10,9 @@ class MainScreens extends StatelessWidget {
 
     return SafeArea(
       child: PageView(
-        children: [BottomBarScreen(), UploadProductForm()],
+        children: [BottomBarScreen(), 
+        // UploadProductForm()
+        ],
       ),
     );
   }
