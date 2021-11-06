@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/database/auth_methods.dart';
 import 'package:volt_arena/database/user_local_data.dart';
-import 'package:volt_arena/provider/bottom_navigation_bar_provider.dart';
 import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/utilities/utilities.dart';
 import 'package:volt_arena/widget/tools/circular_profile_image.dart';
@@ -32,21 +31,15 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Wish List'),
             trailing: forwardArrow,
           ),
-          Consumer<BottomNavigationBarProvider>(
-              builder: (
-            BuildContext context,
-            BottomNavigationBarProvider page,
-            _,
-          ) =>
-                  ListTile(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      page.updateSelectedPage(4);
-                    },
-                    leading: const Icon(Icons.shopping_cart),
-                    title: const Text('My Booking'),
-                    trailing: forwardArrow,
-                  )),
+          ListTile(
+            onTap: () {
+              // Navigator.of(context).pop();
+              Navigator.of(context).pushNamed(MyBookingsScreen.routeName);
+            },
+            leading: const Icon(Icons.shopping_cart),
+            title: const Text('My Booking'),
+            trailing: forwardArrow,
+          ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.shopping_bag),

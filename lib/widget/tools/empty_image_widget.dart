@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/provider/bottom_navigation_bar_provider.dart';
 
-
 class EmptyImageWidget extends StatelessWidget {
   const EmptyImageWidget({
     required this.assetImage,
@@ -45,7 +44,7 @@ class EmptyImageWidget extends StatelessWidget {
               _,
             ) =>
                 TextButton(
-              onPressed: () => page.updateSelectedPage(0),
+              onPressed: () => Navigator.of(context).pop(),
               child: const Text('SHOP NOW'),
             ),
           ),

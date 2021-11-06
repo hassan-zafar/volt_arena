@@ -21,10 +21,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   final List<Widget> pages = <Widget>[
     ServicesScreen(),
     Search(),
-    MyBookingsScreen(),
+    // MyBookingsScreen(),
     CalenderScreen(),
-    UserInfo(),
-    UserNSearch(),
+    // UserInfo(),
+    // UserNSearch(),
     ChatLists(),
   ];
 
@@ -43,7 +43,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           onTap: (int updatedPage) => _page.updateSelectedPage(updatedPage),
           backgroundColor: Theme.of(context).colorScheme.primary,
           unselectedItemColor: Colors.grey.shade700,
-          selectedItemColor: Colors.black,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
           currentIndex: _page.selectedPage,
           items: [
             BottomNavigationBarItem(
@@ -54,19 +54,19 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               icon: Icon(MyAppIcons.search),
               label: 'Search',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_rounded),
-              label: 'BOOKINGS',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.shopping_cart_rounded),
+            //   label: 'BOOKINGS',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
-              label: 'ALL BOOKINGS',
+              label: 'All Booking',
             ),
-            BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: 'All Users',
-            ),
+            // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.people),
+            //   label: 'All Users',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat_bubble),
               label: 'Admin Chats',

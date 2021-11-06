@@ -6,6 +6,7 @@ import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
 import 'package:volt_arena/provider/products.dart';
 import 'package:volt_arena/widget/service_card_widget.dart';
+import 'package:volt_arena/widget/tools/custom_drawer.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import '../consts/colors.dart';
 import '../consts/my_icons.dart';
@@ -44,15 +45,16 @@ class _ServicesScreenState extends State<ServicesScreen> {
     }
     return SafeArea(
       child: Scaffold(
+        drawer: CustomDrawer(),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: Text('Services'),
           centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.dehaze_outlined),
-            onPressed: () => Scaffold.of(context).openDrawer(),
-          ),
+          // leading: IconButton(
+          //   icon: Icon(Icons.dehaze_outlined),
+          //   onPressed: () => Scaffold.of(context).openDrawer(),
+          // ),
           actions: [
             Consumer<FavsProvider>(
               builder: (_, favs, ch) => Badge(
