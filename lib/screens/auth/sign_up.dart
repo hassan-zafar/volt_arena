@@ -65,8 +65,9 @@ class _SignupScreenState extends State<SignupScreen> {
         final bool _save = await UserAPI().addUser(_appUser);
         if (_save) {
           CustomToast.successToast(message: 'Signup successfully');
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              LandingScreen.routeName, (Route<dynamic> route) => false);
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => LandingScreen(),
+          ));
         } else {
           Navigator.of(context).pop();
         }

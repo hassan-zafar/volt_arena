@@ -161,17 +161,18 @@ class _UserNSearchState extends State<UserNSearch>
                                             });
                                           },
                                           child: GlassContainer(
-                                              opacity: 0.7,
-                                              shadowStrength: 8,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  "All Users ${userResults.length}",
-                                                  style:
-                                                      TextStyle(fontSize: 20.0),
-                                                ),
-                                              ),),
+                                            opacity: 0.7,
+                                            shadowStrength: 8,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "All Users ${userResults.length}",
+                                                style:
+                                                    TextStyle(fontSize: 20.0),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -191,17 +192,18 @@ class _UserNSearchState extends State<UserNSearch>
                                             });
                                           },
                                           child: GlassContainer(
-                                              opacity: 0.7,
-                                              shadowStrength: 8,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Text(
-                                                  "All Admins ${allAdmins.length}",
-                                                  style:
-                                                      TextStyle(fontSize: 20.0),
-                                                ),
-                                              ),),
+                                            opacity: 0.7,
+                                            shadowStrength: 8,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "All Admins ${allAdmins.length}",
+                                                style:
+                                                    TextStyle(fontSize: 20.0),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -231,7 +233,9 @@ class _UserNSearchState extends State<UserNSearch>
             child: GestureDetector(
               onTap: () {
                 AuthenticationService().signOut();
-                Get.off(LandingScreen());
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => LandingScreen(),
+                ));
               },
               child: Container(
                   decoration: BoxDecoration(

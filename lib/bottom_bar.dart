@@ -23,8 +23,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     Search(),
     // MyBookingsScreen(),
     CalenderScreen(),
-    // UserInfo(),
-    // UserNSearch(),
+    UserInfo(),
+    UserNSearch(),
     ChatLists(),
   ];
 
@@ -62,11 +62,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               icon: Icon(Icons.calendar_today),
               label: 'All Booking',
             ),
-            // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.people),
-            //   label: 'All Users',
-            // ),
+            BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'All Users',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat_bubble),
               label: 'Admin Chats',

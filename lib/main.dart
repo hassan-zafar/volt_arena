@@ -112,6 +112,7 @@ class _MyAppState extends State<MyApp> {
           BottomBarScreen.routeName: (ctx) => BottomBarScreen(),
           UploadProductForm.routeName: (ctx) => UploadProductForm(),
           ForgetPassword.routeName: (ctx) => ForgetPassword(),
+          LandingScreen.routeName: (ctx) => LandingScreen(),
         },
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/widget/tools/custom_toast.dart';
 
@@ -116,6 +117,7 @@ class AuthMethod {
       final DocumentSnapshot<Map<String, dynamic>> docs =
           await UserAPI().getInfo(uid: user!.uid);
       final AppUserModel appUser = AppUserModel.fromDocument(docs);
+      currentUser = appUser;
       UserLocalData().storeAppUserData(appUser: appUser);
       return user;
     } catch (signUpError) {
