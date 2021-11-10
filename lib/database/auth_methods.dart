@@ -63,9 +63,14 @@ class AuthMethod {
             name: authResult.user!.displayName,
             email: authResult.user!.email,
             imageUrl: authResult.user!.photoURL,
+            phoneNo: "",
+            androidNotificationToken: "",
+            password: "",
             joinedAt: formattedDate,
+            isAdmin: true,
             createdAt: Timestamp.now(),
           );
+          currentUser = _appUser;
           final bool _isOkay = await UserAPI().addUser(_appUser);
           if (_isOkay) {
             UserLocalData().storeAppUserData(appUser: _appUser);
