@@ -50,7 +50,7 @@ class MakePayment {
       Charge charge = Charge()
         ..amount = price! * 100
         ..email = email
-        ..currency = "USD"
+        ..currency = "NGN"
         ..reference = _getReference()
         ..card = _getCardUI();
 
