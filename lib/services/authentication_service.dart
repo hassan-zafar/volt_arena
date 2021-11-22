@@ -7,10 +7,7 @@ import 'package:volt_arena/database/local_database.dart';
 import 'package:volt_arena/database/user_local_data.dart';
 import 'package:volt_arena/screens/landing_page.dart';
 
-
 import 'package:volt_arena/widget/custom_toast.dart';
-
-
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -52,7 +49,7 @@ class AuthenticationService {
     }
   }
 
-  Future deleteUser(String email, String password) async {
+  Future deleteUser({required String email, required String password}) async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
     try {

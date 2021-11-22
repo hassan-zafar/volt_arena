@@ -1,7 +1,6 @@
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
 import 'package:volt_arena/services/global_method.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +23,6 @@ class MyBookingsScreen extends StatefulWidget {
 class _MyBookingsScreenState extends State<MyBookingsScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

@@ -1,4 +1,3 @@
-import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/models/cart_attr.dart';
 import 'package:volt_arena/provider/cart_provider.dart';

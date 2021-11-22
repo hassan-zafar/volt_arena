@@ -7,7 +7,6 @@ import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/screens/user_info.dart';
 import 'package:volt_arena/widget/tools/custom_drawer.dart';
-import 'cart/cart.dart';
 import 'provider/bottom_navigation_bar_provider.dart';
 import 'screens/servicesScreen.dart';
 
