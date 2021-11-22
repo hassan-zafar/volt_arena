@@ -88,7 +88,7 @@ class ServiceCardWidget extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '\$${product.price}',
+                              '\₦${product.price}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(

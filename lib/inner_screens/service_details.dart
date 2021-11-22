@@ -130,7 +130,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                               height: 8,
                             ),
                             Text(
-                              'US \$ ${prodAttr.price}',
+                              '₦ ${prodAttr.price}',
                               style: TextStyle(
                                 color: ColorsConsts.subTitle,
                                 fontWeight: FontWeight.bold,
