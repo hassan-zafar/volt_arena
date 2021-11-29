@@ -68,7 +68,7 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
                         ),
                       ),
                       Text(
-                        '\$${productsAttributes.price}',
+                        '₦${productsAttributes.price}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(

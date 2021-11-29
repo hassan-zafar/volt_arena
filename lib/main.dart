@@ -94,9 +94,7 @@ class _MyAppState extends State<MyApp> {
             secondary: Colors.red,
           ),
         ),
-        home: (UserLocalData.getUserUID == '')
-            ? const LandingScreen()
-            : MainScreens(),
+        home: UserState(),
         routes: {
           // '/': (ctx) => LandingPage(),
           // WebhookPaymentScreen.routeName: (ctx) =>

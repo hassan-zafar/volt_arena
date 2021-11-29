@@ -67,7 +67,7 @@
 //                       height: 20.0,
 //                     ),
 //                     FittedBox(
-//                       child: Text('US ${productsAttributes.price} \$',
+//                       child: Text('US ${productsAttributes.price} ₦',
 //                           maxLines: 1,
 //                           style: TextStyle(
 //                             color: Colors.red,

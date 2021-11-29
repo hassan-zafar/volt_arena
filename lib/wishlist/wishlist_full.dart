@@ -64,7 +64,7 @@ class _WishlistFullState extends State<WishlistFull> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                "\$ ${favsAttr.price}",
+                                "₦ ${favsAttr.price}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

@@ -83,7 +83,7 @@ class ServicesTileWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${_product.price!}',
+                      '₦${_product.price!}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

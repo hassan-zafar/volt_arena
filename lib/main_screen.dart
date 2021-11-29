@@ -7,12 +7,9 @@ class MainScreens extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: PageView(
-        children: [BottomBarScreen(), 
-        // UploadProductForm()
-        ],
+        children: [BottomBarScreen(), UploadProductForm()],
       ),
     );
   }

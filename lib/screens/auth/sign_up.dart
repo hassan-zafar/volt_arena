@@ -57,6 +57,7 @@ class _SignupScreenState extends State<SignupScreen> {
           id: _user.uid,
           name: _name.text.trim(),
           email: _email.text.trim(),
+          isAdmin: false,
           imageUrl: _imageURL,
           createdAt: Timestamp.now(),
           joinedAt: formattedDate,

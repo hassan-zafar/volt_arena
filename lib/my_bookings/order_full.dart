@@ -101,7 +101,7 @@ class _MyBookingsFullState extends State<MyBookingsFull> {
                           width: 5,
                         ),
                         Text(
-                          '${orderAttrProvider.price}\$',
+                          '${orderAttrProvider.price}₦',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),

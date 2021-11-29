@@ -82,7 +82,7 @@ class PopularProducts extends StatelessWidget {
                         padding: EdgeInsets.all(10.0),
                         color: Theme.of(context).backgroundColor,
                         child: Text(
-                          '\$ ${productsAttributes.price}',
+                          '₦ ${productsAttributes.price}',
                           style: TextStyle(
                             color: Theme.of(context).textSelectionColor,
                           ),

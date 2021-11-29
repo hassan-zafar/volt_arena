@@ -274,7 +274,7 @@ class _UploadProductFormState extends State<UploadProductForm> {
                               Flexible(
                                 flex: 1,
                                 child: TextFormField(
-                                  key: ValueKey('Price \$'),
+                                  key: ValueKey('Price ₦'),
                                   keyboardType: TextInputType.number,
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -287,10 +287,10 @@ class _UploadProductFormState extends State<UploadProductForm> {
                                         RegExp(r'[0-9]')),
                                   ],
                                   decoration: InputDecoration(
-                                    labelText: 'Price \$',
+                                    labelText: 'Price ₦',
                                     //  prefixIcon: Icon(Icons.mail),
                                     // suffixIcon: Text(
-                                    //   '\n \n \$',
+                                    //   '\n \n ₦',
                                     //   textAlign: TextAlign.start,
                                     // ),
                                   ),
@@ -549,9 +549,18 @@ class _UploadProductFormState extends State<UploadProductForm> {
         itemExtent: 25,
         scrollController: controller,
         children: [
-          Text("Individual"),
-          Text("Group"),
-          Text("Either"),
+          Text(
+            "Individual",
+            style: TextStyle(color: Colors.white),
+          ),
+          Text(
+            "Group",
+            style: TextStyle(color: Colors.white),
+          ),
+          Text(
+            "Either",
+            style: TextStyle(color: Colors.white),
+          ),
         ],
         useMagnifier: true, diameterRatio: 1,
         magnification: 1.1,
