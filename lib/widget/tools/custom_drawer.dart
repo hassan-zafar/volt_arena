@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:volt_arena/cart/cart.dart';
+import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/database/auth_methods.dart';
 import 'package:volt_arena/database/user_local_data.dart';
-import 'package:volt_arena/provider/bottom_navigation_bar_provider.dart';
+import 'package:volt_arena/inner_screens/commentsNChat.dart';
 import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/utilities/utilities.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
@@ -73,6 +73,22 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Invite Friends'),
             trailing: forwardArrow,
           ),
+          currentUser!.isAdmin!
+              ? ListTile(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CommentsNChat(
+                          isPostComment: false, isProductComment: false),
+                    ));
+                  },
+                  leading: Icon(
+                    Icons.chat,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: const Text('Contact Admin'),
+                  trailing: forwardArrow,
+                )
+              : Container(),
           ListTile(
             onTap: () async {
               showLicensePage(context: context);
