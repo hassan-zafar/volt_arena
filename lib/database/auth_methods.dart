@@ -67,7 +67,7 @@ class AuthMethod {
             androidNotificationToken: "",
             password: "",
             joinedAt: formattedDate,
-            isAdmin: true,
+            isAdmin: false,
             createdAt: Timestamp.now(),
           );
           currentUser = _appUser;

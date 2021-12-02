@@ -63,46 +63,47 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 250),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          splashColor: Colors.purple.shade200,
-                          onTap: () {},
-                          borderRadius: BorderRadius.circular(30),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.save,
-                              size: 23,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          splashColor: Colors.purple.shade200,
-                          onTap: () {},
-                          borderRadius: BorderRadius.circular(30),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.share,
-                              size: 23,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(16.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.end,
+                //     children: <Widget>[
+                //       Material(
+                //         color: Colors.transparent,
+                //         child: InkWell(
+                //           splashColor: Colors.purple.shade200,
+                //           onTap: () {},
+                //           borderRadius: BorderRadius.circular(30),
+                //           child: Padding(
+                //             padding: const EdgeInsets.all(8.0),
+                //             child: Icon(
+                //               Icons.save,
+                //               size: 23,
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //       Material(
+                //         color: Colors.transparent,
+                //         child: InkWell(
+                //           splashColor: Colors.purple.shade200,
+                //           onTap: () {},
+                //           borderRadius: BorderRadius.circular(30),
+                //           child: Padding(
+                //             padding: const EdgeInsets.all(8.0),
+                //             child: Icon(
+                //               Icons.share,
+                //               size: 23,
+                //               color: Colors.white,
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
                 Container(
                   //padding: const EdgeInsets.all(16.0),
                   color: Theme.of(context).scaffoldBackgroundColor,
@@ -238,7 +239,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   padding: EdgeInsets.all(8.0),
                   color: Theme.of(context).scaffoldBackgroundColor,
                   child: Text(
-                    'Suggested products:',
+                    'Suggested services:',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                 ),

@@ -140,7 +140,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        widget.title!,
+                        widget.title == null ? 'Title' : widget.title!,
                         style: titleTextStyle(fontSize: 20),
                       ),
                     ),

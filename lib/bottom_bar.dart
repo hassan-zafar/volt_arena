@@ -1,12 +1,11 @@
 import 'package:provider/provider.dart';
+import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/my_icons.dart';
-import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:volt_arena/widget/tools/custom_drawer.dart';
 import 'provider/bottom_navigation_bar_provider.dart';
 import 'screens/servicesScreen.dart';
-
 
 class BottomBarScreen extends StatefulWidget {
   static const routeName = '/BottomBarScreen';
@@ -18,8 +17,8 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   final List<Widget> pages = <Widget>[
     ServicesScreen(),
     Search(),
-    // MyBookingsScreen(),
-    CalenderScreen(),
+    MyBookingsScreen(),
+    // CalenderScreen(),
     // UserInfo(),
     // UserNSearch(),
     // ChatLists(),
@@ -52,14 +51,14 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
               label: 'Search',
             ),
 
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.shopping_cart_rounded),
-            //   label: 'BOOKINGS',
-            // ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
-              label: 'All Bookings',
+              icon: Icon(Icons.shopping_cart_rounded),
+              label: 'BOOKINGS',
             ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.calendar_today),
+            //   label: 'All Bookings',
+            // ),
             // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
 
             //admin screen

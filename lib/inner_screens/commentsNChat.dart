@@ -95,7 +95,7 @@ class CommentsNChatState extends State<CommentsNChat> {
     super.initState();
     if (mounted) {
       setState(() {
-        chatHeadId = isAdmin! ? widget.chatId : currentUser!.id;
+        chatHeadId = currentUser!.isAdmin! ? widget.chatId : currentUser!.id;
       });
     }
     getAdmins();
@@ -105,7 +105,7 @@ class CommentsNChatState extends State<CommentsNChat> {
     print(widget.chatId);
     return StreamBuilder<QuerySnapshot>(
       stream: chatRoomRef
-          .doc(isAdmin! ? widget.chatId : currentUser!.id)
+          .doc(currentUser!.isAdmin! ? widget.chatId : currentUser!.id)
           .collection("chats")
           .orderBy("timestamp", descending: false)
           .snapshots(),
@@ -195,7 +195,7 @@ class CommentsNChatState extends State<CommentsNChat> {
     isProductComment!
         ? title = "Commented on product"
         : title = "Commented on post";
-    bool isNotPostOwner = isAdmin != currentUser!.id;
+    bool isNotPostOwner = currentUser!.isAdmin!;
     if (isNotPostOwner) {
       allAdmins.forEach((element) {
         // activityFeedRef.doc(element.id).collection('feedItems').add({
@@ -221,7 +221,7 @@ class CommentsNChatState extends State<CommentsNChat> {
     String commentId = Uuid().v1();
     if (_commentNMessagesController.text.trim().length > 1) {
       chatRoomRef
-          .doc(isAdmin! ? widget.chatId : currentUser!.id)
+          .doc(currentUser!.isAdmin! ? widget.chatId : currentUser!.id)
           .collection("chats")
           .doc(commentId)
           .set({
@@ -246,7 +246,7 @@ class CommentsNChatState extends State<CommentsNChat> {
       // });
       sendNotificationToAdmin(
           type: "adminChats", title: "Admin Chats", isAdminChat: true);
-      if (isAdmin!) {
+      if (currentUser!.isAdmin!) {
         // activityFeedRef.doc(widget.chatId).collection('feedItems').add({
         //   "type": "adminChats",
         //   "commentData": _commentNMessagesController.text,
