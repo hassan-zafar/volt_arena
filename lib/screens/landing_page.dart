@@ -67,7 +67,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return InkWell(
       borderRadius: BorderRadius.circular(Utilities.borderRadius),
       onTap: () async {
-        showLoadingDislog(context);
+   
         final bool _login = await AuthMethod().signinWithGoogle();
         if (_login) {
           Navigator.of(context).pushNamedAndRemoveUntil(

@@ -217,7 +217,7 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                 ),
               ),
               Text(
-                'US ${subtotal.toStringAsFixed(3)}',
+                '₦ ${subtotal.toStringAsFixed(3)}',
                 style: TextStyle(
                   color: Theme.of(context).primaryColor,
                   fontSize: 18,

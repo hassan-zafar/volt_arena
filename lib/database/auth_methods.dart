@@ -4,8 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/widget/tools/custom_toast.dart';
-
-import 'local_database.dart';
 import 'user_api.dart';
 import 'user_local_data.dart';
 
@@ -45,9 +43,17 @@ class AuthMethod {
   Future<bool> signinWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
+
+    DocumentSnapshot doc =
+        await userRef.doc(googleSignIn.currentUser!.id).get();
+
+    if (doc.exists) {
+      
+    }
     if (googleAccount != null) {
       final GoogleSignInAuthentication googleAuth =
           await googleAccount.authentication;
+
       if (googleAuth.accessToken != null && googleAuth.idToken != null) {
         try {
           String date = DateTime.now().toString();
