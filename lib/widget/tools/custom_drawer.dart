@@ -42,7 +42,9 @@ class CustomDrawer extends StatelessWidget {
             trailing: forwardArrow,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamed(Com.routeName);
+            },
             leading: const Icon(Icons.shopping_bag),
             title: const Text('Completed Sessions'),
             trailing: forwardArrow,

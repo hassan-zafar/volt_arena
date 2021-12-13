@@ -43,20 +43,8 @@ class AuthMethod {
   Future<bool> signinWithGoogle() async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
-
-    DocumentSnapshot doc =
-        await userRef.doc(googleSignIn.currentUser!.id).get();
-
-    if (doc.exists) {
-      currentUser = AppUserModel.fromDocument(doc);
-      final bool _isOkay = await UserAPI().addUser(currentUser!);
-      if (_isOkay) {
-        UserLocalData().storeAppUserData(appUser: currentUser!);
-      } else {
-        return false;
-      }
-      return true;
-    } else if (!doc.exists && googleAccount != null) {
+    if (googleAccount != null) {
+      print('here');
       final GoogleSignInAuthentication googleAuth =
           await googleAccount.authentication;
 
@@ -70,24 +58,33 @@ class AuthMethod {
               GoogleAuthProvider.credential(
                   idToken: googleAuth.idToken,
                   accessToken: googleAuth.accessToken));
-          final AppUserModel _appUser = AppUserModel(
-            id: authResult.user!.uid,
-            name: authResult.user!.displayName,
-            email: authResult.user!.email,
-            imageUrl: authResult.user!.photoURL,
-            phoneNo: "",
-            androidNotificationToken: "",
-            password: "",
-            joinedAt: formattedDate,
-            isAdmin: false,
-            createdAt: Timestamp.now(),
-          );
-          currentUser = _appUser;
-          final bool _isOkay = await UserAPI().addUser(_appUser);
-          if (_isOkay) {
-            UserLocalData().storeAppUserData(appUser: _appUser);
+          DocumentSnapshot doc = await userRef.doc(authResult.user!.uid).get();
+          print(doc.exists);
+          if (doc.exists) {
+            currentUser = AppUserModel.fromDocument(doc);
+            // final bool _isOkay = await UserAPI().addUser(currentUser!);
+
+            return true;
           } else {
-            return false;
+            final AppUserModel _appUser = AppUserModel(
+              id: authResult.user!.uid,
+              name: authResult.user!.displayName,
+              email: authResult.user!.email,
+              imageUrl: authResult.user!.photoURL,
+              phoneNo: "",
+              androidNotificationToken: "",
+              password: "",
+              joinedAt: formattedDate,
+              isAdmin: false,
+              createdAt: Timestamp.now(),
+            );
+            currentUser = _appUser;
+            final bool _isOkay = await UserAPI().addUser(_appUser);
+            if (_isOkay) {
+              UserLocalData().storeAppUserData(appUser: _appUser);
+            } else {
+              return false;
+            }
           }
           return true;
         } catch (error) {
