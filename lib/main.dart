@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,7 @@ import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/database/user_local_data.dart';
 import 'package:volt_arena/provider/bottom_navigation_bar_provider.dart';
 import 'package:volt_arena/screens/landing_page.dart';
+import 'package:volt_arena/screens/orders/order.dart';
 import 'package:volt_arena/screens/servicesScreen.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/main_screen.dart';
@@ -23,7 +23,6 @@ import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/adminScreens/upload_product_form.dart';
 import 'package:volt_arena/user_state.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
-import 'consts/theme_data.dart';
 import 'screens/auth/forget_password.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -111,6 +110,7 @@ class _MyAppState extends State<MyApp> {
           UploadProductForm.routeName: (ctx) => UploadProductForm(),
           ForgetPassword.routeName: (ctx) => ForgetPassword(),
           LandingScreen.routeName: (ctx) => LandingScreen(),
+          OrderScreen.routeName: (ctx) => OrderScreen(),
         },
       ),
     );
