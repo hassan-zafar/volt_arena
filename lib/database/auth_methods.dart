@@ -48,9 +48,15 @@ class AuthMethod {
         await userRef.doc(googleSignIn.currentUser!.id).get();
 
     if (doc.exists) {
-      
-    }
-    if (googleAccount != null) {
+      currentUser = AppUserModel.fromDocument(doc);
+      final bool _isOkay = await UserAPI().addUser(currentUser!);
+      if (_isOkay) {
+        UserLocalData().storeAppUserData(appUser: currentUser!);
+      } else {
+        return false;
+      }
+      return true;
+    } else if (!doc.exists && googleAccount != null) {
       final GoogleSignInAuthentication googleAuth =
           await googleAccount.authentication;
 
