@@ -44,7 +44,8 @@ class MakePayment {
   }
 
   //Method Charging card
-  Future chargeCardAndMakePayment() async {
+  Future<bool> chargeCardAndMakePayment() async {
+    bool status = false;
     print("here: chargeCardAndMakePayment");
     initializePlugin().then((_) async {
       Charge charge = Charge()
@@ -70,12 +71,14 @@ class MakePayment {
       if (response.status == true) {
         Fluttertoast.showToast(msg: "Transaction successful");
         print("Transaction successful");
+        // return true;
+        status = response.status;
       } else {
         print("Transaction failed");
-
         Fluttertoast.showToast(msg: "Transaction failed");
+        status = false;
       }
-      // return response.status;
     });
+    return status;
   }
 }

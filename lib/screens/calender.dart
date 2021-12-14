@@ -152,8 +152,9 @@ class _CalenderScreenState extends State<CalenderScreen>
                             helpText: "Select Event Starting Time");
                         setState(() {
                           this.startingTime = startingTimeTemp!;
-                          this.endingTime =
-                              startingTime!.add(minute: widget.gameTime!);
+                          this.endingTime = startingTime!.add(
+                            minute: widget.gameTime!,
+                          );
                         });
                         print(startingTime);
                       },

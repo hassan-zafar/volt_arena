@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/database/auth_methods.dart';
@@ -68,7 +69,10 @@ class CustomDrawer extends StatelessWidget {
           ),
           _divider('User Settings', context),
           ListTile(
-            onTap: () {},
+            onTap: () => Share.share(
+              'check out this app https://play.google.com/store/apps/details?id=com.whatsapp',
+              subject: 'Look at this app!',
+            ),
             leading: Icon(
               Icons.person_add,
               color: Theme.of(context).primaryColor,
@@ -76,7 +80,7 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Invite Friends'),
             trailing: forwardArrow,
           ),
-          currentUser!.isAdmin!
+          !currentUser!.isAdmin!
               ? ListTile(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
