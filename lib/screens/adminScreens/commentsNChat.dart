@@ -225,7 +225,7 @@ class CommentsNMessages extends StatefulWidget {
   });
   factory CommentsNMessages.fromDocument(doc) {
     return CommentsNMessages(
-      avatarUrl: doc['avatarUrl'],
+      // avatarUrl: doc['avatarUrl'],
       comment: doc.data()['comment'],
       timestamp: doc.data()['timestamp'],
       userId: doc.data()['userId'],
@@ -275,12 +275,12 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                CircleAvatar(
-                  backgroundImage:
-                      widget.avatarUrl != null && widget.avatarUrl != ''
-                          ? CachedNetworkImageProvider(widget.avatarUrl!)
-                          : AssetImage(logo),
-                ),
+                // widget.avatarUrl != null && widget.avatarUrl != ''
+                //     ? CircleAvatar(
+                //         backgroundImage:
+                //             CachedNetworkImageProvider(widget.avatarUrl!),
+                //       )
+                //     : CircleAvatar(backgroundImage: AssetImage(logo)),
                 SizedBox(
                   width: 8,
                 ),
@@ -294,7 +294,9 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
                         children: [
                           Text("${widget.userName} : ",
                               style: TextStyle(
-                                  fontSize: 14.0, color: Colors.white)),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14.0,
+                                  color: Colors.white)),
                           Flexible(
                             child: Text(
                               "${widget.comment}",

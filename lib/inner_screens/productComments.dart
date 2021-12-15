@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -8,7 +7,6 @@ import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/services/notificationHandler.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 class ProductComments extends StatefulWidget {
   final String? postId;
@@ -383,8 +381,9 @@ class _ProductCommentMessagesState extends State<ProductCommentMessages> {
   buildCommentBubble() {
     commentLikes = widget.likes;
     _isLiked = widget.likesMap![currentUser!.id] == true;
-    return GlassContainer(
-      opacity: 0.6,
+    return Container(
+      decoration: BoxDecoration(      color: Colors.orange,
+borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -559,6 +558,7 @@ class _ProductCommentMessagesState extends State<ProductCommentMessages> {
                           Text("${widget.userName} : ",
                               style: TextStyle(
                                   fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
                                   color: Theme.of(context).dividerColor)),
                           Flexible(
                             child: Text(

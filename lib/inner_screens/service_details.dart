@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/cart/cart.dart';
@@ -18,7 +19,6 @@ import 'package:volt_arena/widget/serviceCardWidget.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class ServiceDetailsScreen extends StatefulWidget {
   static const routeName = '/ServiceDetailsScreen';
@@ -50,9 +50,9 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             foregroundDecoration: BoxDecoration(color: Colors.black12),
             height: MediaQuery.of(context).size.height * 0.45,
             width: double.infinity,
-            child: Image.network(
-              prodAttr.imageUrl!,
+            child: CachedNetworkImage(
               fit: BoxFit.cover,
+              imageUrl: prodAttr.imageUrl!,
             ),
           ),
           SingleChildScrollView(
@@ -449,7 +449,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   builder: (context) => ProductComments(
                         isProductComment: true,
                         isPostComment: false,
-                        postMediaUrl: productItems.imageUrl,
+                        // postMediaUrl: productItems.imageUrl,
                         postId: productItems.productId,
                       ))),
             ),
@@ -547,7 +547,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ProductComments(
                                         postId: productId,
-                                        postMediaUrl: productItems!.imageUrl,
+                                        // postMediaUrl: productItems!.imageUrl,
                                         isAdmin: currentUser!.isAdmin,
                                         isPostComment: false,
                                         isProductComment: true,
