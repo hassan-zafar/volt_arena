@@ -52,7 +52,7 @@ class CommentsNChatState extends State<CommentsNChat> {
 
   getAdmins() async {
     QuerySnapshot snapshots =
-        await userRef.where('type', isEqualTo: 'admin').get();
+        await userRef.where('isAdmin', isEqualTo: true).get();
     snapshots.docs.forEach((e) {
       allAdmins.add(AppUserModel.fromDocument(e));
     });
@@ -63,9 +63,10 @@ class CommentsNChatState extends State<CommentsNChat> {
     super.initState();
     if (mounted) {
       setState(() {
-        chatHeadId = (isAdmin != null && isAdmin == true
-            ? widget.chatId
-            : currentUser!.id)!;
+        chatHeadId =
+            currentUser!.isAdmin != null && currentUser!.isAdmin == true
+                ? widget.chatId
+                : currentUser!.id;
       });
     }
     getAdmins();
@@ -74,14 +75,16 @@ class CommentsNChatState extends State<CommentsNChat> {
   buildChat() {
     print(widget.chatId);
     return StreamBuilder<QuerySnapshot>(
-      stream: currentUser!.isAdmin!
-          ? chatRoomRef
-              .doc(currentUser!.isAdmin != null && currentUser!.isAdmin == true
-                  ? widget.chatId
-                  : currentUser!.id)
-              .collection("chats")
-              .snapshots()
-          : chatRoomRef
+      stream:
+          // currentUser!.isAdmin!
+          // ? chatRoomRef
+          //     .doc(currentUser!.isAdmin != null && currentUser!.isAdmin == true
+          //         ? widget.chatId
+          //         : currentUser!.id)
+          //     .collection("chats")
+          //     .snapshots()
+          // :
+          chatRoomRef
               .doc(currentUser!.isAdmin != null && currentUser!.isAdmin == true
                   ? widget.chatId
                   : currentUser!.id)
@@ -97,6 +100,7 @@ class CommentsNChatState extends State<CommentsNChat> {
         snapshot.data!.docs.forEach((DocumentSnapshot doc) {
           chatMessages.add(CommentsNMessages.fromDocument(doc));
         });
+        print(chatMessages);
         return ListView(
           children: chatMessages,
         );
@@ -122,16 +126,18 @@ class CommentsNChatState extends State<CommentsNChat> {
         "avatarUrl": currentUser!.imageUrl,
         "commentId": commentId,
       });
-      chatListRef
-          .doc(currentUser!.isAdmin! ? widget.chatId : currentUser!.id)
-          .set({
-        "userName": currentUser!.name,
-        "userId": currentUser!.id,
-        "comment": _commentNMessagesController.text,
-        "timestamp": DateTime.now(),
-        "androidNotificationToken": widget.chatNotificationToken ??
-            currentUser!.androidNotificationToken,
-      });
+      currentUser!.isAdmin!
+          ? null
+          : chatListRef
+              .doc(currentUser!.isAdmin! ? widget.chatId : currentUser!.id)
+              .set({
+              "userName": currentUser!.name,
+              "userId": currentUser!.id,
+              "comment": _commentNMessagesController.text,
+              "timestamp": DateTime.now(),
+              "androidNotificationToken": widget.chatNotificationToken ??
+                  currentUser!.androidNotificationToken,
+            });
       // sendNotificationToAdmin(
       //     type: "adminChats", title: "Admin Chats", isAdminChat: true);
       // if (isAdmin) {
@@ -250,72 +256,77 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
 
   buildMessageBubble(BuildContext context) {
     bool isMe = currentUser!.id == widget.userId;
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.5,
-      decoration: BoxDecoration(
-        color: isMe ? Colors.orange : Colors.brown,
-        borderRadius: isMe
-            ? BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-                topLeft: Radius.circular(20),
-              )
-            : BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                // widget.avatarUrl != null && widget.avatarUrl != ''
-                //     ? CircleAvatar(
-                //         backgroundImage:
-                //             CachedNetworkImageProvider(widget.avatarUrl!),
-                //       )
-                //     : CircleAvatar(backgroundImage: AssetImage(logo)),
-                SizedBox(
-                  width: 8,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Text("${widget.userName} : ",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14.0,
-                                  color: Colors.white)),
-                          Flexible(
-                            child: Text(
-                              "${widget.comment}",
-                              style: TextStyle(
-                                  fontSize: 14.0, color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                      // Text(
-                      //   timeago.format(widget.timestamp!.toDate()),
-                      //   style: TextStyle(color: Colors.black54, fontSize: 12),
-                      // ),
-                    ],
-                  ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 14.0, right: 14.0),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.5,
+        decoration: BoxDecoration(
+          color: isMe ? Colors.orange : Colors.brown,
+          borderRadius: isMe
+              ? BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
                 )
-              ],
-            ),
-          ],
+              : BorderRadius.only(
+                  bottomLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  widget.avatarUrl != null && widget.avatarUrl != ''
+                      ? CircleAvatar(
+                          backgroundImage:
+                              CachedNetworkImageProvider(widget.avatarUrl!),
+                        )
+                      : CircleAvatar(backgroundImage: AssetImage(logo)),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: Column(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      // mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text("${widget.userName} : ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14.0,
+                                    color: Colors.white)),
+                            Flexible(
+                              child: Text(
+                                "${widget.comment}",
+                                style: TextStyle(
+                                    fontSize: 14.0, color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                        // Text(
+                        //   timeago.format(widget.timestamp!.toDate()),
+                        //   style: TextStyle(color: Colors.black54, fontSize: 12),
+                        // ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

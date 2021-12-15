@@ -4,7 +4,7 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
-import 'package:volt_arena/inner_screens/productComments.dart';
+import 'package:volt_arena/screens/adminScreens/commentsNChat.dart';
 
 class ChatLists extends StatefulWidget {
   @override
@@ -30,12 +30,12 @@ class _ChatListsState extends State<ChatLists> {
               if (!snapshots.hasData) {
                 return LoadingIndicator();
               }
-              List<ProductCommentMessages> chatHeads = [];
+              List<CommentsNMessages> chatHeads = [];
               print(snapshots.data!.docs.length);
               snapshots.data!.docs.forEach((e) {
                 print("in snapshot");
                 print(e["userId"]);
-                chatHeads.add(ProductCommentMessages.fromDocument(e));
+                chatHeads.add(CommentsNMessages.fromDocument(e));
                 print(chatHeads);
               });
               if (snapshots.data == null || chatHeads.isEmpty) {
@@ -59,10 +59,8 @@ class _ChatListsState extends State<ChatLists> {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ProductComments(
+                              builder: (context) => CommentsNChat(
                                     chatId: chatHeads[index].userId,
-                                    isPostComment: false,
-                                    isProductComment: true,
                                     chatNotificationToken: chatHeads[index]
                                         .androidNotificationToken,
                                     heroMsg: chatHeads[index].comment,

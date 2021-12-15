@@ -102,9 +102,9 @@ class ProductCommentsState extends State<ProductComments> {
   buildChat() {
     print(widget.chatId);
     return StreamBuilder<QuerySnapshot>(
-      stream: chatRoomRef
+      stream: commentsRef
           .doc(currentUser!.isAdmin! ? widget.chatId : currentUser!.id)
-          .collection("chats")
+          .collection("comments")
           .orderBy("timestamp", descending: false)
           .snapshots(),
       builder: (context, snapshot) {
@@ -220,7 +220,7 @@ class ProductCommentsState extends State<ProductComments> {
     if (_commentNMessagesController.text.trim().length > 1) {
       chatRoomRef
           .doc(currentUser!.isAdmin! ? widget.chatId : currentUser!.id)
-          .collection("chats")
+          .collection("comments")
           .doc(commentId)
           .set({
         "userName": currentUser!.name,
@@ -275,7 +275,7 @@ class ProductCommentsState extends State<ProductComments> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(widget.isPostComment! || widget.isProductComment!
-            ? 'COMMENTS'
+            ? 'Reviews'
             : "Contact Admin"),
       ),
       body: Padding(
@@ -293,7 +293,7 @@ class ProductCommentsState extends State<ProductComments> {
                 controller: _commentNMessagesController,
                 decoration: InputDecoration(
                   hintText: widget.isPostComment! || widget.isProductComment!
-                      ? "Write a Comment..."
+                      ? "Write a review..."
                       : "Write admin a message...",
                 ),
               ),
@@ -382,8 +382,8 @@ class _ProductCommentMessagesState extends State<ProductCommentMessages> {
     commentLikes = widget.likes;
     _isLiked = widget.likesMap![currentUser!.id] == true;
     return Container(
-      decoration: BoxDecoration(      color: Colors.orange,
-borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(
+          color: Colors.orange, borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
