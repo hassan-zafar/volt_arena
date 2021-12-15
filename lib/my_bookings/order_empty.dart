@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/colors.dart';
 import '../screens/servicesScreen.dart';
 

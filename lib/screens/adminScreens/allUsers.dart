@@ -1,7 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/colors.dart';
@@ -26,15 +25,14 @@ class _UserNSearchState extends State<UserNSearch>
   handleSearch(String query) {
     if (currentUser!.isAdmin!) {
       Future<QuerySnapshot> users =
-          userRef.where("userName", isGreaterThanOrEqualTo: query).get();
+          userRef.where("name", isGreaterThanOrEqualTo: query).get();
       setState(() {
         searchResultsFuture = users;
       });
     } else {
       Future<QuerySnapshot> users = userRef
-          .where("userName", isGreaterThanOrEqualTo: query)
+          .where("name", isGreaterThanOrEqualTo: query)
           .where("isAdmin", isNotEqualTo: true)
-          .where("isTeacher", isEqualTo: false)
           .get();
       setState(() {
         searchResultsFuture = users;
@@ -79,7 +77,7 @@ class _UserNSearchState extends State<UserNSearch>
         }
         List<UserResult> searchResults = [];
         snapshot.data!.docs.forEach((doc) {
-          String completeName = doc["userName"].toString().toLowerCase().trim();
+          String completeName = doc["name"].toString().toLowerCase().trim();
           if (completeName.contains(searchController.text)) {
             AppUserModel user = AppUserModel.fromDocument(doc);
             setState(() {
@@ -131,6 +129,9 @@ class _UserNSearchState extends State<UserNSearch>
                 if (user.isAdmin!) {
                   UserResult adminResult = UserResult(user);
                   allAdmins.add(adminResult);
+                } else {
+                  UserResult userResult = UserResult(user);
+                  userResults.add(userResult);
                 }
               });
               return GlassContainer(

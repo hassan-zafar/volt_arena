@@ -4,7 +4,8 @@ import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/database/auth_methods.dart';
 import 'package:volt_arena/database/user_local_data.dart';
-import 'package:volt_arena/inner_screens/commentsNChat.dart';
+import 'package:volt_arena/inner_screens/productComments.dart';
+import 'package:volt_arena/screens/adminScreens/commentsNChat.dart';
 import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/screens/orders/order.dart';
 import 'package:volt_arena/utilities/utilities.dart';
@@ -85,7 +86,9 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CommentsNChat(
-                          isPostComment: false, isProductComment: false),
+                          chatId: currentUser!.id,
+                          chatNotificationToken:
+                              currentUser!.androidNotificationToken),
                     ));
                   },
                   leading: Icon(

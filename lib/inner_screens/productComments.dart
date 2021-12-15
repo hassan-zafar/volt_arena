@@ -10,7 +10,7 @@ import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/services/notificationHandler.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
-class CommentsNChat extends StatefulWidget {
+class ProductComments extends StatefulWidget {
   final String? postId;
   final bool? isAdmin;
   final String? chatId;
@@ -20,7 +20,7 @@ class CommentsNChat extends StatefulWidget {
   final bool? isProductComment;
   final String? chatNotificationToken;
 //  final String userName;
-  CommentsNChat(
+  ProductComments(
       {this.postId,
       this.postMediaUrl,
       this.isAdmin,
@@ -30,7 +30,7 @@ class CommentsNChat extends StatefulWidget {
       this.chatNotificationToken,
       @required this.isProductComment});
   @override
-  CommentsNChatState createState() => CommentsNChatState(
+  ProductCommentsState createState() => ProductCommentsState(
         postId: this.postId,
         postMediaUrl: this.postMediaUrl,
         isAdmin: this.isAdmin,
@@ -41,14 +41,14 @@ class CommentsNChat extends StatefulWidget {
 
 TextEditingController _commentNMessagesController = TextEditingController();
 
-class CommentsNChatState extends State<CommentsNChat> {
+class ProductCommentsState extends State<ProductComments> {
   final String? postId;
   final bool? isAdmin;
   final String? postMediaUrl;
   final bool? isComment;
   final bool? isProductComment;
 //  final String userName;
-  CommentsNChatState({
+  ProductCommentsState({
     required this.postId,
     this.postMediaUrl,
     this.isAdmin,
@@ -57,7 +57,7 @@ class CommentsNChatState extends State<CommentsNChat> {
   });
   List<AppUserModel> allAdmins = [];
   String? chatHeadId = "";
-  List<CommentsNMessages> commentsListGlobal = [];
+  List<ProductCommentMessages> commentsListGlobal = [];
   buildComments() {
     return StreamBuilder<QuerySnapshot>(
       stream: commentsRef
@@ -69,10 +69,10 @@ class CommentsNChatState extends State<CommentsNChat> {
         if (!snapshot.hasData) {
           return LoadingIndicator();
         }
-        List<CommentsNMessages> commentsList = [];
+        List<ProductCommentMessages> commentsList = [];
         snapshot.data!.docs.forEach((doc) {
-          commentsList.add(CommentsNMessages.fromDocument(doc));
-          commentsListGlobal.add(CommentsNMessages.fromDocument(doc));
+          commentsList.add(ProductCommentMessages.fromDocument(doc));
+          commentsListGlobal.add(ProductCommentMessages.fromDocument(doc));
         });
 
         return ListView(
@@ -113,9 +113,9 @@ class CommentsNChatState extends State<CommentsNChat> {
         if (!snapshot.hasData) {
           return LoadingIndicator();
         }
-        List<CommentsNMessages> chatMessages = [];
+        List<ProductCommentMessages> chatMessages = [];
         snapshot.data!.docs.forEach((doc) {
-          chatMessages.add(CommentsNMessages.fromDocument(doc));
+          chatMessages.add(ProductCommentMessages.fromDocument(doc));
         });
         return ListView(
           children: chatMessages,
@@ -316,7 +316,7 @@ class CommentsNChatState extends State<CommentsNChat> {
   }
 }
 
-class CommentsNMessages extends StatefulWidget {
+class ProductCommentMessages extends StatefulWidget {
   final String? userName;
   final String? userId;
   final String? avatarUrl;
@@ -330,7 +330,7 @@ class CommentsNMessages extends StatefulWidget {
   final int? likes;
   final String? postId;
   final String? androidNotificationToken;
-  CommentsNMessages({
+  ProductCommentMessages({
     this.userName,
     this.userId,
     this.avatarUrl,
@@ -345,8 +345,8 @@ class CommentsNMessages extends StatefulWidget {
     this.androidNotificationToken,
     required this.postId,
   });
-  factory CommentsNMessages.fromDocument(doc) {
-    return CommentsNMessages(
+  factory ProductCommentMessages.fromDocument(doc) {
+    return ProductCommentMessages(
       // avatarUrl: doc.data()['avatarUrl'],
       comment: doc.data()['comment'],
       timestamp: doc.data()['timestamp'],
@@ -364,10 +364,10 @@ class CommentsNMessages extends StatefulWidget {
   }
 
   @override
-  _CommentsNMessagesState createState() => _CommentsNMessagesState();
+  _ProductCommentMessagesState createState() => _ProductCommentMessagesState();
 }
 
-class _CommentsNMessagesState extends State<CommentsNMessages> {
+class _ProductCommentMessagesState extends State<ProductCommentMessages> {
   var commentLikes;
   bool _isLiked = false;
   @override
@@ -540,10 +540,11 @@ class _CommentsNMessagesState extends State<CommentsNMessages> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                CircleAvatar(
-                  backgroundImage:
-                      CachedNetworkImageProvider(widget.avatarUrl!),
-                ),
+                // widget.avatarUrl!.isNotEmpty
+                //     ? CircleAvatar(
+                //         backgroundImage:
+                //             CachedNetworkImageProvider(widget.avatarUrl!))
+                //     : Container(),
                 SizedBox(
                   width: 8,
                 ),

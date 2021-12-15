@@ -1,14 +1,13 @@
-import 'dart:ui';
 import 'package:badges/badges.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:uuid/uuid.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/consts/universal_variables.dart';
+import 'package:volt_arena/inner_screens/productComments.dart';
 import 'package:volt_arena/models/product.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
@@ -20,7 +19,6 @@ import 'package:volt_arena/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'commentsNChat.dart';
 
 class ServiceDetailsScreen extends StatefulWidget {
   static const routeName = '/ServiceDetailsScreen';
@@ -448,10 +446,9 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
               child: buildReviews(
                   productId: productId!, productItems: productItems),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => CommentsNChat(
+                  builder: (context) => ProductComments(
                         isProductComment: true,
                         isPostComment: false,
-                        isAdmin: false,
                         postMediaUrl: productItems.imageUrl,
                         postId: productItems.productId,
                       ))),
@@ -535,7 +532,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
           return LoadingIndicator();
         } else {
           snapshot.data!.docs.forEach((doc) {
-            allReviews.add(CommentsNMessages.fromDocument(doc));
+            allReviews.add(ProductCommentMessages.fromDocument(doc));
           });
           return allReviews.isEmpty
               ? Center(child: Text("Currently No Review"))
@@ -548,7 +545,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       GestureDetector(
                           onTap: () =>
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => CommentsNChat(
+                                  builder: (context) => ProductComments(
                                         postId: productId,
                                         postMediaUrl: productItems!.imageUrl,
                                         isAdmin: currentUser!.isAdmin,
