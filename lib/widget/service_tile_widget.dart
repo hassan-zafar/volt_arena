@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
@@ -55,14 +56,11 @@ class ServicesTileWidget extends StatelessWidget {
                 child: SizedBox(
                   width: 80,
                   height: double.infinity,
-                  child: Image.network(
+                  child:  CachedNetworkImage(
+                 imageUrl: 
                     _product.imageUrl!,
                     fit: BoxFit.cover,
-                    errorBuilder: (
-                      BuildContext context,
-                      Object error,
-                      StackTrace? stackTrace,
-                    ) =>
+                    errorWidget:(context, url, error) =>  
                         Image.asset(CustomImages.icon, fit: BoxFit.cover),
                   ),
                 ),

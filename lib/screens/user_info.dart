@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -248,7 +249,8 @@ class _UserInfoState extends State<UserInfo> {
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(right: 6.0),
-                                          child: Image.network(
+                                          child:  CachedNetworkImage(
+                 imageUrl: 
                                             'https://image.flaticon.com/icons/png/128/1828/1828304.png',
                                             height: 20,
                                             width: 20,

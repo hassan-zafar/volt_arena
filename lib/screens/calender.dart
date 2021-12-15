@@ -97,8 +97,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                     onTap: (CalendarTapDetails asd) async {
                       // DatePicker.showTime12hPicker(context,currentTime: DateTime.now(),);
                       print(asd.targetElement.index);
-                      if (currentUser!.isAdmin! &&
-                          asd.targetElement.index != 0) {
+                      if (asd.targetElement.index != 0) {
                         meetingTimePicker(context, asd.date!).then((value) {
                           print(meetingsList);
                           setState(() {
@@ -150,11 +149,23 @@ class _CalenderScreenState extends State<CalenderScreen>
                             context: context,
                             initialTime: TimeOfDay.now(),
                             helpText: "Select Event Starting Time");
+
                         setState(() {
                           this.startingTime = startingTimeTemp!;
-                          this.endingTime = startingTime!.add(
-                            minute: widget.gameTime!,
-                          );
+                          int newHour = startingTime!.hour;
+                          int newMinute = startingTime!.minute;
+                          if (startingTime!.minute > 30) {
+                            print('widget.gameTime!: ${widget.gameTime!}');
+                            newMinute =
+                                (startingTime!.minute + widget.gameTime!) - 60;
+                            newHour = newHour + 1;
+                          } else {
+                            newMinute = newMinute + widget.gameTime!;
+                          }
+                          print('newMinute $newMinute');
+                          print("newHour $newHour");
+                          this.endingTime = startingTime!
+                              .add(minute: newMinute, hour: newHour);
                         });
                         print(startingTime);
                       },

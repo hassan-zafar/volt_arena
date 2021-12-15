@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
@@ -37,7 +38,8 @@ class FeedDialog extends StatelessWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
-            child: Image.network(
+            child:  CachedNetworkImage(
+                 imageUrl: 
               prodAttr.imageUrl!,
             ),
           ),

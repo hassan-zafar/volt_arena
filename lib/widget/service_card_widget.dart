@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/colors.dart';
@@ -42,7 +43,8 @@ class ServiceCardWidget extends StatelessWidget {
                 aspectRatio: 2 / 1,
                 child: (product.imageUrl == null || product.imageUrl!.isEmpty)
                     ? Image.asset(CustomImages.icon, fit: BoxFit.cover)
-                    : Image.network(product.imageUrl!, fit: BoxFit.cover),
+                    : CachedNetworkImage(
+                        imageUrl: product.imageUrl!, fit: BoxFit.cover),
               ),
               Badge(
                 alignment: Alignment.center,

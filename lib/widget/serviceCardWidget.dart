@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/models/product.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
@@ -36,7 +37,8 @@ class _ServiceCardWidgetState extends State<ServiceCardWidget> {
                 child: (productsAttributes.imageUrl == null ||
                         productsAttributes.imageUrl!.isEmpty)
                     ? Image.asset(CustomImages.icon, fit: BoxFit.cover)
-                    : Image.network(productsAttributes.imageUrl!,
+                    :  CachedNetworkImage(
+                 imageUrl: productsAttributes.imageUrl!,
                         fit: BoxFit.cover),
               ),
               Positioned(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:volt_arena/inner_screens/service_details.dart';
 import 'package:volt_arena/models/cart_attr.dart';
 import 'package:volt_arena/provider/cart_provider.dart';
@@ -41,8 +42,8 @@ class _CartFullState extends State<CartFull> {
               SizedBox(
                 width: 100,
                 height: double.infinity,
-                child: Image.network(
-                  cartAttr.imageUrl!,
+                child: CachedNetworkImage(
+                 imageUrl: cartAttr.imageUrl!,
                   fit: BoxFit.cover,
                 ),
               ),

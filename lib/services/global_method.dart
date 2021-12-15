@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class GlobalMethods {
@@ -11,7 +12,8 @@ class GlobalMethods {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 6.0),
-                  child: Image.network(
+                  child:  CachedNetworkImage(
+                 imageUrl: 
                     'https://image.flaticon.com/icons/png/128/564/564619.png',
                     height: 20,
                     width: 20,
@@ -48,7 +50,8 @@ class GlobalMethods {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(right: 6.0),
-                  child: Image.network(
+                  child:  CachedNetworkImage(
+                 imageUrl: 
                     'https://image.flaticon.com/icons/png/128/564/564619.png',
                     height: 20,
                     width: 20,

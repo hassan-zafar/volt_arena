@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:volt_arena/consts/colors.dart';
 import 'package:volt_arena/models/favs_attr.dart';
 import 'package:volt_arena/provider/favs_provider.dart';
@@ -42,7 +43,8 @@ class _WishlistFullState extends State<WishlistFull> {
                         SizedBox(
                           width: 60,
                           height: 60,
-                          child: Image.network(
+                          child:  CachedNetworkImage(
+                 imageUrl: 
                             favsAttr.imageUrl!,
                             fit: BoxFit.cover,
                           ),
