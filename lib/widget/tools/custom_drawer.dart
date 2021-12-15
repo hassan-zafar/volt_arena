@@ -6,6 +6,7 @@ import 'package:volt_arena/database/auth_methods.dart';
 import 'package:volt_arena/database/user_local_data.dart';
 import 'package:volt_arena/inner_screens/productComments.dart';
 import 'package:volt_arena/screens/adminScreens/commentsNChat.dart';
+import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/screens/orders/order.dart';
 import 'package:volt_arena/utilities/utilities.dart';
@@ -46,7 +47,7 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed(OrderScreen.routeName);
+              Navigator.of(context).pushNamed(CalenderScreen.routeName);
             },
             leading: const Icon(Icons.shopping_bag),
             title: const Text('Completed Sessions'),

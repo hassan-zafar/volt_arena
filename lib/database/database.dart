@@ -11,9 +11,10 @@ class DatabaseMethods {
   //   return FirebaseFirestore.instance.collection(productCollection).snapshots();
   // }
 
-  Future fetchCalenderDataFromFirebase() async {
-    final QuerySnapshot calenderMeetings = await calenderRef.get();
-
+  Future fetchCalenderDataFromFirebase(String userId, bool isMySession) async {
+    final QuerySnapshot calenderMeetings = isMySession
+        ? await calenderRef.where('id', isEqualTo: userId).get()
+        : await calenderRef.get();
     return calenderMeetings;
   }
 

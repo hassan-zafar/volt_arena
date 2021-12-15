@@ -15,8 +15,10 @@ class CalenderScreen extends StatefulWidget {
 
   final int? gameTime;
   final String? title;
+  final bool? mySessions;
   final int? price;
-  CalenderScreen({this.gameTime, this.title, this.price});
+  CalenderScreen(
+      {this.gameTime, this.title, this.price, this.mySessions = false});
   @override
   _CalenderScreenState createState() => _CalenderScreenState();
 }
@@ -33,15 +35,15 @@ class _CalenderScreenState extends State<CalenderScreen>
   @override
   void initState() {
     super.initState();
-    getMeetings();
+    getAllSessions();
   }
 
-  getMeetings() async {
+  getAllSessions() async {
     setState(() {
       _isLoading = true;
     });
-    QuerySnapshot meetingsSnapShot =
-        await DatabaseMethods().fetchCalenderDataFromFirebase();
+    QuerySnapshot meetingsSnapShot = await DatabaseMethods()
+        .fetchCalenderDataFromFirebase(currentUser!.id!, widget.mySessions!);
     List<MeetingsModel> allMeetings = [];
 
     meetingsSnapShot.docs.forEach((e) {
@@ -51,6 +53,35 @@ class _CalenderScreenState extends State<CalenderScreen>
     allMeetings.forEach((e) {
       asd.add(Meeting(
           eventName: e.meetingTitle,
+          userId: currentUser!.id,
+          background: Colors.yellow.shade900,
+          from: e.startingTime!.toDate(),
+          to: e.endingTime!.toDate(),
+          isAllDay: e.isAllDay));
+    });
+    setState(() {
+      this.meetingsList = asd;
+      _isLoading = false;
+    });
+    print(meetingsList);
+  }
+
+  getMySessions() async {
+    setState(() {
+      _isLoading = true;
+    });
+    QuerySnapshot meetingsSnapShot = await DatabaseMethods()
+        .fetchCalenderDataFromFirebase(currentUser!.id!, widget.mySessions!);
+    List<MeetingsModel> allMeetings = [];
+
+    meetingsSnapShot.docs.forEach((e) {
+      allMeetings.add(MeetingsModel.fromDocument(e));
+    });
+    List<Meeting> asd = [];
+    allMeetings.forEach((e) {
+      asd.add(Meeting(
+          eventName: e.meetingTitle,
+          userId: currentUser!.id,
           background: Colors.yellow.shade900,
           from: e.startingTime!.toDate(),
           to: e.endingTime!.toDate(),
@@ -97,7 +128,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                     onTap: (CalendarTapDetails asd) async {
                       // DatePicker.showTime12hPicker(context,currentTime: DateTime.now(),);
                       print(asd.targetElement.index);
-                      if (asd.targetElement.index != 0) {
+                      if (asd.targetElement.index != 0 && !widget.mySessions!) {
                         meetingTimePicker(context, asd.date!).then((value) {
                           print(meetingsList);
                           setState(() {
@@ -265,6 +296,7 @@ class _CalenderScreenState extends State<CalenderScreen>
         background: Colors.yellow.shade900,
         eventName: title,
         isAllDay: isAllDay,
+        userId: currentUser!.id,
         from: startTime,
         to: endTime);
     return meetings;
@@ -356,8 +388,14 @@ class MeetingDataSource extends CalendarDataSource {
 }
 
 class Meeting {
-  Meeting({this.eventName, this.from, this.to, this.background, this.isAllDay});
-
+  Meeting(
+      {this.eventName,
+      this.from,
+      this.to,
+      this.background,
+      this.isAllDay,
+      required this.userId});
+  String? userId;
   String? eventName;
   DateTime? from;
   DateTime? to;
