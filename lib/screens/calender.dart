@@ -128,6 +128,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                     onTap: (CalendarTapDetails asd) async {
                       // DatePicker.showTime12hPicker(context,currentTime: DateTime.now(),);
                       print(asd.targetElement.index);
+                      print(widget.mySessions!);
                       if (asd.targetElement.index != 0 && !widget.mySessions!) {
                         meetingTimePicker(context, asd.date!).then((value) {
                           print(meetingsList);

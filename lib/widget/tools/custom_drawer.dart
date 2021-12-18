@@ -47,7 +47,11 @@ class CustomDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.of(context).pushNamed(CalenderScreen.routeName);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => CalenderScreen(
+                  mySessions: true,
+                ),
+              ));
             },
             leading: const Icon(Icons.shopping_bag),
             title: const Text('Completed Sessions'),
