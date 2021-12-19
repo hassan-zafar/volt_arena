@@ -14,20 +14,20 @@ TextStyle ralewayStyle(double size,
   );
 }
 
-extension TimeOfDayExtension on TimeOfDay {
-  TimeOfDay add({int hour = 0, int minute = 0}) {
-    int newMinute = 0;
-    int newHour = 0;
+// extension TimeOfDayExtension on TimeOfDay {
+//   TimeOfDay add({int hour = 0, int minute = 0}) {
+//     // int newMinute = 0;
+//     // int newHour = 0;
 
-    if (minute > 30) {
-      newMinute = (this.minute + minute) % 60;
-      newHour = this.hour + hour + 1;
-      return this.replacing(hour: newHour, minute: newMinute);
-    } else {
-      return this.replacing(hour: hour, minute: minute);
-    }
-  }
-}
+//     // if (minute > 30) {
+//     //   newMinute = (this.minute + minute) % 60;
+//     //   newHour = this.hour + hour + 1;
+//     //   return this.replacing(hour: newHour, minute: newMinute);
+//     // } else {
+//     return this.replacing(hour: this.hour + hour, minute: this.minute + minute);
+//     // }
+//   }
+// }
 
 TextStyle montserratStyle(double size,
     [Color? color, FontWeight fontWeight = FontWeight.w700]) {

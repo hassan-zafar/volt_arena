@@ -9,6 +9,7 @@ import 'package:volt_arena/consts/universal_variables.dart';
 import 'package:volt_arena/database/database.dart';
 import 'package:volt_arena/models/meetingsModel.dart';
 import 'package:volt_arena/services/paystack_payments.dart';
+import 'package:volt_arena/widget/tools/custom_toast.dart';
 
 class CalenderScreen extends StatefulWidget {
   static const routeName = '/CalenderScreen';
@@ -186,7 +187,7 @@ class _CalenderScreenState extends State<CalenderScreen>
                           this.startingTime = startingTimeTemp!;
                           int newHour = startingTime!.hour;
                           int newMinute = startingTime!.minute;
-                          if (startingTime!.minute > 30) {
+                          if (startingTime!.minute + widget.gameTime! >= 60) {
                             print('widget.gameTime!: ${widget.gameTime!}');
                             newMinute =
                                 (startingTime!.minute + widget.gameTime!) - 60;
@@ -194,10 +195,14 @@ class _CalenderScreenState extends State<CalenderScreen>
                           } else {
                             newMinute = newMinute + widget.gameTime!;
                           }
+                          print("old Hour ${startingTime!.hour}");
+                          print("game time ${widget.gameTime}");
+
                           print('newMinute $newMinute');
                           print("newHour $newHour");
                           this.endingTime = startingTime!
-                              .add(minute: newMinute, hour: newHour);
+                              .replacing(hour: newHour, minute: newMinute);
+                          // .add(minute: newMinute, hour: newHour);
                         });
                         print(startingTime);
                       },
@@ -232,31 +237,42 @@ class _CalenderScreenState extends State<CalenderScreen>
                     ),
                     ElevatedButton(
                         onPressed: () async {
-                          Navigator.pop(context);
+                          if (startingTime == null ||
+                              _titleController.text.isEmpty) {
+                            CustomToast.errorToast(
+                                message: 'Please fill the form correctly');
+                          } else {
+                            Navigator.pop(context);
 
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          await MakePayment(
-                                  ctx: context,
-                                  email: currentUser!.email,
-                                  price: widget.price)
-                              .chargeCardAndMakePayment()
-                              .then((value) {
-                            if (value) {
-                              setState(() {
-                                meetingsList.add(getDataSource(
-                                  title: _titleController.text,
-                                  dateTime: asd,
-                                  startTimeOfDay: startingTime,
-                                  endTimeOfDay: endingTime,
-                                ));
-                              });
-                            }
-                          });
-                          setState(() {
-                            _isLoading = false;
-                          });
+                            Theme.of(context).textTheme.apply(
+                                  bodyColor: Colors.pink,
+                                  displayColor: Colors.pink,
+                                );
+                            setState(() {
+                              _isLoading = true;
+                            });
+
+                            await MakePayment(
+                                    ctx: context,
+                                    email: currentUser!.email,
+                                    price: widget.price)
+                                .chargeCardAndMakePayment()
+                                .then((value) {
+                              if (value) {
+                                setState(() {
+                                  meetingsList.add(getDataSource(
+                                    title: _titleController.text,
+                                    dateTime: asd,
+                                    startTimeOfDay: startingTime,
+                                    endTimeOfDay: endingTime,
+                                  ));
+                                });
+                              }
+                            });
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          }
                         },
                         child: Row(
                           children: [

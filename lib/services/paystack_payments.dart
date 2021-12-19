@@ -12,13 +12,9 @@ class ConstantKey {
 
 class MakePayment {
   MakePayment({this.ctx, this.price, this.email});
-
   BuildContext? ctx;
-
   int? price;
-
   String? email;
-
   PaystackPlugin paystack = PaystackPlugin();
 
   //Reference
@@ -36,7 +32,19 @@ class MakePayment {
 
   //GetUi
   PaymentCard _getCardUI() {
-    return PaymentCard(number: "", cvc: "", expiryMonth: 0, expiryYear: 0);
+    print(PaymentCard(
+      number: "",
+      cvc: "",
+      expiryMonth: 0,
+      expiryYear: 0,
+    ).cardTypes[2]);
+
+    return PaymentCard(
+      number: "",
+      cvc: "",
+      expiryMonth: 0,
+      expiryYear: 0,
+    );
   }
 
   Future initializePlugin() async {
@@ -59,7 +67,7 @@ class MakePayment {
         ctx!,
         charge: charge,
         method: CheckoutMethod.card,
-        fullscreen: false,
+        fullscreen: true,
         logo: Image.asset(
           logo,
           height: 24,

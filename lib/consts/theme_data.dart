@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
+    isDarkTheme = true;
     return ThemeData(
       scaffoldBackgroundColor:
           isDarkTheme ? Colors.black : Colors.grey.shade300,
@@ -14,15 +15,19 @@ class Styles {
       hoverColor: isDarkTheme ? Color(0xff3A3A3B) : Color(0xff4285F4),
       focusColor: isDarkTheme ? Color(0xff0B2512) : Color(0xffA8DAB5),
       disabledColor: Colors.grey,
-      dividerColor: isDarkTheme ? Colors.white:Colors.black,
+      dividerColor: isDarkTheme ? Colors.white : Colors.black,
       cardColor: isDarkTheme ? Color(0xFF151515) : Colors.white,
       canvasColor: isDarkTheme ? Colors.black : Colors.grey[50],
-      brightness: isDarkTheme ? Brightness.dark : Brightness.light,
+      brightness: Brightness.dark,
       buttonTheme: Theme.of(context).buttonTheme.copyWith(
           colorScheme: isDarkTheme ? ColorScheme.dark() : ColorScheme.light()),
       appBarTheme: AppBarTheme(
         elevation: 0.0,
-      ), colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.yellow).copyWith(secondary: Colors.yellow), textSelectionTheme: TextSelectionThemeData(selectionColor: isDarkTheme ? Colors.white : Colors.black),
+      ),
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.yellow)
+          .copyWith(secondary: Colors.yellow),
+      textSelectionTheme: TextSelectionThemeData(
+          selectionColor: isDarkTheme ? Colors.white : Colors.black),
     );
   }
 }
