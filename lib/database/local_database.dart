@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:get_storage/get_storage.dart';
+import 'package:volt_arena/models/users.dart';
 
 class LocalDB {
   String s = 'sd';
@@ -62,4 +65,12 @@ class LocalDB {
   bool? isLoggedIn() => getStorageProference.read(_uidKey);
   String getUserEmail() => getStorageProference.read(_emailKey) ?? '';
   String getUserName() => getStorageProference.read(_userNameKey) ?? '';
+
+  void storeAppUserData({required AppUserModel appUser, String token = ''}) {
+    setUserUID(appUser.id!);
+    setUserEmail(appUser.email!);
+    setUserName(appUser.name!);
+    setUserModel(jsonEncode(appUser));
+   
+  }
 }

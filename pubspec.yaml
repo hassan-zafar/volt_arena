@@ -24,10 +24,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.3 
+#firebase
   firebase_auth: ^3.1.0
   cloud_firestore: ^2.5.1
   firebase_core: ^1.6.0
+  firebase_storage: ^10.0.3
+  firebase_messaging:
+  google_sign_in: ^5.0.7
+
+
+  cupertino_icons: ^1.0.3 
+
   flutter_gradient_colors: ^2.1.1
   uuid: ^3.0.4
   introduction_screen: ^2.1.0
@@ -43,8 +50,6 @@ dependencies:
   cached_network_image: ^3.1.0
   wave: ^0.2.0
   image_picker: ^0.8.3+3
-  google_sign_in: ^5.0.7
-  firebase_storage: ^10.0.3
   http: ^0.13.3
   sn_progress_dialog: ^1.0.3
   fluttertoast: ^8.0.8
@@ -54,7 +59,6 @@ dependencies:
   # stripe_payment: 
   syncfusion_flutter_calendar:
   #flutter_stripe:
-  firebase_messaging:
   flutter_local_notifications:
   timeago:
   bot_toast:
