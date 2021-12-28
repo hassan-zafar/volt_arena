@@ -41,7 +41,7 @@ class _LandingScreenState extends State<LandingScreen> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: Text(
-              'Welcome to V⚡lt Arena Online Store',
+              'Paintball Reservation & Booking App',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 26,
@@ -67,7 +67,6 @@ class _LandingScreenState extends State<LandingScreen> {
     return InkWell(
       borderRadius: BorderRadius.circular(Utilities.borderRadius),
       onTap: () async {
-   
         final bool _login = await AuthMethod().signinWithGoogle();
         if (_login) {
           Navigator.of(context).pushNamedAndRemoveUntil(

@@ -42,9 +42,9 @@ class ServiceCardWidget extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 2 / 1,
                 child: (product.imageUrl == null || product.imageUrl!.isEmpty)
-                    ? Image.asset(CustomImages.icon, fit: BoxFit.cover)
+                    ? Image.asset(CustomImages.icon, fit: BoxFit.contain)
                     : CachedNetworkImage(
-                        imageUrl: product.imageUrl!, fit: BoxFit.cover),
+                        imageUrl: product.imageUrl!, fit: BoxFit.contain),
               ),
               Badge(
                 alignment: Alignment.center,

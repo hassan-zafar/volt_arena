@@ -48,10 +48,10 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
         children: <Widget>[
           Container(
             foregroundDecoration: BoxDecoration(color: Colors.black12),
-            height: MediaQuery.of(context).size.height * 0.45,
+            height: MediaQuery.of(context).size.height * 0.55,
             width: double.infinity,
             child: CachedNetworkImage(
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               imageUrl: prodAttr.imageUrl!,
             ),
           ),
@@ -60,7 +60,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 250),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.55),
                 // Padding(
                 //   padding: const EdgeInsets.all(16.0),
                 //   child: Row(
