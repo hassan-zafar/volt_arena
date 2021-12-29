@@ -13,6 +13,7 @@ class AppUserModel {
   final bool? isAdmin;
   final String? email;
   final String? androidNotificationToken;
+  final bool? isGuest;
 
   // final Map? sectionsAppointed;
   AppUserModel(
@@ -24,6 +25,7 @@ class AppUserModel {
       this.isAdmin,
       this.email,
       this.joinedAt,
+      this.isGuest,
       this.imageUrl,
       this.androidNotificationToken});
 
@@ -38,6 +40,7 @@ class AppUserModel {
       'email': email,
       'joinedAt': joinedAt,
       'imageUrl': imageUrl,
+      'isGuest': isGuest,
       'androidNotificationToken': androidNotificationToken,
     };
   }
@@ -52,6 +55,7 @@ class AppUserModel {
         imageUrl: map['imageUrl'],
         isAdmin: map['isAdmin'],
         email: map['email'],
+        isGuest: map['isGuest'],
         joinedAt: map['joinedAt'],
         androidNotificationToken: map['androidNotificationToken']);
   }
@@ -65,6 +69,7 @@ class AppUserModel {
       email: doc.data()["email"],
       imageUrl: doc.data()["imageUrl"],
       isAdmin: doc.data()["isAdmin"],
+      isGuest: doc.data()["isGuest"],
       phoneNo: doc.data()["phoneNo"],
       joinedAt: doc.data()["joinedAt"],
       androidNotificationToken: doc.data()["androidNotificationToken"],

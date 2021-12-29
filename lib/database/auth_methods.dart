@@ -16,13 +16,14 @@ class AuthMethod {
 
   Future<bool> loginAnonymosly() async {
     try {
-      await _auth.signInAnonymously();
+      UserCredential auth = await _auth.signInAnonymously();
       String date = DateTime.now().toString();
+
       DateTime dateparse = DateTime.parse(date);
       String formattedDate =
           '${dateparse.day}-${dateparse.month}-${dateparse.year}';
       final AppUserModel appUser = AppUserModel(
-        id: DateTime.now().microsecond.toString(),
+        id: auth.user!.uid,
         name: 'Guest User',
         email: 'guest@guest.com',
         imageUrl: '',
@@ -30,10 +31,17 @@ class AuthMethod {
         createdAt: Timestamp.now(),
         joinedAt: formattedDate,
         password: '',
+        isGuest: true,
         isAdmin: false,
       );
-      UserLocalData().storeAppUserData(appUser: appUser);
-      return true;
+      currentUser = appUser;
+      final bool _isOkay = await UserAPI().addUser(appUser);
+      if (_isOkay) {
+        UserLocalData().storeAppUserData(appUser: appUser);
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       CustomToast.errorToast(message: error.toString());
     }
