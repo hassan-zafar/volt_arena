@@ -51,15 +51,15 @@ class _UserNSearchState extends State<UserNSearch>
         controller: searchController,
         decoration: InputDecoration(
             hintText: "Search",
-            hintStyle: TextStyle(color: Colors.black),
+            // hintStyle: TextStyle(color: Colors.black),
             prefixIcon: Icon(
               Icons.search,
-              color: Colors.black,
+              color: ColorsConsts.subTitle,
             ),
             suffixIcon: IconButton(
               icon: Icon(
                 Icons.clear,
-                color: Colors.black,
+                color: ColorsConsts.subTitle,
               ),
               onPressed: clearSearch,
             )),
@@ -134,98 +134,87 @@ class _UserNSearchState extends State<UserNSearch>
                   userResults.add(userResult);
                 }
               });
-              return GlassContainer(
-                child: ListView(
-                  physics: BouncingScrollPhysics(),
-                  children: <Widget>[
-                    currentUser!.isAdmin!
-                        ? Container(
-                            height: 100,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              typeSelected = "users";
-                                            });
-                                          },
-                                          child: GlassContainer(
-                                            opacity: 0.7,
-                                            shadowStrength: 8,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                "All Users ${userResults.length}",
-                                                style:
-                                                    TextStyle(fontSize: 20.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
+              return ListView(
+                physics: BouncingScrollPhysics(),
+                children: <Widget>[
+                  // currentUser!.isAdmin!
+                  // ?
+                  Container(
+                    height: 100,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      typeSelected = "users";
+                                    });
+                                  },
+                                  child: GlassContainer(
+                                    opacity: 0.7,
+                                    shadowStrength: 8,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "All Users ${userResults.length}",
+                                        style: TextStyle(fontSize: 20.0),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.all(8),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              typeSelected = "admin";
-                                            });
-                                          },
-                                          child: GlassContainer(
-                                            opacity: 0.7,
-                                            shadowStrength: 8,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                "All Admins ${allAdmins.length}",
-                                                style:
-                                                    TextStyle(fontSize: 20.0),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          )
-                        : Container(),
-                    typeSelected == 'admin'
-                        ? Column(
-                            children: allAdmins,
-                          )
-                        : Text(""),
-                    typeSelected == 'users'
-                        ? Column(
-                            children: userResults,
-                          )
-                        : Text(''),
-                  ],
-                ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      typeSelected = "admin";
+                                    });
+                                  },
+                                  child: GlassContainer(
+                                    opacity: 0.7,
+                                    shadowStrength: 8,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "All Admins ${allAdmins.length}",
+                                        style: TextStyle(fontSize: 20.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // : Container(),
+                  typeSelected == 'admin'
+                      ? Column(
+                          children: allAdmins,
+                        )
+                      : Text(""),
+                  typeSelected == 'users'
+                      ? Column(
+                          children: userResults,
+                        )
+                      : Text(''),
+                ],
               );
             }),
         Positioned(
@@ -340,7 +329,7 @@ class UserResult extends StatelessWidget {
     userRef.doc(user.id).update({"isAdmin": !user.isAdmin!});
     addToFeed(msg);
 
-    BotToast.showText(text: msg);
+    // BotToast.showText(text: msg);
   }
 
   addToFeed(String msg) {

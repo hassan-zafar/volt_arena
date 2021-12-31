@@ -61,17 +61,17 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.email),
             title: const Text('Email'),
-            subtitle: Text(UserLocalData.getUserEmail),
+            subtitle: Text(currentUser!.email!),
           ),
-          ListTile(
-            leading: const Icon(Icons.call),
-            title: const Text('Phone Number'),
-            subtitle: Text(UserLocalData.getPhoneNumber),
-          ),
+          // ListTile(
+          //   leading: const Icon(Icons.call),
+          //   title: const Text('Phone Number'),
+          //   subtitle: Text(currentUser!.phoneNo!),
+          // ),
           ListTile(
             leading: const Icon(Icons.calendar_today_rounded),
             title: const Text('Joing Date'),
-            subtitle: Text(UserLocalData.getUUserCreatedAt),
+            subtitle: Text(currentUser!.joinedAt!),
           ),
           _divider('User Settings', context),
           ListTile(
@@ -147,7 +147,7 @@ class CustomDrawer extends StatelessWidget {
         children: <Widget>[
           CircularProfileImage(
             radious: 50,
-            imageURL: UserLocalData.getUserImageUrl,
+            imageURL: currentUser!.imageUrl!,
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -155,7 +155,7 @@ class CustomDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  UserLocalData.getUserDisplayName,
+                  currentUser!.name!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: const TextStyle(
@@ -164,7 +164,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  UserLocalData.getUserEmail,
+                  currentUser!.email!,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style: const TextStyle(
