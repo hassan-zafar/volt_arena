@@ -10,6 +10,14 @@ class UserAPI {
   // functions
   Future<DocumentSnapshot<Map<String, dynamic>>> getInfo(
       {required String uid}) async {
+    var docs = await _instance.collection(_collection).doc(uid).get();
+    final AppUserModel appUser = AppUserModel.fromDocument(docs);
+
+    if (appUser.phoneNo == null || appUser.phoneNo == '') {
+      await _instance.collection(_collection).doc(uid).update({
+        'phoneNo': 'Not Added',
+      });
+    }
     return _instance.collection(_collection).doc(uid).get();
   }
 

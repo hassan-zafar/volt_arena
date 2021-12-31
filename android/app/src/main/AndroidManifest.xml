@@ -4,7 +4,7 @@
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
   <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Volt Arena Admin"
+        android:label="Volt Arena"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

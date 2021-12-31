@@ -20,10 +20,10 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     ServicesScreen(),
     Search(),
     // MyBookingsScreen(),
-    CalenderScreen(),
-    // // UserInfo(),
-    UserNSearch(),
-    ChatLists(),
+    // CalenderScreen(),
+    // UserInfo(),
+    // UserNSearch(),
+    // ChatLists(),
   ];
 
   @override
@@ -57,23 +57,23 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             //   icon: Icon(Icons.shopping_cart_rounded),
             //   label: 'BOOKINGS',
             // ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today),
-              label: 'All Bookings',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.calendar_today),
+            //   label: 'All Bookings',
+            // ),
             // // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
 
             // admin screen
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: 'All Users',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.people),
+            //   label: 'All Users',
+            // ),
 
             // // admin screen
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble),
-              label: 'Admin Chats',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.chat_bubble),
+            //   label: 'Admin Chats',
+            // ),
           ],
         ),
       ),

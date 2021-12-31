@@ -31,12 +31,13 @@ class AuthMethod {
         createdAt: Timestamp.now(),
         joinedAt: formattedDate,
         password: '',
+        phoneNo: 'Not Assigned',
         isGuest: true,
         isAdmin: false,
       );
-      currentUser = appUser;
       final bool _isOkay = await UserAPI().addUser(appUser);
       if (_isOkay) {
+        currentUser = appUser;
         UserLocalData().storeAppUserData(appUser: appUser);
         return true;
       } else {
@@ -70,6 +71,11 @@ class AuthMethod {
           print(doc.exists);
           if (doc.exists) {
             currentUser = AppUserModel.fromDocument(doc);
+            if (currentUser!.phoneNo == null || currentUser!.phoneNo == '') {
+              await userRef
+                  .doc(authResult.user!.uid)
+                  .update({'phoneNo': 'Not Assigned'});
+            }
             // final bool _isOkay = await UserAPI().addUser(currentUser!);
 
             return true;
@@ -79,16 +85,17 @@ class AuthMethod {
               name: authResult.user!.displayName,
               email: authResult.user!.email,
               imageUrl: authResult.user!.photoURL,
-              phoneNo: "",
+              phoneNo: 'Not Assigned',
               androidNotificationToken: "",
               password: "",
               joinedAt: formattedDate,
               isAdmin: false,
               createdAt: Timestamp.now(),
             );
-            currentUser = _appUser;
             final bool _isOkay = await UserAPI().addUser(_appUser);
             if (_isOkay) {
+              currentUser = _appUser;
+
               UserLocalData().storeAppUserData(appUser: _appUser);
             } else {
               return false;
@@ -138,7 +145,9 @@ class AuthMethod {
       final User? user = result.user;
       final DocumentSnapshot<Map<String, dynamic>> docs =
           await UserAPI().getInfo(uid: user!.uid);
+
       final AppUserModel appUser = AppUserModel.fromDocument(docs);
+
       currentUser = appUser;
       UserLocalData().storeAppUserData(appUser: appUser);
       return user;

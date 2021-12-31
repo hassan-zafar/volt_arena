@@ -36,6 +36,7 @@ class DatabaseMethods {
   createToken(String uid) {
     FirebaseMessaging.instance.getToken().then((token) {
       userRef.doc(uid).update({"androidNotificationToken": token});
+      
       // UserLocalData().setToken(token!);
     });
   }

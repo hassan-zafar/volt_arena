@@ -63,14 +63,14 @@ class CustomDrawer extends StatelessWidget {
             title: const Text('Email'),
             subtitle: Text(currentUser!.email!),
           ),
-          // ListTile(
-          //   leading: const Icon(Icons.call),
-          //   title: const Text('Phone Number'),
-          //   subtitle: Text(currentUser!.phoneNo!),
-          // ),
+          ListTile(
+            leading: const Icon(Icons.call),
+            title: const Text('Phone Number'),
+            subtitle: Text("${currentUser!.phoneNo!}"),
+          ),
           ListTile(
             leading: const Icon(Icons.calendar_today_rounded),
-            title: const Text('Joing Date'),
+            title: const Text('Joining Date'),
             subtitle: Text(currentUser!.joinedAt!),
           ),
           _divider('User Settings', context),
