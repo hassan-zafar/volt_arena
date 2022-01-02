@@ -65,6 +65,7 @@ class UserLocalData {
     setUserUID(appUser.id!);
     setUserEmail(appUser.email!);
     setUserDisplayName(appUser.name!);
+    setUserPhoneNumber(appUser.phoneNo!);
     setUserImageUrl(appUser.imageUrl!);
     setUserCreatedAt(appUser.joinedAt!);
     setAndroidNotificationToken(token);

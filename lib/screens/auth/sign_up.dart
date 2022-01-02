@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:volt_arena/models/users.dart';
+import 'package:volt_arena/widget/phone_number_fiels.dart';
 import 'package:volt_arena/widget/tools/custom_button.dart';
 import 'package:volt_arena/widget/tools/custom_textformfield.dart';
 import 'package:volt_arena/widget/tools/custom_toast.dart';
@@ -27,11 +28,13 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _name = TextEditingController();
   final TextEditingController _email = TextEditingController();
+  final TextEditingController _number = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   File? _pickedImage;
   void _submitForm() async {
+    print(_number.text);
     if (_key.currentState!.validate()) {
       if (_password.text.trim() == _confirmPassword.text.trim()) {
         showLoadingDislog(context);
@@ -57,6 +60,7 @@ class _SignupScreenState extends State<SignupScreen> {
           id: _user.uid,
           name: _name.text.trim(),
           email: _email.text.trim(),
+          phoneNo: _number.text,
           isAdmin: false,
           imageUrl: _imageURL,
           createdAt: Timestamp.now(),
@@ -159,6 +163,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   hint: 'test@test.com',
                   validator: (String? value) => CustomValidator.email(value),
                 ),
+                PhoneNumberField(controller: _number),
                 PasswordTextFormField(controller: _password),
                 PasswordTextFormField(
                   controller: _confirmPassword,

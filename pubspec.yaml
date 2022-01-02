@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-#firebase
+  #firebase
   firebase_auth: ^3.1.0
   cloud_firestore: ^2.5.1
   firebase_core: ^1.6.0
@@ -32,8 +32,7 @@ dependencies:
   firebase_messaging:
   google_sign_in: ^5.0.7
 
-
-  cupertino_icons: ^1.0.3 
+  cupertino_icons: ^1.0.3
 
   flutter_gradient_colors: ^2.1.1
   uuid: ^3.0.4
@@ -56,7 +55,7 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   glassmorphism_ui:
   url_launcher: ^6.0.10
-  # stripe_payment: 
+  # stripe_payment:
   syncfusion_flutter_calendar:
   #flutter_stripe:
   flutter_local_notifications:
@@ -64,8 +63,9 @@ dependencies:
   bot_toast:
   get_storage:
   share: null
+  intl_phone_number_input: ^0.7.0+2
   flutter_paystack:
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -88,7 +88,6 @@ flutter_native_splash:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

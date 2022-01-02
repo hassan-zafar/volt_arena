@@ -93,6 +93,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),
@@ -101,6 +102,7 @@ class _MyAppState extends State<MyApp> {
             );
           } else if (snapshot.hasError) {
             MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: Scaffold(
                 body: Center(
                   child: Text('Error occured'),
@@ -128,6 +130,7 @@ class _MyAppState extends State<MyApp> {
                 //   builder: (context, themeChangeProvider, ch) {
                 // return
                 MaterialApp(
+              debugShowCheckedModeBanner: false,
               title: 'Volt Arena',
               theme:
                   // ThemeData(
