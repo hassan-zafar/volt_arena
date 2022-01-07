@@ -11,7 +11,7 @@ class MainScreens extends StatelessWidget {
       child: PageView(
         children: [
           BottomBarScreen(),
-           UploadProductForm()
+          //  UploadProductForm()
         ],
       ),
     );
