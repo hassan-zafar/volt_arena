@@ -1,5 +1,5 @@
 # volt_arena
-
+[![wakatime](https://wakatime.com/badge/user/95cc268b-6e4f-469d-8aee-c933dee3f3be/project/71d3a75c-37ba-41a5-93be-a831391c4b49.svg)](https://wakatime.com/badge/user/95cc268b-6e4f-469d-8aee-c933dee3f3be/project/71d3a75c-37ba-41a5-93be-a831391c4b49)
 A new Flutter project.
 
 ## Getting Started
