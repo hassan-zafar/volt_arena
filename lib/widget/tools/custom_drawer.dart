@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:share/share.dart';
 import 'package:volt_arena/cart/cart.dart';
 import 'package:volt_arena/consts/collections.dart';
 import 'package:volt_arena/database/auth_methods.dart';
+import 'package:volt_arena/database/database.dart';
+import 'package:volt_arena/database/user_api.dart';
 import 'package:volt_arena/database/user_local_data.dart';
 import 'package:volt_arena/inner_screens/productComments.dart';
 import 'package:volt_arena/screens/adminScreens/commentsNChat.dart';
@@ -10,12 +15,18 @@ import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/screens/orders/order.dart';
 import 'package:volt_arena/utilities/utilities.dart';
+import 'package:volt_arena/widget/tools/show_loading.dart';
 import 'package:volt_arena/wishlist/wishlist.dart';
 import 'circular_profile_image.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({Key? key}) : super(key: key);
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
 
+class _CustomDrawerState extends State<CustomDrawer> {
+  File? _pickedImage;
   @override
   Widget build(BuildContext context) {
     const Icon forwardArrow = Icon(
@@ -25,7 +36,7 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: <Widget>[
-          _peronalInfo(),
+          _peronalInfo(context),
           _divider('User Bag', context),
           ListTile(
             onTap: () {
@@ -137,7 +148,7 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  Padding _peronalInfo() {
+  Padding _peronalInfo(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: Utilities.padding,
@@ -145,9 +156,45 @@ class CustomDrawer extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          CircularProfileImage(
-            radious: 50,
-            imageURL: currentUser!.imageUrl!,
+          Stack(
+            children: [
+              CircularProfileImage(
+                radious: 50,
+                imageURL: currentUser!.imageUrl!,
+              ),
+              Positioned(
+                bottom: 6,
+                right: -6,
+                child: GestureDetector(
+                  onTap: () async {
+                    await _pickImageGallery();
+                    if (_pickedImage != null) {
+                      showLoadingDislog(context);
+                      String _imageURL = '';
+                      _imageURL = await UserAPI().uploadImage(
+                          File(_pickedImage!.path), UserLocalData.getUserUID);
+                      await UserAPI().updateImage(imageURL: _imageURL);
+                      await DatabaseMethods().fetchUserInfoFromFirebase(
+                          uid: UserLocalData.getUserUID);
+                      setState(() {});
+                      Navigator.of(context).pop();
+                      _pickedImage = null;
+                    }
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text('Edit'),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -177,5 +224,15 @@ class CustomDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _pickImageGallery() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+    final File pickedImageFile = File(pickedImage!.path);
+    setState(() {
+      _pickedImage = pickedImageFile;
+    });
   }
 }

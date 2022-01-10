@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:volt_arena/database/user_local_data.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/widget/tools/custom_toast.dart';
 
@@ -40,5 +41,14 @@ class UserAPI {
     await ref.putFile(file!);
     String url = await ref.getDownloadURL();
     return url;
+  }
+
+  Future<void> updateImage({required String imageURL}) async {
+    _instance
+        .collection(_collection)
+        .doc(UserLocalData.getUserUID)
+        .update({'imageUrl': imageURL}).catchError((e) {
+      CustomToast.errorToast(message: e.toString());
+    });
   }
 }
