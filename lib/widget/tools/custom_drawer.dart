@@ -37,37 +37,59 @@ class _CustomDrawerState extends State<CustomDrawer> {
       child: ListView(
         children: <Widget>[
           _peronalInfo(context),
-          _divider('User Bag', context),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushNamed(WishlistScreen.routeName);
-            },
-            leading: const Icon(Icons.favorite_border),
-            title: const Text('Wish List'),
-            trailing: forwardArrow,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pushNamed(MyBookingsScreen.routeName);
-            },
-            leading: const Icon(Icons.shopping_cart),
-            title: const Text('My Booking'),
-            trailing: forwardArrow,
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CalenderScreen(
-                  mySessions: true,
+          currentUser!.isAdmin!
+              ? Column(
+                  children: [
+                    _divider('Bookings & Reservations', context),
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CalenderScreen(),
+                        ));
+                      },
+                      leading: const Icon(Icons.shopping_bag),
+                      title: const Text('All Bookings'),
+                      trailing: forwardArrow,
+                    ),
+                  ],
+                )
+              : Column(
+                  children: [
+                    _divider('User Bag', context),
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushNamed(WishlistScreen.routeName);
+                      },
+                      leading: const Icon(Icons.favorite_border),
+                      title: const Text('Wish List'),
+                      trailing: forwardArrow,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context)
+                            .pushNamed(MyBookingsScreen.routeName);
+                      },
+                      leading: const Icon(Icons.shopping_cart),
+                      title: const Text('My Booking'),
+                      trailing: forwardArrow,
+                    ),
+                    ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CalenderScreen(
+                            mySessions: true,
+                          ),
+                        ));
+                      },
+                      leading: const Icon(Icons.shopping_bag),
+                      title: const Text('Completed Sessions'),
+                      trailing: forwardArrow,
+                    ),
+                  ],
                 ),
-              ));
-            },
-            leading: const Icon(Icons.shopping_bag),
-            title: const Text('Completed Sessions'),
-            trailing: forwardArrow,
-          ),
           _divider('User Information', context),
           ListTile(
             leading: const Icon(Icons.email),
