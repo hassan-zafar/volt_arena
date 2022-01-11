@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 import 'package:volt_arena/consts/my_icons.dart';
 import 'package:volt_arena/screens/adminScreens/allUsers.dart';
 import 'package:volt_arena/screens/adminScreens/chatLists.dart';
+import 'package:volt_arena/screens/adminScreens/upload_product_form.dart';
 import 'package:volt_arena/screens/calender.dart';
 import 'package:volt_arena/screens/search.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +21,11 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     ServicesScreen(),
     Search(),
     // MyBookingsScreen(),
-    // CalenderScreen(),
+    CalenderScreen(),
     // UserInfo(),
-    // UserNSearch(),
-    // ChatLists(),
+    UserNSearch(),
+    ChatLists(),
+    UploadProductForm()
   ];
 
   @override
@@ -57,23 +59,27 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
             //   icon: Icon(Icons.shopping_cart_rounded),
             //   label: 'BOOKINGS',
             // ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.calendar_today),
-            //   label: 'All Bookings',
-            // ),
-            // // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_today),
+              label: 'All Bookings',
+            ),
+            // BottomNavigationBarItem(icon: Icon(MyAppIcons.user), label: 'User'),
 
             // admin screen
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.people),
-            //   label: 'All Users',
-            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'All Users',
+            ),
 
-            // // admin screen
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.chat_bubble),
-            //   label: 'Admin Chats',
-            // ),
+            // admin screen
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble),
+              label: 'Admin Chats',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.upload),
+              label: 'Upload Product',
+            ),
           ],
         ),
       ),

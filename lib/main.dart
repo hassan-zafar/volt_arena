@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
                 // return
                 MaterialApp(
               debugShowCheckedModeBanner: false,
-              title: 'Volt Arena',
+              title: 'Volt Arena Admin',
               theme:
                   // ThemeData(
                   //   scaffoldBackgroundColor:

@@ -9,6 +9,8 @@ import 'package:volt_arena/screens/landing_page.dart';
 import 'package:volt_arena/models/users.dart';
 import 'package:volt_arena/services/authentication_service.dart';
 
+import 'commentsNChat.dart';
+
 class UserNSearch extends StatefulWidget {
   // final UserModel currentUser;
   // UserNSearch({this.currentUser});
@@ -251,7 +253,16 @@ class UserResult extends StatelessWidget {
       child: Column(
         children: <Widget>[
           GestureDetector(
-            onTap: () => makeAdmin(context),
+            onLongPress: () => makeAdmin(context),
+            onTap: () {
+              if (user.id != currentUser!.id) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CommentsNChat(
+                      chatId: user.id,
+                      chatNotificationToken: user.androidNotificationToken),
+                ));
+              }
+            },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: GlassContainer(
